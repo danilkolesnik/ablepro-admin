@@ -1,122 +1,108 @@
 <script setup lang="ts">
 import { ref } from 'vue';
+import { useAuthStore } from '@/stores/auth';
 import SvgSprite from '@/components/shared/SvgSprite.vue';
-const show1 = ref(false);
-const password = ref('');
+
+const showPassword = ref(false);
+const name = ref('');
 const email = ref('');
+const password = ref('');
+const passwordConfirmation = ref('');
+const telegram = ref('');
 const Regform = ref();
-const firstname = ref('');
-const lastname = ref('');
-// Password validation rules
-const passwordRules = ref([
-  (v: string) => !!v || 'Password is required',
-  (v: string) => v === v.trim() || 'Password cannot start or end with spaces',
-  (v: string) => v.length <= 10 || 'Password must be less than 10 characters'
-]);
-const firstRules = ref([(v: string) => !!v || 'First Name is required']);
-const lastRules = ref([(v: string) => !!v || 'Last Name is required']);
-// Email validation rules
-const emailRules = ref([
+const authStore = useAuthStore();
+
+// Валидация полей
+const emailRules = [
   (v: string) => !!v.trim() || 'E-mail is required',
-  (v: string) => {
-    const trimmedEmail = v.trim();
-    return !/\s/.test(trimmedEmail) || 'E-mail must not contain spaces';
-  },
   (v: string) => /.+@.+\..+/.test(v.trim()) || 'E-mail must be valid'
-]);
+];
+
+const passwordRules = [
+  (v: string) => !!v || 'Password is required',
+  (v: string) => v.length >= 6 || 'Password must be at least 6 characters'
+];
+
+const confirmPasswordRules = [
+  (v: string) => !!v || 'Password confirmation is required',
+  (v: string) => v === password.value || 'Passwords do not match'
+];
+
+const nameRules = [(v: string) => !!v || 'Name is required'];
+
+const telegramRules = [(v: string) => !!v || 'Telegram is required'];
 
 function validate() {
-  Regform.value.validate();
+  const trimmedEmail = email.value.trim();
+  const trimmedName = name.value.trim();
+  const trimmedTelegram = telegram.value.trim();
+
+  email.value = trimmedEmail;
+  name.value = trimmedName;
+  telegram.value = trimmedTelegram;
+
+  const authStore = useAuthStore();
+  return authStore
+    .register(trimmedName, trimmedEmail, password.value, passwordConfirmation.value, trimmedTelegram)
+    .catch((error) => console.log('ERROR!', error));
 }
+
 </script>
 
 <template>
   <div class="d-flex justify-space-between align-center">
     <h3 class="text-h3 text-center mb-0">Sign up</h3>
-    <router-link to="/login1" class="text-primary text-decoration-none">Already have an account?</router-link>
+    <router-link to="/login" class="text-primary text-decoration-none">Already have an account?</router-link>
   </div>
-  <v-form ref="Regform" lazy-validation action="/dashboards/analytical" class="mt-7 loginForm">
-    <v-row class="my-0">
-      <v-col cols="12" sm="6" class="py-0">
-        <div class="mb-6">
-          <v-label>First Name*</v-label>
-          <v-text-field
-            v-model="firstname"
-            :rules="firstRules"
-            hide-details="auto"
-            required
-            variant="outlined"
-            class="mt-2"
-            color="primary"
-            placeholder="John"
-          ></v-text-field>
-        </div>
+
+  <v-form ref="Regform" lazy-validation class="mt-7 loginForm">
+    <v-row>
+      <v-col cols="12">
+        <v-label>Name*</v-label>
+        <v-text-field v-model="name" :rules="nameRules" placeholder="John Doe" required variant="outlined" />
       </v-col>
-      <v-col cols="12" sm="6" class="py-0">
-        <div class="mb-6">
-          <v-label>Last Name*</v-label>
-          <v-text-field
-            v-model="lastname"
-            :rules="lastRules"
-            hide-details="auto"
-            required
-            variant="outlined"
-            class="mt-2"
-            color="primary"
-            placeholder="Doe"
-          ></v-text-field>
-        </div>
+
+      <v-col cols="12">
+        <v-label>Email Address*</v-label>
+        <v-text-field v-model="email" :rules="emailRules" placeholder="demo@company.com" required variant="outlined" />
+      </v-col>
+
+      <v-col cols="12">
+        <v-label>Password*</v-label>
+        <v-text-field
+          v-model="password"
+          :rules="passwordRules"
+          placeholder="*****"
+          required
+          variant="outlined"
+          :type="showPassword ? 'text' : 'password'"
+        >
+          <template v-slot:append-inner>
+            <v-btn icon variant="text" @click="showPassword = !showPassword">
+              <SvgSprite :name="showPassword ? 'custom-eye' : 'custom-eye-invisible'" style="width: 20px; height: 20px" />
+            </v-btn>
+          </template>
+        </v-text-field>
+      </v-col>
+
+      <v-col cols="12">
+        <v-label>Confirm Password*</v-label>
+        <v-text-field
+          v-model="passwordConfirmation"
+          :rules="confirmPasswordRules"
+          placeholder="*****"
+          required
+          variant="outlined"
+          :type="showPassword ? 'text' : 'password'"
+        />
+      </v-col>
+
+      <v-col cols="12">
+        <v-label>Telegram*</v-label>
+        <v-text-field v-model="telegram" :rules="telegramRules" placeholder="@your_username" required variant="outlined" />
       </v-col>
     </v-row>
-    <div class="mb-6">
-      <v-label>Company</v-label>
-      <v-text-field hide-details="auto" variant="outlined" class="mt-2" color="primary" placeholder="Demo Inc."></v-text-field>
-    </div>
-    <div class="mb-6">
-      <v-label>Email Address*</v-label>
-      <v-text-field
-        v-model="email"
-        :rules="emailRules"
-        placeholder="demo@company.com"
-        class="mt-2"
-        required
-        hide-details="auto"
-        variant="outlined"
-        color="primary"
-        @input="email"
-      ></v-text-field>
-    </div>
-    <div class="mb-6">
-      <v-label>Password</v-label>
-      <v-text-field
-        v-model="password"
-        :rules="passwordRules"
-        placeholder="*****"
-        required
-        variant="outlined"
-        color="primary"
-        hide-details="auto"
-        :type="show1 ? 'text' : 'password'"
-        class="pwdInput mt-2"
-        @input="password"
-      >
-        <template v-slot:append-inner>
-          <v-btn color="secondary" aria-label="icon" icon rounded variant="text">
-            <SvgSprite name="custom-eye-invisible" style="width: 20px; height: 20px" v-if="show1 == false" @click="(show1 = !show1)" />
-            <SvgSprite name="custom-eye" style="width: 20px; height: 20px" v-if="show1 == true" @click="(show1 = !show1)" />
-          </v-btn>
-        </template>
-      </v-text-field>
-    </div>
 
-    <div class="d-sm-inline-flex align-center mt-2 mb-7 mb-sm-0 font-weight-bold">
-      <h6 class="text-caption">
-        By Signing up, you agree to our
-        <router-link to="/privacy-policy" class="text-primary link-hover font-weight-medium">Terms of Service </router-link>
-        and
-        <router-link to="/privacy-policy" class="text-primary link-hover font-weight-medium">Privacy Policy</router-link>
-      </h6>
-    </div>
     <v-btn color="primary" block class="mt-4" variant="flat" rounded="md" size="large" @click="validate()">Create Account</v-btn>
   </v-form>
 </template>

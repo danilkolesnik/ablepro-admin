@@ -24,7 +24,7 @@ import googleImg from '@/assets/images/icons/google.svg';
                 <v-card-text class="pa-sm-10 pa-6">
                   <div class="text-center">
                     <Logo class="mb-3" />
-                    <v-list aria-label="social list" aria-busy="true">
+                    <!-- <v-list aria-label="social list" aria-busy="true">
                       <v-list-item color="secondary" variant="tonal" href="#" rounded="md" class="mb-2">
                         <v-img
                           :src="facebookImg"
@@ -65,7 +65,7 @@ import googleImg from '@/assets/images/icons/google.svg';
                         <div class="orbtn">OR</div>
                         <v-divider />
                       </v-col>
-                    </v-row>
+                    </v-row> -->
                   </div>
                   <!---Register Form-->
                   <AuthRegister />

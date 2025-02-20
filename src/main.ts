@@ -34,7 +34,7 @@ import '@fontsource/public-sans/600.css';
 import '@fontsource/public-sans/700.css';
 
 //Mock Api data
-import './_mockApis';
+// import './_mockApis';
 import { fakeBackend } from '@/utils/helpers/fake-backend';
 
 import { vMaska } from 'maska/vue';
@@ -55,7 +55,7 @@ const i18n = createI18n({
 });
 
 const app = createApp(App);
-fakeBackend();
+// fakeBackend();
 
 app.use(router);
 app.component('EasyDataTable', DataTable);

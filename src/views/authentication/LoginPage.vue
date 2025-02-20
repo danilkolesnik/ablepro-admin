@@ -50,7 +50,7 @@ createApp(component).use(VueReCaptcha, { siteKey: '6LeCprcaAAAAAOD0aEK7WpfHc__Cy
                 <v-card-text class="pa-sm-10 pa-6">
                   <div class="text-center">
                     <Logo class="mb-5" />
-                    <v-list aria-label="social list" aria-busy="true">
+                    <!-- <v-list aria-label="social list" aria-busy="true">
                       <v-list-item color="secondary" variant="tonal" href="#" rounded="md" class="mb-2">
                         <v-img
                           :src="facebookImg"
@@ -91,7 +91,7 @@ createApp(component).use(VueReCaptcha, { siteKey: '6LeCprcaAAAAAOD0aEK7WpfHc__Cy
                         <div class="orbtn">OR</div>
                         <v-divider />
                       </v-col>
-                    </v-row>
+                    </v-row> -->
                   </div>
                   <!---Login Form-->
                   <AuthLogin />

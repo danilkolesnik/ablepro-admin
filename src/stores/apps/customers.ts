@@ -34,10 +34,11 @@ export const useCustomers = defineStore({
     // Fetch Customers from action
     async fetchCustomers() {
       try {
-        const data = await axios.get('/api/data/customers');
+        const data = await axios.get('https://api.spendy.pro/api/users');
         this.customers = data.data;
-      } catch (error) {
-        alert(error);
+      } catch (error: any) {
+        console.log(error);
+        alert(error.message);
       }
     },
 
