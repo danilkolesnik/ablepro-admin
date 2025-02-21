@@ -46,6 +46,29 @@ const sidebarItem: menu[] = [
     chipColor: 'primary',
     chipVariant: 'tonal'
   },
+  {header: "Domains"},
+  {
+    title: 'Domains',
+    icon: 'custom-roadmap',
+    to: '/domains/',
+    children: [
+      {
+        id: 'domainsList',
+        title: 'Domains List',
+        to: '/app/domains/domainslist'
+      },
+      {
+        id: 'createDomains',
+        title: 'Create Domains',
+        to: '/app/domains/create-domains'
+      },
+      {
+        id: 'createCustomDomains',
+        title: 'Create Custom Domains',
+        to: '/app/domains/create-custom-domains'
+      },
+    ]
+  },
   { header: 'Widget' },
   {
     id: 'statistics',

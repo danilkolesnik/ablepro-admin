@@ -51,6 +51,7 @@ export const useCustomers = defineStore({
         });
     
         this.customers = response.data.data;
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } catch (error: any) {
         console.error('Ошибка при получении пользователей:', error);
         alert(error.message);
