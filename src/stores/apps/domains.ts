@@ -2,18 +2,14 @@ import { defineStore } from 'pinia';
 // project imports
 import axios from '@/utils/axios';
 // types
-import type { DomainStateProps } from '@/types/domains/index';
-
-const API_URL = await import.meta.env.VITE_API_URL;
+import type { CreateCustomDomains, CreateDomains, CreateWhitelist, DomainStateProps } from '@/types/domains/index';
 
 //USERS TAB STORE
 export const useDomains = defineStore({
   id: 'domains',
   state: (): DomainStateProps => ({
     domains: [],
-    whilelist: [],
-    products: [],
-    productreviews: []
+    whitelist: []
   }),
   getters: {
     // Get domains from Getters
@@ -22,73 +18,70 @@ export const useDomains = defineStore({
     },
     // Get orders from Getters
     getWhilelist(state) {
-      return state.whilelist;
-    },
-    // Get orders from Getters
-    getProducts(state) {
-      return state.products;
-    },
-    // Get orders from Getters
-    getProductsreviews(state) {
-      return state.productreviews;
+      return state.whitelist;
     }
   },
   actions: {
     // Fetch Domains from action
     async fetchDomains() {
       try {
-        const response = await axios.get(`/api/domains`)
+        const response = await axios.get(`/api/domains`);
 
         this.domains = response.data.data.data;
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } catch (error: any) {
-        console.error('Ошибка при получении доменов:', error);
-        alert(error.message);
+        console.error(error);
+      }
+    },
+
+    // Create Domains from action
+    async createDomains(body: CreateDomains) {
+      try {
+        await axios.post('/api/domains', body);
+        await this.fetchDomains();
+      } catch (err) {
+        console.log(err);
+      }
+    },
+
+    // Create Custom Domains from action
+    async createCustomDomains(body: CreateCustomDomains) {
+      try {
+        await axios.post('/api/domains/custom', body);
+        await this.fetchDomains();
+      } catch (err) {
+        console.log(err);
       }
     },
 
     // Fetch Whilelist from action
-    async fetchWhilelist() {
+    async fetchWhitelist() {
       try {
-        const data = await axios.get(`${API_URL}/api/whilelist`);
-        this.whilelist = data.data;
-      } catch (error) {
-        alert(error);
+        const data = await axios.get(`/api/whitelist`);
+        this.whitelist = data.data;
+      } catch (err) {
+        console.log(err);
       }
     },
 
-    // Fetch products from action
-    async fetchProducts() {
+    async createWhitelist(body: CreateWhitelist) {
       try {
-        const data = await axios.get('/api/data/products');
-        this.products = data.data;
-      } catch (error) {
-        alert(error);
+        await axios.post('/api/whitelist', body);
+      } catch (err) {
+        console.log(err);
       }
-    },
-
-    // Fetch products from action
-    async fetchReviews() {
-      try {
-        const data = await axios.get('/api/data/productreviews');
-        this.productreviews = data.data;
-      } catch (error) {
-        alert(error);
-      }
-    },
-
-    // Delete Domain
-    deleteDomain(itemId: number) {
-      this.domains = this.domains.filter((object) => {
-        return object.id !== itemId;
-      });
     },
 
     // Delete Whilelist
-    deleteWhilelist(itemId: number) {
-      this.whilelist = this.whilelist.filter((object) => {
-        return object.id !== itemId;
-      });
+    async deleteWhitelist(itemId: number) {
+      try {
+        await axios.delete(`/api/whitelist/${itemId}`);
+        this.whitelist = this.whitelist.filter((object) => {
+          return object.id !== itemId;
+        });
+      } catch (err) {
+        console.log(err);
+      }
     }
   }
 });
