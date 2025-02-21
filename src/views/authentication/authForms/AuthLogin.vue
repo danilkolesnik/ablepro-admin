@@ -13,7 +13,7 @@ const email = ref('info@phoenixcoded.co');
 const passwordRules = ref([
   (v: string) => !!v || 'Password is required',
   (v: string) => v === v.trim() || 'Password cannot start or end with spaces',
-  (v: string) => v.length <= 10 || 'Password must be less than 10 characters'
+  (v: string) => v.length <= 20 || 'Password must be less than 20 characters'
 ]);
 // Email validation rules
 const emailRules = ref([

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed, onMounted, shallowRef } from 'vue';
+import { watch, ref, computed, onMounted, shallowRef } from 'vue';
 import { useCustomers } from '@/stores/apps/customers';
 
 import SvgSprite from '@/components/shared/SvgSprite.vue';
@@ -32,18 +32,23 @@ onMounted(() => {
   store.fetchCustomers();
 });
 
+// watch(getCustomers, (newCustomers) => {
+//   console.log('Users:', newCustomers);
+// });
+
 const searchField = ref('name');
 const searchValue = ref('');
 
 const headers: Header[] = [
   { text: 'Customer name', value: 'name', sortable: true },
-  { text: 'Contact', value: 'date', sortable: true },
-  { text: 'Age', value: 'orders', sortable: true },
-  { text: 'Country', value: 'location', sortable: true },
-  { text: 'Status', value: 'status', sortable: true },
+  { text: 'Email', value: 'email', sortable: true },
+  { text: 'Role', value: 'role', sortable: true },
+  { text: 'Telegram', value: 'telegram', sortable: true },
+  { text: 'Host', value: 'host', sortable: true },
   { text: 'Action', value: 'operation' }
 ];
-const items = ref(getCustomers);
+
+const items = computed(() => getCustomers.value);
 const themeColor = ref('rgb(var(--v-theme-primary))');
 const { deleteCustomer } = store;
 
@@ -218,16 +223,22 @@ const dialog = ref(false);
             :rows-per-page="10"
             v-model:items-selected="itemsSelected"
           >
-            <template #item-name="{ name, email }">
+            <template #item-name="{ name }">
               <div class="player-wrapper">
                 <h6 class="text-subtitle-1 mb-0">{{ name }}</h6>
-                <small class="text-h6 text-lightText">{{ email }}</small>
               </div>
             </template>
-            <template #item-status="{ status }">
-              <v-chip color="success" v-if="status === 1" size="small"> Relationship </v-chip>
-              <v-chip color="error" v-if="status === 2" size="small"> Complicated </v-chip>
-              <v-chip color="info" v-if="status === 3" size="small"> Single </v-chip>
+            <template #item-email="{ email }">
+              <div>{{ email }}</div>
+            </template>
+            <template #item-role="{ role }">
+              <div>{{ role }}</div>
+            </template>
+            <template #item-telegram="{ telegram }">
+              <div>{{ telegram }}</div>
+            </template>
+            <template #item-host="{ host }">
+              <div>{{ host }}</div>
             </template>
             <template #item-operation="item">
               <div class="operation-wrapper">
@@ -237,7 +248,7 @@ const dialog = ref(false);
                 <v-btn icon color="primary" aria-label="edit" variant="text" rounded="md">
                   <SvgSprite name="custom-edit-outline" style="width: 20px; height: 20px" />
                 </v-btn>
-                <v-btn icon color="error" aria-label="trash" variant="text" @click="deleteCustomer(item.name)" rounded="md">
+                <v-btn icon color="error" aria-label="trash" @click="deleteCustomer(item.name)" rounded="md">
                   <SvgSprite name="custom-trash" style="width: 20px; height: 20px" />
                 </v-btn>
               </div>

@@ -4,6 +4,7 @@ import axios from '@/utils/axios';
 // types
 import type { CustomerStateProps } from '@/types/customers/index';
 
+//USERS TAB STORE
 export const useCustomers = defineStore({
   id: 'customers',
   state: (): CustomerStateProps => ({
@@ -34,10 +35,24 @@ export const useCustomers = defineStore({
     // Fetch Customers from action
     async fetchCustomers() {
       try {
-        const data = await axios.get('https://api.spendy.pro/api/users');
-        this.customers = data.data;
+        const user = JSON.parse(localStorage.getItem('user') || '{}');
+        const token = user?.token;
+    
+        if (!token) {
+          throw new Error('Токен не найден, необходимо авторизоваться.');
+        }
+    
+        const response = await axios.get('https://api.spendy.pro/api/users', {
+          headers: {
+            'Accept': 'application/json',
+            'X-CSRF-TOKEN': token, // Если API требует CSRF-токен
+            'Authorization': `Bearer ${token}` // Добавляем JWT-токен
+          }
+        });
+    
+        this.customers = response.data.data;
       } catch (error: any) {
-        console.log(error);
+        console.error('Ошибка при получении пользователей:', error);
         alert(error.message);
       }
     },
