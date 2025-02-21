@@ -9,7 +9,7 @@ const { ispValue } = useIspValue();
 </script>
 
 <template>
-  <v-btn
+  <!-- <v-btn
     v-if="!xs"
     color="error"
     :href="ispValue ? 'https://1.envato.market/B0JAPW' : 'https://1.envato.market/zNkqj6'"
@@ -36,7 +36,7 @@ const { ispValue } = useIspValue();
     icon
   >
     <SvgSprite name="custom-shopping-cart" />
-  </v-btn>
+  </v-btn> -->
 </template>
 
 <style lang="scss" scoped>
