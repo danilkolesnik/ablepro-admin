@@ -12,6 +12,11 @@ const MainRoutes = {
       component: () => import('@/views/dashboards/default/DefaultDashboard.vue')
     },
     {
+      name: 'Metrics',
+      path: '/app/metrics/facebookPixel',
+      component: () => import('@/views/apps/facebookPixel/FacebookPixel.vue')
+    },
+    {
       name: 'Domains',
       path: '/app/domains/list-domains',
       component: () => import('@/views/apps/domains/DomainsList.vue')
