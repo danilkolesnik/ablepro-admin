@@ -7,7 +7,7 @@ import BaseBreadcrumb from '@/components/shared/BaseBreadcrumb.vue';
 import type { Header, Item } from 'vue3-easy-data-table';
 import 'vue3-easy-data-table/dist/style.css';
 
-const page = ref({ title: 'Domains list' });
+const page = ref({ title: 'White list' });
 
 const breadcrumbs = shallowRef([
   {
@@ -16,7 +16,7 @@ const breadcrumbs = shallowRef([
     href: '#'
   },
   {
-    title: 'List',
+    title: 'Whitelist',
     disabled: true,
     href: '#'
   }
@@ -24,50 +24,33 @@ const breadcrumbs = shallowRef([
 
 const store = useDomains();
 
-const getDomains = computed(() => {
-  return store.getDomains;
+const getWhitelist = computed(() => {
+  return store.getWhitelist;
 });
 
 
-const formDataDomain = ref({
-  price: 0,
-  domains: '',
-  category: '',
+const formData = ref({
+  user: '',
+  domain: '',
 })
 
-const formDataCustomDomain = ref({
-  domains: '',
-})
+const { createWhitelist, deleteWhitelist } = store;
 
-const { createDomains,createCustomDomains } = store;
-
-const onSubmitForm = async (type = 'standart') => {
-
-  if (type === 'standart') {
-    const body = {
-      price: formDataDomain.value.price,
-      domains: formDataDomain.value.domains,
-      category: formDataDomain.value.category,
+const onSubmitForm = async () => {
+  const body = {
+      user: Number(formData.value.user),
+      domain: formData.value.domain,
     }
-    formDataDomain.value = {
-      price: 0,
-      domains: '',
-      category: '',
+    formData.value = {
+      user: '',
+      domain: '',
     };
-    await createDomains(body)
-    dialogStandart.value = false
-  } else {
-    formDataCustomDomain.value = {
-      domains: '',
-    };
-
-    await createCustomDomains({domains: formDataCustomDomain.value.domains})
-    dialogCustom.value = false
-  }
+    await createWhitelist(body)
+    dialog.value = false
 }
 
 onMounted(() => {
-  store.fetchDomains();
+  store.fetchWhitelist();
 });
 
 const searchField = ref('domain');
@@ -76,20 +59,20 @@ const searchValue = ref('');
 const headers: Header[] = [
   { text: 'ID', value: 'id', sortable: true },
   { text: 'DOMAIN', value: 'domain', sortable: true },
-  { text: 'PRICE', value: 'price', sortable: true },
   { text: 'USER ID', value: 'user', sortable: true },
-  { text: 'CATEGORY', value: 'category', sortable: true },
   { text: 'CREATING DATE', value: 'created_at', sortable: true },
-  { text: 'STATUS', value: 'status', sortable: true },
+  { text: 'Action', value: 'operation' }
 ];
 
-const items = computed(() => getDomains.value);
+const items = computed(() => getWhitelist.value.domains);
+const users = computed(() => {
+  return getWhitelist.value.users.map((item) => ({label: item.email, value: item.id}))
+})
 const themeColor = ref('rgb(var(--v-theme-primary))');
 
 const itemsSelected = ref<Item[]>([]);
 
-const dialogStandart = ref(false);
-const dialogCustom = ref(false);
+const dialog = ref(false);
 </script>
 
 <template>
@@ -109,19 +92,19 @@ const dialogCustom = ref(false);
             </v-col>
             <v-col cols="12" md="3">
               <div class="d-flex ga-2 justify-end">
-                <v-dialog v-model="dialogStandart" class="customer-modal">
+                <v-dialog v-model="dialog" class="customer-modal">
                   <template v-slot:activator="{ props }">
                     <v-btn variant="flat" color="primary" rounded="md" v-bind="props">
                       <template v-slot:prepend>
                         <SvgSprite name="custom-plus" style="width: 20px; height: 20px" />
                       </template>
-                      Add domain
+                      Add whitelist
                     </v-btn>
                   </template>
                   <v-card>
                     <perfect-scrollbar style="max-height: calc(100vh - 48px)">
                       <v-card-title class="pa-5">
-                        <span class="text-h5">New Domain</span>
+                        <span class="text-h5">New whitelist</span>
                       </v-card-title>
                       <v-divider></v-divider>
                       <v-card-text>
@@ -139,19 +122,22 @@ const dialogCustom = ref(false);
                                   <v-label class="mb-2">Domain</v-label>
                                   <v-text-field single-line placeholder="Enter domain" hide-details variant="outlined"
                                     required density="comfortable" rounded="0"
-                                    v-model="formDataDomain.domains"></v-text-field>
+                                    v-model="formData.domain"></v-text-field>
                                 </v-col>
                                 <v-col cols="12">
-                                  <v-label class="mb-2">Price</v-label>
-                                  <v-text-field single-line hide-details placeholder="Enter customer email" required
-                                    variant="outlined" density="comfortable" rounded="0"
-                                    v-model="formDataDomain.price"></v-text-field>
-                                </v-col>
-                                <v-col cols="12">
-                                  <v-label class="mb-2">Category</v-label>
-                                  <v-autocomplete :items="['LINK', 'PWA', 'TGAPPS']" label="LINK" rounded="0"
-                                    color="primary" single-line density="comfortable" hide-details variant="outlined"
-                                    v-model="formDataDomain.category"></v-autocomplete>
+                                  <v-label class="mb-2">Email</v-label>
+                                  <v-autocomplete
+                                  v-model="formData.user"
+                                    :items="users"
+                                    item-title="label"
+                                    item-value="value"
+                                    rounded="0"
+                                    color="primary"
+                                    single-line
+                                    density="comfortable"
+                                    hide-details
+                                    variant="outlined"
+                                  ></v-autocomplete>
                                 </v-col>
                               </v-row>
                             </v-col>
@@ -161,54 +147,8 @@ const dialogCustom = ref(false);
                       <v-divider></v-divider>
                       <v-card-actions>
                         <v-spacer></v-spacer>
-                        <v-btn color="error" rounded="md" variant="text" @click="(dialogStandart = false)"> Cancel </v-btn>
+                        <v-btn color="error" rounded="md" variant="text" @click="(dialog = false)"> Cancel </v-btn>
                         <v-btn color="primary" rounded="md" variant="flat" @click="onSubmitForm"> Add </v-btn>
-                      </v-card-actions>
-                    </perfect-scrollbar>
-                  </v-card>
-                </v-dialog>
-                <v-dialog v-model="dialogCustom" class="customer-modal">
-                  <template v-slot:activator="{ props }">
-                    <v-btn variant="flat" color="primary" rounded="md" v-bind="props">
-                      <template v-slot:prepend>
-                        <SvgSprite name="custom-plus" style="width: 20px; height: 20px" />
-                      </template>
-                      Add custom domain
-                    </v-btn>
-                  </template>
-                  <v-card>
-                    <perfect-scrollbar style="max-height: calc(100vh - 48px)">
-                      <v-card-title class="pa-5">
-                        <span class="text-h5">New Domain</span>
-                      </v-card-title>
-                      <v-divider></v-divider>
-                      <v-card-text>
-                        <v-container>
-                          <v-row>
-                            <v-col md="3" cols="12" class="text-center">
-                              <v-avatar size="72" variant="outlined" color="primary" class="dashed">
-                                <img src="@/assets/images/users/avatar-1.png" width="72" alt="profile" />
-                                <input type="file" aria-label="upload" class="preview-upload" />
-                              </v-avatar>
-                            </v-col>
-                            <v-col md="9" cols="12">
-                              <v-row>
-                                <v-col cols="12">
-                                  <v-label class="mb-2">Domain</v-label>
-                                  <v-text-field single-line placeholder="Enter domain" hide-details variant="outlined"
-                                    required density="comfortable" rounded="0"
-                                    v-model="formDataCustomDomain.domains"></v-text-field>
-                                </v-col>
-                              </v-row>
-                            </v-col>
-                          </v-row>
-                        </v-container>
-                      </v-card-text>
-                      <v-divider></v-divider>
-                      <v-card-actions>
-                        <v-spacer></v-spacer>
-                        <v-btn color="error" rounded="md" variant="text" @click="(dialogCustom = false)"> Cancel </v-btn>
-                        <v-btn color="primary" rounded="md" variant="flat" @click="onSubmitForm('custom')"> Add </v-btn>
                       </v-card-actions>
                     </perfect-scrollbar>
                   </v-card>
@@ -241,6 +181,13 @@ const dialogCustom = ref(false);
             </template>
             <template #item-host="{ host }">
               <div>{{ host }}</div>
+            </template>
+            <template #item-operation="item">
+              <div class="operation-wrapper">
+                <v-btn icon color="error" aria-label="trash" @click="deleteWhitelist(item.id)" rounded="md">
+                  <SvgSprite name="custom-trash" style="width: 20px; height: 20px" />
+                </v-btn>
+              </div>
             </template>
           </EasyDataTable>
         </v-card-text>

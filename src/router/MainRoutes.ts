@@ -27,6 +27,11 @@ const MainRoutes = {
       component: () => import('@/views/apps/domains/BuyDomain.vue')
     },
     {
+      name: 'Whitelist',
+      path: '/app/domains/whitelist',
+      component: () => import('@/views/apps/whitelist/WhiteList.vue')
+    },
+    {
       name: 'Analytics',
       path: '/dashboard/analytics',
       component: () => import('@/views/dashboards/analytics/AnalyticsDashboard.vue')

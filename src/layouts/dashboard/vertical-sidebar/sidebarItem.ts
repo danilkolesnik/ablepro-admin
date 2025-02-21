@@ -77,6 +77,18 @@ const sidebarItem: menu[] = [
       },
     ]
   },
+  {
+    title: 'Whitelist',
+    icon: 'custom-user-square',
+    to: '/domains/',
+    children: [ 
+      {
+        id: 'whitelist',
+        title: 'Whitelist',
+        to: '/app/domains/whitelist'
+      },
+    ]
+  },
   { header: 'Widget' },
   {
     id: 'statistics',
