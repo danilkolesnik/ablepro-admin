@@ -2,22 +2,25 @@ import { defineStore } from 'pinia';
 // project imports
 import axios from '@/utils/axios';
 // types
-import type { CreateCustomDomains, CreateDomains, CreateWhitelist, DomainStateProps } from '@/types/domains/index';
+import type { BuyDomain, CreateCustomDomains, CreateDomains, CreateWhitelist, DomainStateProps } from '@/types/domains/index';
 
 //USERS TAB STORE
 export const useDomains = defineStore({
   id: 'domains',
   state: (): DomainStateProps => ({
     domains: [],
-    whitelist: []
+    whitelist: {
+      users: [],
+      domains: [],
+    }
   }),
   getters: {
     // Get domains from Getters
     getDomains(state) {
       return state.domains;
     },
-    // Get orders from Getters
-    getWhilelist(state) {
+    // Get Whitelist from Getters
+    getWhitelist(state) {
       return state.whitelist;
     }
   },
@@ -28,8 +31,7 @@ export const useDomains = defineStore({
         const response = await axios.get(`/api/domains`);
 
         this.domains = response.data.data.data;
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      } catch (error: any) {
+      } catch (error) {
         console.error(error);
       }
     },
@@ -54,11 +56,22 @@ export const useDomains = defineStore({
       }
     },
 
+    // Buy Domain from action
+    async buyDomain(body: BuyDomain) {
+      try {
+        await axios.post('/api/domains/buy', body);
+      } catch (err) {
+        console.log(err);
+      }
+    },
+
     // Fetch Whilelist from action
     async fetchWhitelist() {
       try {
         const data = await axios.get(`/api/whitelist`);
-        this.whitelist = data.data;
+        const users = data.data.users;
+        const domains = data.data.domains.data;
+        this.whitelist = {users: users, domains: domains};
       } catch (err) {
         console.log(err);
       }
@@ -76,7 +89,7 @@ export const useDomains = defineStore({
     async deleteWhitelist(itemId: number) {
       try {
         await axios.delete(`/api/whitelist/${itemId}`);
-        this.whitelist = this.whitelist.filter((object) => {
+        this.whitelist.domains = this.whitelist.domains.filter((object) => {
           return object.id !== itemId;
         });
       } catch (err) {

@@ -1,6 +1,6 @@
 export interface DomainStateProps {
   domains: Domain[];
-  whitelist: Whitelist[];
+  whitelist: Whitelist;
   error?: object | string | null;
 }
 
@@ -10,7 +10,7 @@ export type Domain = {
   price: number;
   user_id: number;
   category: string;
-  created_date: string;
+  created_at: string;
   status: string;
 };
 
@@ -24,14 +24,16 @@ export type CreateCustomDomains = {
   domains: string;
 };
 
+export type BuyDomain = {
+  domains: string;
+  price: number
+};
+
+
+// Whitelist
 export type Whitelist = {
-  id: number;
-  name: string;
-  company: string;
-  type: string;
-  qty: number;
-  date: string;
-  status: number;
+  domains: {id: number, domain: string,user: number,created_at: string;}[];
+  users: {id: number, name: string, email: string,created_at: string;}[]
 };
 
 

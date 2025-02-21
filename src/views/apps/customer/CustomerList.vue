@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { watch, ref, computed, onMounted, shallowRef } from 'vue';
+import { ref, computed, onMounted, shallowRef } from 'vue';
 import { useCustomers } from '@/stores/apps/customers';
 
 import SvgSprite from '@/components/shared/SvgSprite.vue';
