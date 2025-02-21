@@ -9,7 +9,7 @@ import UiParentCard from '@/components/shared/UiParentCard.vue';
 const page = ref({ title: 'Create Invoice' });
 const breadcrumbs = ref([
   {
-    title: 'Customer',
+    title: 'Domain',
     disabled: false,
     href: '#'
   },

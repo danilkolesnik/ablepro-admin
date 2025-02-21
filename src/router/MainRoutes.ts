@@ -13,8 +13,13 @@ const MainRoutes = {
     },
     {
       name: 'Domains',
-      path: '/app/domains/domainslist',
+      path: '/app/domains/list-domains',
       component: () => import('@/views/apps/domains/DomainsList.vue')
+    },
+    {
+      name: 'Buy Domains',
+      path: '/app/domains/buy-domains',
+      component: () => import('@/views/apps/domains/BuyDomain.vue')
     },
     {
       name: 'Analytics',

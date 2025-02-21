@@ -55,17 +55,12 @@ const sidebarItem: menu[] = [
       {
         id: 'domainsList',
         title: 'Domains List',
-        to: '/app/domains/domainslist'
+        to: '/app/domains/list-domains'
       },
       {
-        id: 'createDomains',
-        title: 'Create Domains',
-        to: '/app/domains/create-domains'
-      },
-      {
-        id: 'createCustomDomains',
-        title: 'Create Custom Domains',
-        to: '/app/domains/create-custom-domains'
+        id: 'BuyDomain',
+        title: 'Buy Domains',
+        to: '/app/domains/buy-domains'
       },
     ]
   },

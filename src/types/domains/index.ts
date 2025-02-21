@@ -1,8 +1,6 @@
 export interface DomainStateProps {
   domains: Domain[];
-  whilelist: Whilelist[];
-  products: Product[];
-  productreviews: ProductReview[];
+  whitelist: Whitelist[];
   error?: object | string | null;
 }
 
@@ -16,7 +14,17 @@ export type Domain = {
   status: string;
 };
 
-export type Whilelist = {
+export type CreateDomains = {
+  price: number;
+  domains: string;
+  category: string;
+};
+
+export type CreateCustomDomains = {
+  domains: string;
+};
+
+export type Whitelist = {
   id: number;
   name: string;
   company: string;
@@ -26,20 +34,8 @@ export type Whilelist = {
   status: number;
 };
 
-export type Product = {
-  id: string;
-  name: string;
-  category: string;
-  price: number;
-  date: string;
-  qty: number;
-};
 
-export type ProductReview = {
-  name: string;
-  author: string;
-  review: string;
-  rating: number;
-  date: string;
-  status: number;
+export type CreateWhitelist = {
+  user: number;
+  domain: string;
 };
