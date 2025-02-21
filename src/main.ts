@@ -35,7 +35,7 @@ import '@fontsource/public-sans/700.css';
 
 //Mock Api data
 // import './_mockApis';
-import { fakeBackend } from '@/utils/helpers/fake-backend';
+// import { fakeBackend } from '@/utils/helpers/fake-backend';
 
 import { vMaska } from 'maska/vue';
 // print
