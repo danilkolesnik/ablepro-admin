@@ -2,95 +2,55 @@ import { defineStore } from 'pinia';
 // project imports
 import axios from '@/utils/axios';
 // types
-import type { BuyDomain, CreateCustomDomains, CreateDomains, CreateWhitelist, DomainStateProps } from '@/types/domains/index';
+import type { CreateLink, ReferralStateProps } from '@/types/referral';
 
 //USERS TAB STORE
 export const useReferral = defineStore({
-  id: 'domains',
-  state: (): DomainStateProps => ({
-    
+  id: 'referral',
+  state: (): ReferralStateProps => ({
+    links: [],
+    stats: [],
   }),
   getters: {
     // Get domains from Getters
-    getDomains(state) {
-      return state.domains;
+    getLinks(state) {
+      return state.links;
     },
     // Get Whitelist from Getters
-    getWhitelist(state) {
-      return state.whitelist;
+    getStats(state) {
+      return state.stats;
     }
   },
   actions: {
-    // Fetch Domains from action
-    async fetchDomains() {
+    // Fetch Links from action
+    async fetchLinks() {
       try {
-        const response = await axios.get(`/api/domains`);
+        const response = await axios.get(`/api/referral-links`);
 
-        this.domains = response.data.data.data;
+        this.links = response.data.data;
       } catch (error) {
         console.error(error);
       }
     },
 
-    // Create Domains from action
-    async createDomains(body: CreateDomains) {
+    // Create Links from action
+    async createLink(body: CreateLink) {
       try {
-        await axios.post('/api/domains', body);
-        await this.fetchDomains();
+        await axios.post('/api/referral-links', body);
+        await this.fetchLinks();
       } catch (err) {
         console.log(err);
       }
     },
 
-    // Create Custom Domains from action
-    async createCustomDomains(body: CreateCustomDomains) {
+    // Fetch Stats from action
+    async fetchStats() {
       try {
-        await axios.post('/api/domains/custom', body);
-        await this.fetchDomains();
+        const data = await axios.get(`/api/referral-links/stats`);
+        this.stats = data.data;
       } catch (err) {
         console.log(err);
       }
     },
-
-    // Buy Domain from action
-    async buyDomain(body: BuyDomain) {
-      try {
-        await axios.post('/api/domains/buy', body);
-      } catch (err) {
-        console.log(err);
-      }
-    },
-
-    // Fetch Whilelist from action
-    async fetchWhitelist() {
-      try {
-        const data = await axios.get(`/api/whitelist`);
-        const users = data.data.users;
-        const domains = data.data.domains.data;
-        this.whitelist = {users: users, domains: domains};
-      } catch (err) {
-        console.log(err);
-      }
-    },
-
-    async createWhitelist(body: CreateWhitelist) {
-      try {
-        await axios.post('/api/whitelist', body);
-      } catch (err) {
-        console.log(err);
-      }
-    },
-
-    // Delete Whilelist
-    async deleteWhitelist(itemId: number) {
-      try {
-        await axios.delete(`/api/whitelist/${itemId}`);
-        this.whitelist.domains = this.whitelist.domains.filter((object) => {
-          return object.id !== itemId;
-        });
-      } catch (err) {
-        console.log(err);
-      }
-    }
   }
 });
