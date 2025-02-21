@@ -46,6 +46,19 @@ const sidebarItem: menu[] = [
     chipColor: 'primary',
     chipVariant: 'tonal'
   },
+  {header: "Metrics"},
+  {
+    title: 'Metrics',
+    icon: 'custom-story',
+    to: '/metrics/',
+    children: [
+      {
+        id: 'metrics',
+        title: 'Facebook Pixel',
+        to: '/app/metrics/facebookPixel'
+      }
+    ]
+  },
   {header: "Domains"},
   {
     title: 'Domains',
