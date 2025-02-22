@@ -32,6 +32,16 @@ const MainRoutes = {
       component: () => import('@/views/apps/whitelist/WhiteList.vue')
     },
     {
+      name: 'Referral Links',
+      path: '/app/referral/links',
+      component: () => import('@/views/apps/referral/ReferralLinks.vue')
+    },
+    {
+      name: 'Referral Stats',
+      path: '/app/referral/stats',
+      component: () => import('@/views/apps/referral/ReferralStats.vue')
+    },
+    {
       name: 'Analytics',
       path: '/dashboard/analytics',
       component: () => import('@/views/dashboards/analytics/AnalyticsDashboard.vue')
