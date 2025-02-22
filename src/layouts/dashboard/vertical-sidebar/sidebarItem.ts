@@ -89,6 +89,24 @@ const sidebarItem: menu[] = [
       },
     ]
   },
+  { header: 'Referral' },
+  {
+    title: 'Referral',
+    icon: 'custom-presentation-chart',
+    to: '/referral/',
+    children: [ 
+      {
+        id: 'referralLinks',
+        title: 'Referral Links',
+        to: '/app/referral/links'
+      },
+      {
+        id: 'referralStats',
+        title: 'Referral Stats',
+        to: '/app/referral/stats'
+      },
+    ]
+  },
   { header: 'Widget' },
   {
     id: 'statistics',
