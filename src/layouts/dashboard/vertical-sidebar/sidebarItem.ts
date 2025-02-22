@@ -89,21 +89,107 @@ const sidebarItem: menu[] = [
       },
     ]
   },
-  { header: 'Referral' },
+  { header: 'PWA Management' },
   {
-    title: 'Referral',
-    icon: 'custom-presentation-chart',
-    to: '/referral/',
+    title: 'PWA Applications',
+    icon: 'custom-user-square',
+    to: '/pwa/applications',
+    children: [ 
+      {
+        id: 'pwaApplications',
+        title: 'PWA Applications',
+        to: '/app/pwa/applications'
+      },
+      {
+        id: 'pwaDrafts',
+        title: 'PWA Drafts',
+        to: '/app/pwa/drafts'
+      },
+    ]
+  },
+  {
+    title: 'PWA Push',
+    icon: 'custom-user-square',
+    to: '/pwa/push',
+    children: [ 
+      {
+        id: 'pwaPush',
+        title: 'PWA Push',
+        to: '/app/pwa/push'
+      },
+    ]
+  },
+  {
+    title: 'PWA Splits',
+    icon: 'custom-user-square',
+    to: '/pwa/splits',
+    children: [ 
+      {
+        id: 'pwaSplits',
+        title: 'PWA Splits',
+        to: '/app/pwa/splits'
+      },
+    ]
+  },
+  {
+    title: 'PWA Statistics',
+    icon: 'custom-user-square',
+    to: '/pwa/statistics',
+    children: [ 
+      {
+        id: 'pwaStatistics',
+        title: 'PWA Statistics',
+        to: '/app/pwa/statistics'
+      },
+    ]
+  },
+  { header: 'Referral Management' },
+  {
+    title: 'Referral Link',
+    icon: 'custom-user-square',
+    to: '/referral/links',
     children: [ 
       {
         id: 'referralLinks',
         title: 'Referral Links',
         to: '/app/referral/links'
       },
+    ]
+  },
+  {
+    title: 'Referral Statistics',
+    icon: 'custom-user-square',
+    to: '/referral/statistics',
+    children: [ 
       {
-        id: 'referralStats',
-        title: 'Referral Stats',
-        to: '/app/referral/stats'
+        id: 'referralStatistics',
+        title: 'Referral Statistics',
+        to: '/app/referral/statistics'
+      },
+    ]
+  },
+  { header: 'Telegram Management' },
+  {
+    title: 'Telegram Alerts',
+    icon: 'custom-user-square',
+    to: '/telegram/alerts',
+    children: [ 
+      {
+        id: 'telegramAlerts',
+        title: 'Telegram Alerts',
+        to: '/app/telegram/alerts'
+      },
+    ]
+  },
+  {
+    title: 'Telegram Keys',
+    icon: 'custom-user-square',
+    to: '/telegram/keys',
+    children: [ 
+      {
+        id: 'telegramKeys',
+        title: 'Telegram Keys',
+        to: '/app/telegram/keys'
       },
     ]
   },
