@@ -1,49 +1,47 @@
 <script setup lang="ts">
 import { ref, computed, onMounted, shallowRef, watch } from 'vue';
-import { usePixels } from '@/stores/apps/pixels';
+import { usePages } from '@/stores/apps/pages';
 
 import SvgSprite from '@/components/shared/SvgSprite.vue';
 import BaseBreadcrumb from '@/components/shared/BaseBreadcrumb.vue';
 import type { Header, Item } from 'vue3-easy-data-table';
 import 'vue3-easy-data-table/dist/style.css';
 
-const page = ref({ title: 'Facebook Pixel List' });
+const page = ref({ title: 'Page Management' });
 
 const breadcrumbs = shallowRef([
   {
-    title: 'Facebook Pixel',
+    title: 'Page Management',
     disabled: false,
     href: '#'
   },
   {
-    title: 'List',
+    title: 'Pages',
     disabled: true,
     href: '#'
   }
 ]);
 
-const store = usePixels();
+const store = usePages();
 
-const getPixels = computed(() => {
-  return store.getPixels;
+const getPagesList = computed(() => {
+  return store.getPagesList;
 });
 
 onMounted(() => {
-  store.fetchPixels();
+  store.fetchPages();
 });
 
 const searchField = ref('name');
 const searchValue = ref('');
 
 const headers: Header[] = [
-  { text: 'Pixel', value: 'pixel', sortable: true },
-  { text: 'Token', value: 'token', sortable: true },
-  { text: 'Creation date', value: 'created_at', sortable: true },
-  { text: 'User', value: 'user', sortable: true },
-  { text: 'Transfer status', value: 'transfer_status', sortable: true },
+  { text: 'Name', value: 'name', sortable: true },
+  { text: 'Route', value: 'route', sortable: true },
+  { text: 'Is Visible?', value: 'is_visible', sortable: true },
 ];
 
-const items = computed(() => getPixels.value);
+const items = computed(() => getPagesList.value);
 const themeColor = ref('rgb(var(--v-theme-primary))');
 
 // const { deleteDomain } = store;
@@ -51,8 +49,8 @@ const themeColor = ref('rgb(var(--v-theme-primary))');
 const itemsSelected = ref<Item[]>([]);
 
 const dialog = ref(false);
-watch(getPixels, (suka) => {
-  console.log('Pixels:', suka);
+watch(getPagesList, (suka) => {
+  console.log('Pages:', suka);
 });
 </script>
 
@@ -86,13 +84,13 @@ watch(getPixels, (suka) => {
                       <template v-slot:prepend>
                         <SvgSprite name="custom-plus" style="width: 20px; height: 20px" />
                       </template>
-                      Add pixel
+                      Create Page
                     </v-btn>
                   </template>
                   <v-card>
                     <perfect-scrollbar style="max-height: calc(100vh - 48px)">
                       <v-card-title class="pa-5">
-                        <span class="text-h5">New Pixel</span>
+                        <span class="text-h5">New Page</span>
                       </v-card-title>
                       <v-divider></v-divider>
                       <v-card-text>
@@ -101,10 +99,10 @@ watch(getPixels, (suka) => {
                             <v-col md="9" cols="12">
                               <v-row>
                                 <v-col cols="12">
-                                  <v-label class="mb-2">Pixel</v-label>
+                                  <v-label class="mb-2">Name</v-label>
                                   <v-text-field
                                     single-line
-                                    placeholder="Enter pixel"
+                                    placeholder="Enter name"
                                     hide-details
                                     variant="outlined"
                                     required
@@ -113,17 +111,54 @@ watch(getPixels, (suka) => {
                                   ></v-text-field>
                                 </v-col>
                                 <v-col cols="12">
-                                  <v-label class="mb-2">Token</v-label>
+                                  <v-label class="mb-2">Route</v-label>
                                   <v-text-field
                                     single-line
                                     hide-details
-                                    placeholder="Enter token"
+                                    placeholder="Enter route"
                                     required
                                     variant="outlined"
                                     density="comfortable"
                                     rounded="0"
                                   ></v-text-field>
                                 </v-col>
+                                <v-col cols="12">
+                                  <v-label class="mb-2">Icon</v-label>
+                                  <v-text-field
+                                    single-line
+                                    hide-details
+                                    placeholder="Icon"
+                                    required
+                                    variant="outlined"
+                                    density="comfortable"
+                                    rounded="0"
+                                  ></v-text-field>
+                                </v-col>
+                                <v-col cols="12">
+                                  <v-label class="mb-2">Roles</v-label>
+                                  <v-text-field
+                                    single-line
+                                    hide-details
+                                    placeholder="ROLES SELECT"
+                                    required
+                                    variant="outlined"
+                                    density="comfortable"
+                                    rounded="0"
+                                  ></v-text-field>
+                                </v-col>
+                                <v-col cols="12">
+                                  <v-label class="mb-2">Group</v-label>
+                                  <v-text-field
+                                    single-line
+                                    hide-details
+                                    placeholder="GROUP SELECT"
+                                    required
+                                    variant="outlined"
+                                    density="comfortable"
+                                    rounded="0"
+                                  ></v-text-field>
+                                </v-col>
+                                <v-label class="mb-2">IS_VISIBLE_CHECKBOX</v-label>
                               </v-row>
                             </v-col>
                           </v-row>
@@ -157,25 +192,19 @@ watch(getPixels, (suka) => {
             :rows-per-page="10"
             v-model:items-selected="itemsSelected"
           >
-            <template #item-id="{ id }">
-              <div class="player-wrapper">
-                <h6 class="text-subtitle-1 mb-0">{{ id }}</h6>
-              </div>
+          <template #item-id="{ id }">
+            <div class="player-wrapper">
+              <h6 class="text-subtitle-1 mb-0">{{ id }}</h6>
+            </div>
             </template>
-            <template #item-pixel="{ pixel }">
-              <div>{{ pixel }}</div>
+            <template #item-pixel="{ name }">
+              <div>{{ name }}</div>
             </template>
-            <template #item-token="{ token }">
-              <div>{{ token }}</div>
+            <template #item-route="{ route }">
+              <div>{{ route }}</div>
             </template>
-            <template #item-created_at="{ created_at }">
-              <div>{{ created_at }}</div>
-            </template>
-            <template #item-user="{ user }">
-              <div>{{ user }}</div>
-            </template>
-            <template #item-trasfer_status="{ transfer_status }">
-              <div>{{ transfer_status }}</div>
+            <template #item-is_visible="{ is_visible }">
+              <div>{{ is_visible === 1 ? 'True' : 'False' }}</div>
             </template>
             <template #item-operation="item">
               <div class="operation-wrapper">

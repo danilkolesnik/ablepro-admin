@@ -35,30 +35,6 @@ const sidebarItem: menu[] = [
       }
     ]
   },
-  {
-    id: 'components',
-    title: 'Components',
-    icon: 'custom-box-1',
-    to: 'components/buttons',
-    getURL: true,
-    type: 'external',
-    chip: 'new',
-    chipColor: 'primary',
-    chipVariant: 'tonal'
-  },
-  {header: "Metrics"},
-  {
-    title: 'Metrics',
-    icon: 'custom-story',
-    to: '/metrics/',
-    children: [
-      {
-        id: 'metrics',
-        title: 'Facebook Pixel',
-        to: '/app/metrics/facebookPixel'
-      }
-    ]
-  },
   {header: "Domains"},
   {
     title: 'Domains',
@@ -77,7 +53,56 @@ const sidebarItem: menu[] = [
       },
     ]
   },
-  { header: 'Widget' },
+  {header: "Metrics"},
+  {
+    title: 'Metrics',
+    icon: 'custom-story',
+    to: '/metrics/',
+    children: [
+      {
+        id: 'metrics',
+        title: 'Facebook Pixel',
+        to: '/app/metrics/facebook-pixel'
+      }
+    ]
+  },
+  {header: "User Management"},
+  {
+    title: 'Users',
+    icon: 'custom-users',
+    to: '/customer/',
+    children: [
+      {
+        id: 'customerlist',
+        title: 'My Team (TODO)',
+        to: '/customer/customerlist'
+      },
+      {
+        id: 'customerlist',
+        title: 'Users',
+        to: '/customer/customerlist'
+      },
+    ]
+  },
+  {header: "Pages Management"},
+  {
+    title: 'Pages',
+    icon: 'custom-sample',
+    to: '/pages/',
+    children: [
+      {
+        id: 'pagesGroupList',
+        title: 'Pages Groups',
+        to: '/pages/pages-groups'
+      },
+      {
+        id: 'pagesList',
+        title: 'Pages',
+        to: '/pages/pages-list'
+      },
+    ]
+  },
+  { header: '========Widget===========' },
   {
     id: 'statistics',
     title: 'Statistics',
@@ -114,43 +139,6 @@ const sidebarItem: menu[] = [
     title: 'Kanban',
     icon: 'custom-kanban',
     to: '/app/kanban'
-  },
-  {
-    title: 'Customer',
-    icon: 'custom-users',
-    to: '/customer/',
-    children: [
-      {
-        id: 'customerlist',
-        title: 'Customer List',
-        to: '/customer/customerlist'
-      },
-      {
-        id: 'createinvoice',
-        title: 'Create Invoice',
-        to: '/app/customer/create-invoice'
-      },
-      {
-        id: 'orderdetails',
-        title: 'Order Details',
-        to: '/app/customer/order-details'
-      },
-      {
-        id: 'orderlist',
-        title: 'Order List',
-        to: '/customer/orderlist'
-      },
-      {
-        id: 'productlist',
-        title: 'Product List',
-        to: '/customer/productlist'
-      },
-      {
-        id: 'productreview',
-        title: 'Product Review',
-        to: '/customer/productreview'
-      }
-    ]
   },
   {
     title: 'Invoice',
