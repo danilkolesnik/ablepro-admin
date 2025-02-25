@@ -4,7 +4,6 @@ import axios from '@/utils/axios';
 // types
 import type { CreateLink, ReferralStateProps } from '@/types/referral';
 
-//USERS TAB STORE
 export const useReferral = defineStore({
   id: 'referral',
   state: (): ReferralStateProps => ({
@@ -12,11 +11,11 @@ export const useReferral = defineStore({
     stats: [],
   }),
   getters: {
-    // Get domains from Getters
+    // Get links from Getters
     getLinks(state) {
       return state.links;
     },
-    // Get Whitelist from Getters
+    // Get stats from Getters
     getStats(state) {
       return state.stats;
     }

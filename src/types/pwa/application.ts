@@ -8,9 +8,10 @@ export interface PwaApplicationStateProps {
   export interface PwaApplication {
     id: number;
     name: {
-      en: string;
-      ru: string;
+      "1": string;
+      [key:number]: string;
     };
+    status: string;
     description: Record<string, unknown>;
     flow_id: number;
     domain_id: number;

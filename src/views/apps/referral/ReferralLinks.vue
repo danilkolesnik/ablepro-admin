@@ -7,11 +7,11 @@ import BaseBreadcrumb from '@/components/shared/BaseBreadcrumb.vue';
 import type { Header, Item } from 'vue3-easy-data-table';
 import 'vue3-easy-data-table/dist/style.css';
 
-const page = ref({ title: 'Refferal links' });
+const page = ref({ title: 'Referral links' });
 
 const breadcrumbs = shallowRef([
   {
-    title: 'Refferal',
+    title: 'Referral',
     disabled: false,
     href: '#'
   },

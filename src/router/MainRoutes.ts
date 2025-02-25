@@ -38,8 +38,23 @@ const MainRoutes = {
     },
     {
       name: 'Referral Stats',
-      path: '/app/referral/stats',
+      path: '/app/referral/statistics',
       component: () => import('@/views/apps/referral/ReferralStats.vue')
+    },
+    {
+      name: 'PWA Applications',
+      path: '/app/pwa/applications',
+      component: () => import('@/views/apps/pwa/application/PwaApplications.vue')
+    },
+    {
+      name: 'PWA Application Edit',
+      path: '/app/pwa/application/:id',
+      component: () => import('@/views/apps/pwa/application/PwaApplicationEdit.vue')
+    },
+    {
+      name: 'Admin Templates',
+      path: '/app/admin/templates',
+      component: () => import('@/views/apps/admins/templates/TemplatesList.vue')
     },
     {
       name: 'Analytics',
