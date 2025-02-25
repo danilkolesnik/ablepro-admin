@@ -7,11 +7,16 @@ import BaseBreadcrumb from '@/components/shared/BaseBreadcrumb.vue';
 import type { Header, Item } from 'vue3-easy-data-table';
 import 'vue3-easy-data-table/dist/style.css';
 
-const page = ref({ title: 'Refferal Stats' });
+const page = ref({ title: 'Referral Stats' });
+
+const formData = ref({
+  user: '',
+  referral: ''
+})
 
 const breadcrumbs = shallowRef([
   {
-    title: 'Refferal',
+    title: 'Referral',
     disabled: false,
     href: '#'
   },
@@ -58,13 +63,22 @@ const itemsSelected = ref<Item[]>([]);
       <v-card elevation="0" variant="outlined" class="bg-surface overflow-hidden" rounded="lg">
         <v-card-item>
           <v-row justify="space-between" class="align-center">
-            <v-col cols="12" md="3">
-              <v-text-field type="text" variant="outlined" persistent-placeholder placeholder="Search 200 records..."
-                v-model="searchValue" density="comfortable" hide-details>
-                <template v-slot:prepend-inner>
-                  <SvgSprite name="custom-search" class="text-lightText" style="width: 14px; height: 14px" />
-                </template>
-              </v-text-field>
+            <v-col class="d-flex">
+              <v-col cols="12" md="4">
+                <v-label class="mb-2">User</v-label>
+                <v-autocomplete :items="['LINK', 'PWA', 'TGAPPS']" rounded="0"
+                  color="primary" single-line density="comfortable" hide-details variant="outlined"
+                  v-model="formData.user" item-title="name" item-value="value"></v-autocomplete>
+              </v-col>
+              <v-col cols="12" md="4">
+                <v-label class="mb-2">Referral</v-label>
+                <v-autocomplete :items="['LINK', 'PWA', 'TGAPPS']" rounded="0"
+                  color="primary" single-line density="comfortable" hide-details variant="outlined"
+                  v-model="formData.referral" item-title="name" item-value="value"></v-autocomplete>
+              </v-col>
+              <v-col class="d-flex align-end">
+                <v-btn color="primary" rounded="md" variant="flat" style="height: 48px;"> Search </v-btn>
+              </v-col>
             </v-col>
             <v-col cols="12" md="3">
               <div class="d-flex ga-2 justify-end">

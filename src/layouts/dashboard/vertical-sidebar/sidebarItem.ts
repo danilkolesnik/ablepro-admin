@@ -168,6 +168,31 @@ const sidebarItem: menu[] = [
       },
     ]
   },
+  { header: 'Admins Management' },
+  {
+    title: 'Admin Templates',
+    icon: 'custom-user-square',
+    to: '/admin/templates',
+    children: [ 
+      {
+        id: 'adminTemplates',
+        title: 'Admin Templates',
+        to: '/app/admin/templates'
+      },
+    ]
+  },
+  {
+    title: 'Admin Promocodes',
+    icon: 'custom-user-square',
+    to: '/admin/promocodes',
+    children: [ 
+      {
+        id: 'adminPromocodes',
+        title: 'Admin Promocodes',
+        to: '/app/admin/promocodes'
+      },
+    ]
+  },
   { header: 'Telegram Management' },
   {
     title: 'Telegram Alerts',
