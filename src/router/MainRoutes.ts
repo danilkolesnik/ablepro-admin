@@ -52,6 +52,11 @@ const MainRoutes = {
       component: () => import('@/views/apps/pwa/application/PwaApplicationEdit.vue')
     },
     {
+      name: 'PWA Application Create',
+      path: '/app/pwa/applications/create',
+      component: () => import('@/views/apps/pwa/application/PwaApplicationCreate.vue')
+    },
+    {
       name: 'Admin Templates',
       path: '/app/admin/templates',
       component: () => import('@/views/apps/admins/templates/TemplatesList.vue')
