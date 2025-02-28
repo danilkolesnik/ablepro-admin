@@ -1,30 +1,46 @@
 <script setup lang="ts">
 import { ref } from "vue";
 
-const formDataMain = ref({
-  version: "",
-  user_tag: "",
-  domain: "",
-  flow: "",
-  pwa_subject: "",
-});
+const pwaVersion = ref("Blue android");
+const userTag = ref("");
+const domain = ref("");
+const flow = ref("");
+const pwaSubject = ref("Gambl");
 </script>
 
 <template>
-  <v-row>
-    <v-col cols="12">
-      <v-label class="mb-2">PWA Version</v-label>
-      <v-autocomplete
-        :items="['LINK', 'PWA', 'TGAPPS']"
-        label="LINK"
-        rounded="0"
-        color="primary"
-        single-line
-        density="comfortable"
-        hide-details
-        variant="outlined"
-        v-model="formDataDomain.category"
-      ></v-autocomplete>
-    </v-col>
-  </v-row>
+  <v-container>
+    <h3 class="text-h6 font-weight-bold mt-4">PWA Version</h3>
+    <v-select
+      v-model="pwaVersion"
+      label=""
+      :items="['Blue android', 'Blue updated android', 'Green android']"
+    />
+
+    <h3 class="text-h6 font-weight-bold mt-4">User tag</h3>
+    <v-text-field v-model="userTag" label="User tag" />
+
+    <h3 class="text-h6 font-weight-bold mt-4">Domain</h3>
+    <v-select
+      v-model="domain"
+      label=""
+      :items="['Select domain']"
+    />
+    <v-btn class="mt-2" variant="outlined">Add custom domain</v-btn>
+
+    <h3 class="text-h6 font-weight-bold mt-4">Select Flow</h3>
+    <v-select
+      v-model="flow"
+      label=""
+      :items="['Select flow']"
+    />
+    <v-btn class="mt-2" variant="outlined">Add custom flow</v-btn>
+
+    <h3 class="text-h6 font-weight-bold mt-4">PWA Subject</h3>
+    <v-select
+      v-model="pwaSubject"
+      label=""
+      :items="['Gambling']"
+    />
+  </v-container>
 </template>

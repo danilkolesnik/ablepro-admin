@@ -190,11 +190,17 @@ const deleteApp = (id: number) => {
               <div class="d-flex ga-2 justify-end">
                 <v-dialog v-model="dialogStandart" class="customer-modal">
                   <template v-slot:activator="{ props }">
-                    <v-btn variant="flat" color="primary" rounded="md" v-bind="props">
+                    <v-btn
+                      variant="flat"
+                      color="primary"
+                      rounded="md"
+                      v-bind="props"
+                      :to="'/app/pwa/applications/create'"
+                    >
                       <template v-slot:prepend>
                         <SvgSprite name="custom-plus" style="width: 20px; height: 20px" />
                       </template>
-                      Add Application
+                      Create PWA
                     </v-btn>
                   </template>
                   <v-card>
