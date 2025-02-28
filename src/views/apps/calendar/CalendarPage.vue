@@ -1,22 +1,22 @@
 <script setup lang="ts">
-import { ref, shallowRef } from 'vue';
+import { ref, shallowRef } from "vue";
 
-import BaseBreadcrumb from '@/components/shared/BaseBreadcrumb.vue';
-import UiParentCard from '@/components/shared/UiParentCard.vue';
+import BaseBreadcrumb from "@/components/shared/BaseBreadcrumb.vue";
+import UiParentCard from "@/components/shared/UiParentCard.vue";
 
-const page = ref({ title: 'Calendar' });
+const page = ref({ title: "Calendar" });
 
 const breadcrumbs = shallowRef([
   {
-    title: 'Applications',
+    title: "Applications",
     disabled: false,
-    href: '#'
+    href: "#",
   },
   {
-    title: 'Calendar',
+    title: "Calendar",
     disabled: true,
-    href: '#'
-  }
+    href: "#",
+  },
 ]);
 </script>
 <template>

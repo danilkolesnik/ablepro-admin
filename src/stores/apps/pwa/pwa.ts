@@ -7,12 +7,16 @@ import type { CreatePwaApplication, PwaApplication, PwaApplicationStateProps } f
 export const usePwaApplications = defineStore({
   id: 'pwa',
   state: (): PwaApplicationStateProps => ({
-    pwa_applications: []
+    pwa_applications: [],
+    drafts: []
   }),
   getters: {
     // Get Applications from Getters
     getApplications(state) {
       return state.pwa_applications;
+    },
+    getDrafts(state) {
+      return state.drafts;
     }
   },
   actions: {
@@ -24,6 +28,16 @@ export const usePwaApplications = defineStore({
         this.pwa_applications = response.data.data.data;
       } catch (error) {
         console.error(error);
+      }
+    },
+
+    // Get Drafts from action
+    async getDraftsData() {
+      try {
+        const response = await axios.get('/api/pwa/drafts');
+        this.drafts = response.data.data.data;
+      } catch (err) {
+        console.log(err);
       }
     },
 
@@ -41,16 +55,6 @@ export const usePwaApplications = defineStore({
     async getDataCreateApplication() {
       try {
         const data = await axios.get('/api/pwa/create');
-        return data.data;
-      } catch (err) {
-        console.log(err);
-      }
-    },
-
-    // Get Drafts from action
-    async getDrafts() {
-      try {
-        const data = await axios.get('/api/pwa/drafts');
         return data.data;
       } catch (err) {
         console.log(err);
@@ -83,7 +87,6 @@ export const usePwaApplications = defineStore({
     async restoreApplication(id: number) {
       try {
         await axios.patch(`/api/pwa/restore/${id}`);
-        await this.fetchApplications();
       } catch (err) {
         console.log(err);
       }

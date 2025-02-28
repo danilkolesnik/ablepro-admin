@@ -75,11 +75,11 @@ onMounted(() => {
   store.getTemplatesData();
 });
 
-const searchField = ref("domain");
+const searchField = ref("name");
 const searchValue = ref("");
 
 const headers: Header[] = [
-  { text: "NAME", value: "name", sortable: true },
+  { text: "NAME", value: "id", sortable: true },
   { text: "STATUS", value: "status", sortable: true },
   { text: "CREATED", value: "created_at", sortable: true },
 ];
