@@ -1,5 +1,6 @@
 export interface PwaApplicationStateProps {
     pwa_applications: PwaApplication[];
+    drafts: []
     error?: object | string | null;
   }
   

@@ -1,20 +1,17 @@
 export interface AdminsPromocodesStateProps {
-    admins_promocodes: Promocode[];
-    error?: object | string | null;
-  }
-  
-  export type Promocode = {
-    id: number;
-    domain: string;
-    price: number;
-    user_id: number;
-    category: string;
-    created_at: string;
-    status: string;
-  };
-  
-  export type CreatePromocode = {
-    price: number;
-    domains: string;
-    category: string;
-  };
+  admins_promocodes: Promocode[];
+  error?: object | string | null;
+}
+
+export type Promocode = {
+  id: number;
+  code: string;
+  expired_at: string;
+  discount: string;
+};
+
+export type CreatePromocode = {
+  quantity: string;
+  discount: string;
+  expired_at: string;
+};

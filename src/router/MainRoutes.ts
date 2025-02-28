@@ -52,14 +52,24 @@ const MainRoutes = {
       component: () => import('@/views/apps/pwa/application/PwaApplicationEdit.vue')
     },
     {
+      name: 'PWA Application Drafts',
+      path: '/app/pwa/application/drafts',
+      component: () => import('@/views/apps/pwa/application/PwaDrafts.vue')
+    },
+    {
       name: 'PWA Application Create',
       path: '/app/pwa/applications/create',
       component: () => import('@/views/apps/pwa/application/PwaApplicationCreate.vue')
     },
     {
       name: 'Admin Templates',
-      path: '/app/admin/templates',
+      path: '/app/admins/templates',
       component: () => import('@/views/apps/admins/templates/TemplatesList.vue')
+    },
+    {
+      name: 'Admin Promocodes',
+      path: '/app/admins/promocodes',
+      component: () => import('@/views/apps/admins/promocodes/PromocodesList.vue')
     },
     {
       name: 'Analytics',

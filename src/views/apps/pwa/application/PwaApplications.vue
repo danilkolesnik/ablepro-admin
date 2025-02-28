@@ -45,16 +45,7 @@ const formDataApplication = ref({
   two_rating_quantity: [3, 5],
   one_rating_quantity: [2, 3],
   domain_id: 10,
-  reviews_array: [
-    {
-      author: "User1",
-      rating: 4.8,
-      body: "Great app!",
-      date: "2024-06-01",
-      useful: 5,
-      pfp: "profile.jpg",
-    },
-  ],
+  reviews_array: [],
   youtube_video: ["https://youtu.be/xyz123"],
   video: ["video.mp4"],
   selected_versions: [1, 2],
@@ -67,11 +58,7 @@ const formDataApplication = ref({
   related_pushes: [2, 8],
 });
 
-const { getDataCreateApplication } = store;
-
-const onSubmitForm = async () => {
-  // createApplications()
-};
+const { getDataCreateApplication, deleteApplication, createApplications } = store;
 
 const dataForCreateApplication = ref({
   status: "success",
@@ -111,6 +98,7 @@ const headers: Header[] = [
 
 const items = computed(() => {
   return getApplications.value.map((item: PwaApplication) => ({
+    id: item.id,
     name: `${item.name["1"]}(${item.id})`,
     user_tag: item.id,
     status: item.status,
@@ -122,6 +110,49 @@ const themeColor = ref("rgb(var(--v-theme-primary))");
 const itemsSelected = ref<Item[]>([]);
 
 const dialogStandart = ref(false);
+
+const onSubmitForm = async () => {
+  try {
+    createApplications({
+      name: formDataApplication.value.name,
+      user_tag: formDataApplication.value.user_tag,
+      description: formDataApplication.value.description,
+      flow_id: formDataApplication.value.flow_id,
+      template_id: formDataApplication.value.template_id,
+      author: formDataApplication.value.author,
+      rating: formDataApplication.value.rating,
+      reviews_count: formDataApplication.value.reviews_count,
+      installs_quantity: formDataApplication.value.installs_quantity,
+      five_rating_quantity: formDataApplication.value.five_rating_quantity,
+      four_rating_quantity: formDataApplication.value.four_rating_quantity,
+      three_rating_quantity: formDataApplication.value.three_rating_quantity,
+      two_rating_quantity: formDataApplication.value.two_rating_quantity,
+      one_rating_quantity: formDataApplication.value.one_rating_quantity,
+      domain_id: formDataApplication.value.domain_id,
+      reviews_array: formDataApplication.value.reviews_array,
+      youtube_video: formDataApplication.value.youtube_video,
+      video: formDataApplication.value.video,
+      selected_versions: formDataApplication.value.selected_versions,
+      related_pwas: formDataApplication.value.related_pwas,
+      installs_text: formDataApplication.value.installs_text,
+      reviews_text: formDataApplication.value.reviews_text,
+      ad_info: formDataApplication.value.ad_info,
+      subject_id: formDataApplication.value.subject_id,
+      pixel_id: formDataApplication.value.pixel_id,
+      related_pushes: formDataApplication.value.related_pushes,
+    });
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+const deleteApp = (id: number) => {
+  try {
+    deleteApplication(id);
+  } catch (err) {
+    console.log(err);
+  }
+};
 </script>
 
 <template>
@@ -159,10 +190,10 @@ const dialogStandart = ref(false);
               <div class="d-flex ga-2 justify-end">
                 <v-dialog v-model="dialogStandart" class="customer-modal">
                   <template v-slot:activator="{ props }">
-                    <v-btn 
-                      variant="flat" 
-                      color="primary" 
-                      rounded="md" 
+                    <v-btn
+                      variant="flat"
+                      color="primary"
+                      rounded="md"
                       v-bind="props"
                       :to="'/app/pwa/applications/create'"
                     >
@@ -175,31 +206,12 @@ const dialogStandart = ref(false);
                   <v-card>
                     <perfect-scrollbar style="max-height: calc(100vh - 48px)">
                       <v-card-title class="pa-5">
-                        <span class="text-h5">New Referral</span>
+                        <span class="text-h5">New Application</span>
                       </v-card-title>
                       <v-divider></v-divider>
                       <v-card-text>
                         <v-container>
                           <v-row>
-                            <v-col md="3" cols="12" class="text-center">
-                              <v-avatar
-                                size="72"
-                                variant="outlined"
-                                color="primary"
-                                class="dashed"
-                              >
-                                <img
-                                  src="@/assets/images/users/avatar-1.png"
-                                  width="72"
-                                  alt="profile"
-                                />
-                                <input
-                                  type="file"
-                                  aria-label="upload"
-                                  class="preview-upload"
-                                />
-                              </v-avatar>
-                            </v-col>
                             <v-col md="9" cols="12">
                               <v-row>
                                 <v-col cols="12">
@@ -301,6 +313,19 @@ const dialogStandart = ref(false);
             </template>
             <template #item-host="{ host }">
               <div>{{ host }}</div>
+            </template>
+            <template #item-operation="item">
+              <div class="operation-wrapper">
+                <v-btn
+                  icon
+                  color="error"
+                  aria-label="trash"
+                  @click="deleteApp(item.id)"
+                  rounded="md"
+                >
+                  <SvgSprite name="custom-trash" style="width: 20px; height: 20px" />
+                </v-btn>
+              </div>
             </template>
           </EasyDataTable>
         </v-card-text>
