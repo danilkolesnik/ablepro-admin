@@ -188,86 +188,17 @@ const deleteApp = (id: number) => {
             </v-col>
             <v-col cols="12" md="3">
               <div class="d-flex ga-2 justify-end">
-                <v-dialog v-model="dialogStandart" class="customer-modal">
-                  <template v-slot:activator="{ props }">
-                    <v-btn
-                      variant="flat"
-                      color="primary"
-                      rounded="md"
-                      v-bind="props"
-                      :to="'/app/pwa/applications/create'"
-                    >
-                      <template v-slot:prepend>
-                        <SvgSprite name="custom-plus" style="width: 20px; height: 20px" />
-                      </template>
-                      Create PWA
-                    </v-btn>
+                <v-btn
+                  variant="flat"
+                  color="primary"
+                  rounded="md"
+                  :to="'/app/pwa/applications/create'"
+                >
+                  <template v-slot:prepend>
+                    <SvgSprite name="custom-plus" style="width: 20px; height: 20px" />
                   </template>
-                  <v-card>
-                    <perfect-scrollbar style="max-height: calc(100vh - 48px)">
-                      <v-card-title class="pa-5">
-                        <span class="text-h5">New Application</span>
-                      </v-card-title>
-                      <v-divider></v-divider>
-                      <v-card-text>
-                        <v-container>
-                          <v-row>
-                            <v-col md="9" cols="12">
-                              <v-row>
-                                <v-col cols="12">
-                                  <v-label class="mb-2">Name</v-label>
-                                  <v-text-field
-                                    single-line
-                                    placeholder="Enter Name"
-                                    hide-details
-                                    variant="outlined"
-                                    required
-                                    density="comfortable"
-                                    rounded="0"
-                                    v-model="formDataApplication.name"
-                                  ></v-text-field>
-                                </v-col>
-                                <v-col cols="12">
-                                  <v-label class="mb-2">Link</v-label>
-                                  <v-text-field
-                                    single-line
-                                    hide-details
-                                    placeholder="Enter Link"
-                                    required
-                                    variant="outlined"
-                                    density="comfortable"
-                                    rounded="0"
-                                    v-model="formDataApplication.name"
-                                  ></v-text-field>
-                                </v-col>
-                              </v-row>
-                            </v-col>
-                          </v-row>
-                        </v-container>
-                      </v-card-text>
-                      <v-divider></v-divider>
-                      <v-card-actions>
-                        <v-spacer></v-spacer>
-                        <v-btn
-                          color="error"
-                          rounded="md"
-                          variant="text"
-                          @click="dialogStandart = false"
-                        >
-                          Cancel
-                        </v-btn>
-                        <v-btn
-                          color="primary"
-                          rounded="md"
-                          variant="flat"
-                          @click="onSubmitForm"
-                        >
-                          Add
-                        </v-btn>
-                      </v-card-actions>
-                    </perfect-scrollbar>
-                  </v-card>
-                </v-dialog>
+                  Create PWA
+                </v-btn>
                 <v-btn
                   icon
                   variant="text"

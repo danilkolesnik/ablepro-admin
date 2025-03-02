@@ -34,23 +34,11 @@ export const useCustomers = defineStore({
   actions: {
     // Fetch Customers from action
     async fetchCustomers() {
-      try {
-        const user = JSON.parse(localStorage.getItem('user') || '{}');
-        const token = user?.token;
-    
-        if (!token) {
-          throw new Error('Токен не найден, необходимо авторизоваться.');
-        }
-    
-        const response = await axios.get('https://api.spendy.pro/api/users', {
-          headers: {
-            'Accept': 'application/json',
-            'X-CSRF-TOKEN': token, // Если API требует CSRF-токен
-            'Authorization': `Bearer ${token}` // Добавляем JWT-токен
-          }
-        });
+      try {    
+        const response = await axios.get('/api/users');
     
         this.customers = response.data.data;
+        return response.data.data
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } catch (error: any) {
         console.error('Ошибка при получении пользователей:', error);

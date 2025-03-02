@@ -22,7 +22,7 @@ export const usePwaStatistics = defineStore({
   },
   actions: {
     // Get Data All Statistics from action
-    async getDataAllStatistics(params: ParamsPwaStatisticsAll) {
+    async getDataAllStatisticsData(params: ParamsPwaStatisticsAll) {
       try {
         const data = await axios.get('/api/pwa/statistics/all', {
           params: {
@@ -40,7 +40,7 @@ export const usePwaStatistics = defineStore({
     },
 
     // Get Pushes from action
-    async getDataOneStatistics(params: ParamsPwaStatisticsDetails) {
+    async getDataOneStatisticsData(params: ParamsPwaStatisticsDetails) {
       try {
         const data = await axios.get(`/api/statistics/details`,{params: {
             limit: params.limit,

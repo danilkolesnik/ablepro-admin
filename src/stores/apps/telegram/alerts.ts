@@ -7,12 +7,12 @@ import type { CreateTelegramAlert, TelegramAlertsStateProps } from '@/types/tele
 export const useTelegramAlerts = defineStore({
   id: 'telegramAlerts',
   state: (): TelegramAlertsStateProps => ({
-    telegram_alerts: []
+    telegram_bots: []
   }),
   getters: {
     // Get Telegram Alerts from Getters
-    getTelegramAlerts(state) {
-      return state.telegram_alerts;
+    getTelegramBots(state) {
+      return state.telegram_bots;
     }
   },
   actions: {
@@ -21,14 +21,14 @@ export const useTelegramAlerts = defineStore({
       try {
         const response = await axios.get(`/api/telegram-alerts`);
 
-        this.telegram_alerts = response.data.data;
+        this.telegram_bots = response.data;
       } catch (error) {
         console.error(error);
       }
     },
 
     // Create Telegram Alert from action
-    async createSplit(body: CreateTelegramAlert) {
+    async createTelegramAlert(body: CreateTelegramAlert) {
       try {
         await axios.post('/api/telegram-alerts', body);
         await this.getTelegramAlertsData();

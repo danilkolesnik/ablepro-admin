@@ -11,7 +11,6 @@ export const usePwaSplits = defineStore({
     pwa_split_one: {}
   }),
   getters: {
-    // Get Splits from Getters
     getSplits(state) {
       return state.pwa_splits;
     },
@@ -20,18 +19,16 @@ export const usePwaSplits = defineStore({
     }
   },
   actions: {
-    // Get Splits from action
     async getSplitsData() {
       try {
         const response = await axios.get(`/api/pwa/splits`);
 
-        this.pwa_splits = response.data.data;
+        this.pwa_splits = response.data;
       } catch (error) {
         console.error(error);
       }
     },
 
-    // Create Split from action
     async createSplit(body: CreatePwaSplit) {
       try {
         await axios.post('/api/splits', body);
@@ -41,7 +38,6 @@ export const usePwaSplits = defineStore({
       }
     },
 
-    // Get Data for Create Split from action
     async getDataCreateSplit() {
       try {
         const data = await axios.get('/api/pwa/splits/create');
@@ -51,7 +47,6 @@ export const usePwaSplits = defineStore({
       }
     },
 
-    // Get Split from action
     async getSplitOneData(id: number) {
       try {
         const response = await axios.get(`/api/pwa/splits/${id}`);
@@ -62,7 +57,6 @@ export const usePwaSplits = defineStore({
       }
     },
 
-    // Update Split from action
     async updateSplit(id: number, body: CreatePwaSplit) {
       try {
         await axios.put(`/api/pwa/splits/${id}`, body);
@@ -72,7 +66,6 @@ export const usePwaSplits = defineStore({
       }
     },
 
-    // Delete Split from action
     async deleteSplit(id: number) {
       try {
         await axios.delete(`/api/pwa/splits/${id}`);

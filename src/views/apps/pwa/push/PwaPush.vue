@@ -1,62 +1,38 @@
 <script setup lang="ts">
 import { ref, computed, onMounted, shallowRef } from "vue";
-import { useReferral } from "@/stores/apps/referral";
+import { usePwaPush } from "@/stores/apps/pwa/pwa_push";
 
 import SvgSprite from "@/components/shared/SvgSprite.vue";
 import BaseBreadcrumb from "@/components/shared/BaseBreadcrumb.vue";
 import type { Header, Item } from "vue3-easy-data-table";
 import "vue3-easy-data-table/dist/style.css";
+// import type { use } from "@/types/pwa/splits";
 
-const page = ref({ title: "Referral links" });
+const page = ref({ title: "PWA Push" });
 
 const breadcrumbs = shallowRef([
   {
-    title: "Referral",
+    title: "PWA",
     disabled: false,
     href: "#",
   },
   {
-    title: "Links",
+    title: "Push",
     disabled: true,
     href: "#",
   },
 ]);
 
-const store = useReferral();
+const store = usePwaPush();
 
-const getLinks = computed(() => {
-  return store.getLinks;
+const getPushes = computed(() => {
+  return store.getPushes;
 });
 
-const formDataLink = ref({
-  name: "",
-  link: "",
-});
-
-const { createLink } = store;
-
-const onSubmitForm = async (type = "standart") => {
-  console.log({
-    type,
-    name: formDataLink.value.name,
-    link: formDataLink.value.link,
-  });
-  if (type === "standart") {
-    const body = {
-      name: formDataLink.value.name,
-      link: formDataLink.value.link,
-    };
-    formDataLink.value = {
-      name: "",
-      link: "",
-    };
-    await createLink(body);
-    dialogStandart.value = false;
-  }
-};
+// const { getDataCreateApplication, deleteApplication, createApplications } = store;
 
 onMounted(() => {
-  store.fetchLinks();
+  store.getPushesData();
 });
 
 const searchField = ref("name");
@@ -64,21 +40,29 @@ const searchValue = ref("");
 
 const headers: Header[] = [
   { text: "NAME", value: "name", sortable: true },
-  { text: "LINK", value: "link", sortable: true },
-  { text: "Referrals quantity", value: "referrals_quantity", sortable: true },
+  { text: "CREATED AT", value: "created_at", sortable: true },
+  { text: "DAYS TO SEND", value: "days_to_send", sortable: true },
+  { text: "INTERVALS", value: "intervals", sortable: true },
+  { text: "ACTIVE", value: "is_active", sortable: true },
+  { text: "TIME SO SEND", value: "time_to_send", sortable: true },
+  { text: "Action", value: "operation" },
 ];
 
 const items = computed(() =>
-  getLinks.value.map((item) => ({
-    ...item,
-    link: `https://demo.spendy.pro/register?ref=${item.uuid}`,
-  }))
+  getPushes.value.map((item) => {
+    return {
+      ...item,
+      intervals: item.intervals
+        .map((days) => `${days.type} ${days.time} ${days.interval}`)
+        .join(""),
+    };
+  })
 );
 const themeColor = ref("rgb(var(--v-theme-primary))");
 
 const itemsSelected = ref<Item[]>([]);
 
-const dialogStandart = ref(false);
+// const dialogStandart = ref(true);
 </script>
 
 <template>
@@ -113,44 +97,31 @@ const dialogStandart = ref(false);
               </v-text-field>
             </v-col>
             <v-col cols="12" md="3">
-              <div class="d-flex ga-2 justify-end">
+              <!-- <div class="d-flex ga-2 justify-end">
                 <v-dialog v-model="dialogStandart" class="customer-modal">
                   <template v-slot:activator="{ props }">
-                    <v-btn variant="flat" color="primary" rounded="md" v-bind="props">
+                    <v-btn
+                      variant="flat"
+                      color="primary"
+                      rounded="md"
+                      v-bind="props"
+                      :to="'/app/pwa/applications/create'"
+                    >
                       <template v-slot:prepend>
                         <SvgSprite name="custom-plus" style="width: 20px; height: 20px" />
                       </template>
-                      Add Referral
+                      Create PWA Push
                     </v-btn>
                   </template>
                   <v-card>
                     <perfect-scrollbar style="max-height: calc(100vh - 48px)">
                       <v-card-title class="pa-5">
-                        <span class="text-h5">New Referral</span>
+                        <span class="text-h5">New Push</span>
                       </v-card-title>
                       <v-divider></v-divider>
                       <v-card-text>
                         <v-container>
                           <v-row>
-                            <v-col md="3" cols="12" class="text-center">
-                              <v-avatar
-                                size="72"
-                                variant="outlined"
-                                color="primary"
-                                class="dashed"
-                              >
-                                <img
-                                  src="@/assets/images/users/avatar-1.png"
-                                  width="72"
-                                  alt="profile"
-                                />
-                                <input
-                                  type="file"
-                                  aria-label="upload"
-                                  class="preview-upload"
-                                />
-                              </v-avatar>
-                            </v-col>
                             <v-col md="9" cols="12">
                               <v-row>
                                 <v-col cols="12">
@@ -163,7 +134,7 @@ const dialogStandart = ref(false);
                                     required
                                     density="comfortable"
                                     rounded="0"
-                                    v-model="formDataLink.name"
+                                    v-model="formDataApplication.name"
                                   ></v-text-field>
                                 </v-col>
                                 <v-col cols="12">
@@ -176,7 +147,7 @@ const dialogStandart = ref(false);
                                     variant="outlined"
                                     density="comfortable"
                                     rounded="0"
-                                    v-model="formDataLink.link"
+                                    v-model="formDataApplication.name"
                                   ></v-text-field>
                                 </v-col>
                               </v-row>
@@ -199,7 +170,7 @@ const dialogStandart = ref(false);
                           color="primary"
                           rounded="md"
                           variant="flat"
-                          @click="onSubmitForm('standart')"
+                          @click="onSubmitForm"
                         >
                           Add
                         </v-btn>
@@ -207,7 +178,7 @@ const dialogStandart = ref(false);
                     </perfect-scrollbar>
                   </v-card>
                 </v-dialog>
-              </div>
+              </div> -->
             </v-col>
           </v-row>
         </v-card-item>
@@ -239,6 +210,16 @@ const dialogStandart = ref(false);
             </template>
             <template #item-host="{ host }">
               <div>{{ host }}</div>
+            </template>
+            <template #item-operation="">
+              <div class="operation-wrapper">
+                <v-btn icon color="info" aria-label="trash">
+                  <SvgSprite
+                    name="custom-edit-outline"
+                    style="width: 20px; height: 20px"
+                  />
+                </v-btn>
+              </div>
             </template>
           </EasyDataTable>
         </v-card-text>

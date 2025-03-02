@@ -62,6 +62,31 @@ const MainRoutes = {
       component: () => import('@/views/apps/pwa/application/PwaApplicationCreate.vue')
     },
     {
+      name: 'PWA Splits',
+      path: '/app/pwa/splits',
+      component: () => import('@/views/apps/pwa/splits/PwaSplits.vue')
+    },
+    {
+      name: 'PWA Pushes',
+      path: '/app/pwa/push',
+      component: () => import('@/views/apps/pwa/push/PwaPush.vue')
+    },
+    {
+      name: 'PWA Statistics',
+      path: '/app/pwa/statistics',
+      component: () => import('@/views/apps/pwa/statistics/PwaStatistics.vue')
+    },
+    {
+      name: 'Telegram Alerts',
+      path: '/app/telegram/alerts',
+      component: () => import('@/views/apps/telegram/TelegramCreateAlert.vue')
+    },
+    {
+      name: 'Telegram Keys',
+      path: '/app/telegram/keys',
+      component: () => import('@/views/apps/telegram/TelegramKeys.vue')
+    },
+    {
       name: 'Admin Templates',
       path: '/app/admins/templates',
       component: () => import('@/views/apps/admins/templates/TemplatesList.vue')

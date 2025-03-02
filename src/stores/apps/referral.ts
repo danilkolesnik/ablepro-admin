@@ -27,6 +27,7 @@ export const useReferral = defineStore({
         const response = await axios.get(`/api/referral-links`);
 
         this.links = response.data.data;
+        return response.data.data
       } catch (error) {
         console.error(error);
       }
@@ -43,9 +44,9 @@ export const useReferral = defineStore({
     },
 
     // Fetch Stats from action
-    async fetchStats() {
+    async fetchStats(user_id: number, referral_id:number) {
       try {
-        const data = await axios.get(`/api/referral-links/stats`);
+        const data = await axios.get(`/api/referral-links/stats?user=${user_id}&referral${referral_id}`);
         this.stats = data.data;
       } catch (err) {
         console.log(err);

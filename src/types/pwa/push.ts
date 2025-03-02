@@ -32,6 +32,12 @@ export interface PwaPush {
     en: string;
     ru: string;
   };
+  intervals: {
+    id: string;
+    type: string;
+    time: string;
+    interval: string;
+  }[];
   reviews: Review[];
   template: Template;
   flow: Flow;

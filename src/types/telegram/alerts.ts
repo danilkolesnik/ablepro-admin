@@ -1,5 +1,5 @@
 export interface TelegramAlertsStateProps {
-telegram_alerts: TelegramAlert[];
+telegram_bots: TelegramAlert[];
   error?: object | string | null;
 }
 
@@ -21,7 +21,7 @@ export interface TelegramAlert {
 
 export interface CreateTelegramAlert {
   message: string;
-  bot_id: number;
+  bot_id: number | null;
   image: string;
   video: string;
 }
