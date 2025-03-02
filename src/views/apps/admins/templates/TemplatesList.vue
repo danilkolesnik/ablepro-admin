@@ -6,6 +6,10 @@ import BaseBreadcrumb from "@/components/shared/BaseBreadcrumb.vue";
 import type { Header, Item } from "vue3-easy-data-table";
 import "vue3-easy-data-table/dist/style.css";
 import { useAdminsTemplates } from "@/stores/apps/admins/templates";
+import { usePwaApplications } from "@/stores/apps/pwa/pwa";
+import { useCustomers } from "@/stores/apps/customers";
+import type { CreateTemplate } from "@/types/admins/templates";
+import type { Customer } from "@/types/customers";
 
 const page = ref({ title: "PWA template list" });
 
@@ -23,14 +27,31 @@ const breadcrumbs = shallowRef([
 ]);
 
 const store = useAdminsTemplates();
+const { getDataCreateApplication } = usePwaApplications();
+const { fetchCustomers } = useCustomers();
+
+const statusItems = [
+  { id: 0, label: "OFF" },
+  { id: 1, label: "ON" },
+];
+
+const categoryItems = ref<{ id: number; children: { id: number; name: string }[] }[]>([]);
+const sub_categoryItems = computed(() => {
+  return categoryItems.value.find(
+    (item) => item.id === formDataTemplate.value.category_id
+  )?.children;
+});
+
+const userItems = ref<Customer[]>([]);
 
 const getTemplates = computed(() => {
   return store.getTemplates;
 });
 
-const formDataDomain = ref({
-  status: "",
-  category: "",
+const formDataTemplate = ref<CreateTemplate>({
+  status: null,
+  category_id: null,
+  subcategory_id: null,
   icon: "",
   banner_1: "",
   banner_2: "",
@@ -38,40 +59,73 @@ const formDataDomain = ref({
   banner_4: "",
   banner_5: "",
   banner_6: "",
-  user_id: "",
+  user_id: null,
+  is_available_for_team: false as boolean,
 });
 
-const formDataCustomDomain = ref({
-  domains: "",
+const formDataTemplateCustom = ref<{ icon: File | null; banners: File[] }>({
+  icon: null,
+  banners: [],
 });
 
-// const { createDomains, createCustomDomains } = store;
+const { createTemplate, createTemplateCustom } = store;
 
-// const onSubmitForm = async (type = "standart") => {
-//   if (type === "standart") {
-//     const body = {
-//       price: formDataDomain.value.price,
-//       domains: formDataDomain.value.domains,
-//       category: formDataDomain.value.category,
-//     };
-//     formDataDomain.value = {
-//       price: 0,
-//       domains: "",
-//       category: "",
-//     };
-//     await createDomains(body);
-//     dialogStandart.value = false;
-//   } else {
-//     formDataCustomDomain.value = {
-//       domains: "",
-//     };
+const onSubmitForm = async (type = "standart") => {
+  if (type === "standart") {
+    const body = {
+      status: formDataTemplate.value.status,
+      icon: formDataTemplate.value.icon,
+      banner_1: formDataTemplate.value.banner_1,
+      banner_2: formDataTemplate.value.banner_2,
+      banner_3: formDataTemplate.value.banner_3,
+      banner_4: formDataTemplate.value.banner_4,
+      banner_5: formDataTemplate.value.banner_5,
+      banner_6: formDataTemplate.value.banner_6,
+      category_id: formDataTemplate.value.category_id,
+      subcategory_id: formDataTemplate.value.subcategory_id,
+      user_id: formDataTemplate.value.user_id,
+      is_available_for_team: formDataTemplate.value.is_available_for_team,
+    };
 
-//     await createCustomDomains({ domains: formDataCustomDomain.value.domains });
-//     dialogCustom.value = false;
-//   }
-// };
+    formDataTemplate.value = {
+      status: null,
+      category_id: null,
+      subcategory_id: null,
+      icon: "",
+      banner_1: "",
+      banner_2: "",
+      banner_3: "",
+      banner_4: "",
+      banner_5: "",
+      banner_6: "",
+      user_id: null,
+      is_available_for_team: false,
+    };
+
+    await createTemplate(body);
+    dialogStandart.value = false;
+  } else {
+    const body = {
+      icon: formDataTemplateCustom.value.icon,
+      banners: formDataTemplateCustom.value.banners,
+    };
+
+    formDataTemplateCustom.value = {
+      icon: null,
+      banners: [],
+    };
+    await createTemplateCustom(body);
+    dialogCustom.value = false;
+  }
+};
 
 onMounted(() => {
+  getDataCreateApplication().then((res) => {
+    categoryItems.value = res.categories;
+  });
+  fetchCustomers().then((res) => {
+    userItems.value = res;
+  });
   store.getTemplatesData();
 });
 
@@ -132,62 +186,187 @@ const dialogCustom = ref(false);
                       <template v-slot:prepend>
                         <SvgSprite name="custom-plus" style="width: 20px; height: 20px" />
                       </template>
-                      Add domain
+                      Add Template
                     </v-btn>
                   </template>
                   <v-card>
                     <perfect-scrollbar style="max-height: calc(100vh - 48px)">
                       <v-card-title class="pa-5">
-                        <span class="text-h5">New Domain</span>
+                        <span class="text-h5">New Temlate</span>
                       </v-card-title>
                       <v-divider></v-divider>
                       <v-card-text>
                         <v-container>
-                          <v-col md="9" cols="12">
-                            <v-col cols="12">
-                              <v-label class="mb-2">Status</v-label>
-                              <v-autocomplete
-                                :items="['OFF', 'ON']"
-                                rounded="0"
-                                color="primary"
-                                single-line
-                                density="comfortable"
-                                hide-details
-                                variant="outlined"
-                                v-model="formDataDomain.status"
-                              ></v-autocomplete>
-                            </v-col>
+                          <v-col cols="12">
+                            <v-label class="mb-2">Status</v-label>
+                            <v-autocomplete
+                              :items="statusItems"
+                              item-title="label"
+                              item-value="id"
+                              rounded="0"
+                              color="primary"
+                              single-line
+                              density="comfortable"
+                              hide-details
+                              label="Status"
+                              variant="outlined"
+                              v-model="formDataTemplate.status"
+                            ></v-autocomplete>
                           </v-col>
-                          <v-col md="9" cols="12">
-                            <v-col cols="12">
-                              <v-label class="mb-2">Category</v-label>
-                              <v-autocomplete
-                                :items="['Gambling', 'Animated Gambling', 'Custom']"
-                                label="LINK"
-                                rounded="0"
-                                color="primary"
-                                single-line
-                                density="comfortable"
-                                hide-details
-                                variant="outlined"
-                                v-model="formDataDomain.category"
-                              ></v-autocomplete>
-                            </v-col>
+
+                          <v-col cols="12">
+                            <v-label class="mb-2">Category</v-label>
+                            <v-autocomplete
+                              :items="categoryItems"
+                              item-value="id"
+                              item-title="name"
+                              rounded="0"
+                              color="primary"
+                              single-line
+                              density="comfortable"
+                              hide-details
+                              label="Category"
+                              variant="outlined"
+                              v-model="formDataTemplate.category_id"
+                            ></v-autocomplete>
                           </v-col>
-                          <v-col md="9" cols="12">
-                            <v-col cols="12">
-                              <v-label class="mb-2">SubCategory</v-label>
-                              <v-autocomplete
-                                :items="['My template']"
-                                rounded="0"
-                                color="primary"
-                                single-line
-                                density="comfortable"
-                                hide-details
-                                variant="outlined"
-                                v-model="formDataDomain.category"
-                              ></v-autocomplete>
-                            </v-col>
+                          <v-col cols="12" v-if="formDataTemplate.category_id !== null">
+                            <v-label class="mb-2">SubCategory</v-label>
+                            <v-autocomplete
+                              :items="sub_categoryItems"
+                              item-title="name"
+                              item-value="id"
+                              rounded="0"
+                              color="primary"
+                              single-line
+                              density="comfortable"
+                              hide-details
+                              variant="outlined"
+                              label="SubCategory"
+                              v-model="formDataTemplate.subcategory_id"
+                            ></v-autocomplete>
+                          </v-col>
+                          <v-col cols="12">
+                            <v-label class="mb-2">Icon</v-label>
+                            <v-text-field
+                              single-line
+                              type="text"
+                              hide-details
+                              placeholder="Enter icon"
+                              required
+                              variant="outlined"
+                              density="comfortable"
+                              rounded="0"
+                              v-model="formDataTemplate.icon"
+                            ></v-text-field>
+                          </v-col>
+                          <v-col cols="12">
+                            <v-label class="mb-2">Banner 1</v-label>
+                            <v-text-field
+                              single-line
+                              type="text"
+                              hide-details
+                              placeholder="Enter banner 1"
+                              required
+                              variant="outlined"
+                              density="comfortable"
+                              rounded="0"
+                              v-model="formDataTemplate.banner_1"
+                            ></v-text-field>
+                          </v-col>
+                          <v-col cols="12">
+                            <v-label class="mb-2">Banner 2</v-label>
+                            <v-text-field
+                              single-line
+                              type="text"
+                              hide-details
+                              placeholder="Enter banner 2"
+                              required
+                              variant="outlined"
+                              density="comfortable"
+                              rounded="0"
+                              v-model="formDataTemplate.banner_2"
+                            ></v-text-field>
+                          </v-col>
+                          <v-col cols="12">
+                            <v-label class="mb-2">Banner 3</v-label>
+                            <v-text-field
+                              single-line
+                              type="text"
+                              hide-details
+                              placeholder="Enter banner 3"
+                              required
+                              variant="outlined"
+                              density="comfortable"
+                              rounded="0"
+                              v-model="formDataTemplate.banner_3"
+                            ></v-text-field>
+                          </v-col>
+                          <v-col cols="12">
+                            <v-label class="mb-2">Banner 4</v-label>
+                            <v-text-field
+                              single-line
+                              type="text"
+                              hide-details
+                              placeholder="Enter banner 4"
+                              required
+                              variant="outlined"
+                              density="comfortable"
+                              rounded="0"
+                              v-model="formDataTemplate.banner_4"
+                            ></v-text-field>
+                          </v-col>
+                          <v-col cols="12">
+                            <v-label class="mb-2">Banner 5</v-label>
+                            <v-text-field
+                              single-line
+                              type="text"
+                              hide-details
+                              placeholder="Enter banner 5"
+                              required
+                              variant="outlined"
+                              density="comfortable"
+                              rounded="0"
+                              v-model="formDataTemplate.banner_5"
+                            ></v-text-field>
+                          </v-col>
+                          <v-col cols="12">
+                            <v-label class="mb-2">Banner 6</v-label>
+                            <v-text-field
+                              single-line
+                              type="text"
+                              hide-details
+                              placeholder="Enter banner 6"
+                              required
+                              variant="outlined"
+                              density="comfortable"
+                              rounded="0"
+                              v-model="formDataTemplate.banner_6"
+                            ></v-text-field>
+                          </v-col>
+                          <v-col cols="12">
+                            <v-label class="mb-2">User</v-label>
+                            <v-autocomplete
+                              :items="userItems"
+                              item-title="name"
+                              item-value="id"
+                              rounded="0"
+                              color="primary"
+                              single-line
+                              density="comfortable"
+                              hide-details
+                              variant="outlined"
+                              v-model="formDataTemplate.user_id"
+                            ></v-autocomplete>
+                          </v-col>
+                          <v-col cols="12">
+                            <v-checkbox
+                              class="mt-3"
+                              :v-model="formDataTemplate.is_available_for_team"
+                              label="Is available for team?"
+                              color="primary"
+                              hide-details
+                            ></v-checkbox>
                           </v-col>
                         </v-container>
                       </v-card-text>
@@ -202,14 +381,14 @@ const dialogCustom = ref(false);
                         >
                           Cancel
                         </v-btn>
-                        <!-- <v-btn
+                        <v-btn
                           color="primary"
                           rounded="md"
                           variant="flat"
-                          @click="onSubmitForm"
+                          @click="onSubmitForm('standart')"
                         >
                           Add
-                        </v-btn> -->
+                        </v-btn>
                       </v-card-actions>
                     </perfect-scrollbar>
                   </v-card>
@@ -220,53 +399,36 @@ const dialogCustom = ref(false);
                       <template v-slot:prepend>
                         <SvgSprite name="custom-plus" style="width: 20px; height: 20px" />
                       </template>
-                      Add custom domain
+                      Add custom template
                     </v-btn>
                   </template>
                   <v-card>
                     <perfect-scrollbar style="max-height: calc(100vh - 48px)">
                       <v-card-title class="pa-5">
-                        <span class="text-h5">New Domain</span>
+                        <span class="text-h5">New Custom Template</span>
                       </v-card-title>
                       <v-divider></v-divider>
                       <v-card-text>
                         <v-container>
                           <v-row>
-                            <v-col md="3" cols="12" class="text-center">
-                              <v-avatar
-                                size="72"
-                                variant="outlined"
-                                color="primary"
-                                class="dashed"
-                              >
-                                <img
-                                  src="@/assets/images/users/avatar-1.png"
-                                  width="72"
-                                  alt="profile"
-                                />
-                                <input
-                                  type="file"
-                                  aria-label="upload"
-                                  class="preview-upload"
-                                />
-                              </v-avatar>
+                            <v-col cols="12">
+                              <v-file-input
+                                label="Select icon"
+                                :v-model="formDataTemplateCustom.icon"
+                                accept="image/*"
+                                outlined
+                                required
+                              ></v-file-input>
                             </v-col>
-                            <v-col md="9" cols="12">
-                              <v-row>
-                                <v-col cols="12">
-                                  <v-label class="mb-2">Domain</v-label>
-                                  <v-text-field
-                                    single-line
-                                    placeholder="Enter domain"
-                                    hide-details
-                                    variant="outlined"
-                                    required
-                                    density="comfortable"
-                                    rounded="0"
-                                    v-model="formDataCustomDomain.domains"
-                                  ></v-text-field>
-                                </v-col>
-                              </v-row>
+                            <v-col cols="12">
+                              <v-file-input
+                                label="Select Banners (min 3 max 6)"
+                                :v-model="formDataTemplateCustom.banners"
+                                accept="image/*"
+                                multiple
+                                outlined
+                                required
+                              ></v-file-input>
                             </v-col>
                           </v-row>
                         </v-container>
@@ -282,31 +444,18 @@ const dialogCustom = ref(false);
                         >
                           Cancel
                         </v-btn>
-                        <!-- <v-btn
+                        <v-btn
                           color="primary"
                           rounded="md"
                           variant="flat"
                           @click="onSubmitForm('custom')"
                         >
                           Add
-                        </v-btn> -->
+                        </v-btn>
                       </v-card-actions>
                     </perfect-scrollbar>
                   </v-card>
                 </v-dialog>
-                <v-btn
-                  icon
-                  variant="text"
-                  aria-label="download"
-                  rounded="md"
-                  size="small"
-                >
-                  <SvgSprite
-                    name="custom-document-2"
-                    class="text-lightText"
-                    style="width: 24px; height: 24px"
-                  />
-                </v-btn>
               </div>
             </v-col>
           </v-row>

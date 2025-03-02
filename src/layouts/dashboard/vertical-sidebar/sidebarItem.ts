@@ -195,22 +195,15 @@ const sidebarItem: menu[] = [
   },
   { header: 'Telegram Management' },
   {
-    title: 'Telegram Alerts',
+    title: 'Telegram Management',
     icon: 'custom-user-square',
-    to: '/telegram/alerts',
+    to: '/telegram',
     children: [ 
       {
         id: 'telegramAlerts',
         title: 'Telegram Alerts',
         to: '/app/telegram/alerts'
       },
-    ]
-  },
-  {
-    title: 'Telegram Keys',
-    icon: 'custom-user-square',
-    to: '/telegram/keys',
-    children: [ 
       {
         id: 'telegramKeys',
         title: 'Telegram Keys',

@@ -35,7 +35,7 @@ export type GetDataTemplateCreate = {
 }
 
 export type CreateTemplate = {
-  status: number;
+  status: number | null;
   icon: string;
   banner_1: string;
   banner_2: string;
@@ -43,7 +43,11 @@ export type CreateTemplate = {
   banner_4: string;
   banner_5: string;
   banner_6: string;
-  subcategory_id: number;
-  user_id: number;
+  category_id: number | null;
+  subcategory_id: number | null;
+  user_id: number | null;
   is_available_for_team: boolean;
 };
+
+
+export type CreateTemplateCustom = { icon: File | null; banners: File[] }

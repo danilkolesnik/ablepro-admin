@@ -25,12 +25,67 @@ const breadcrumbs = ref([
 const languages = ref(["English", "Українська"]);
 const selectedLanguage = ref(languages.value[0]);
 const activeTab = ref("Main");
-const tabs = ["Main", "Template", "Basic info", "Additional info", "Rating", "Pushes", "Texts"];
+const tabs = [
+  "Main",
+  "Template",
+  "Basic info",
+  "Additional info",
+  "Rating",
+  "Pushes",
+  "Texts",
+];
+
+const formDataMain = ref({
+  selected_versions: [],
+  user_tag: "",
+  domain_id: null,
+  flow_id: null,
+  subject_id: null,
+});
+
+const formDataTemplate = ref({
+  template_id: null,
+});
+
+const formDataBasicInfo = ref({
+  name: [],
+  author: [],
+  description: [],
+  video: [],
+  youtube_video: [],
+});
+
+const formDataAdditionalInfo = ref({
+  related_pwas: [],
+});
+
+const formDataRating = ref({
+  rating: [],
+  five_rating_quantity: [],
+  four_rating_quantity: [],
+  three_rating_quantity: [],
+  two_rating_quantity: [],
+  one_rating_quantity: [],
+  reviews_array: [
+    {
+      author: "User1",
+      rating: 4.8,
+      body: "Great app!",
+      date: "2024-06-01",
+      useful: 5,
+      pfp: "profile.jpg",
+    },
+  ],
+});
+
+const formDataPushes = ref({
+  related_pushes: [],
+});
 </script>
 
 <template>
   <BaseBreadcrumb :title="page.title" :breadcrumbs="breadcrumbs" />
-  
+
   <v-container>
     <!-- language -->
     <v-menu>
@@ -40,19 +95,23 @@ const tabs = ["Main", "Template", "Basic info", "Additional info", "Rating", "Pu
         </v-btn>
       </template>
       <v-list>
-        <v-list-item v-for="lang in languages" :key="lang" @click="selectedLanguage = lang">
+        <v-list-item
+          v-for="lang in languages"
+          :key="lang"
+          @click="selectedLanguage = lang"
+        >
           <v-list-item-title>{{ lang }}</v-list-item-title>
         </v-list-item>
       </v-list>
     </v-menu>
-    
+
     <!-- tabs -->
     <v-tabs v-model="activeTab" class="mt-4">
       <v-tab v-for="tab in tabs" :key="tab" :value="tab">
         {{ tab }}
       </v-tab>
     </v-tabs>
-    
+
     <v-window v-model="activeTab">
       <v-window-item v-for="tab in tabs" :key="tab" :value="tab">
         <v-card class="pa-4 mt-4">
@@ -80,7 +139,7 @@ const tabs = ["Main", "Template", "Basic info", "Additional info", "Rating", "Pu
       </v-window-item>
     </v-window>
     <!-- iframe -->
-    <div class="sticky top-[100px]">
+    <!-- <div class="sticky top-[100px]">
       <div
         :style="{ backgroundImage: 'url(' + ')' }"
         style="background-repeat: no-repeat;
@@ -91,12 +150,12 @@ const tabs = ["Main", "Template", "Basic info", "Additional info", "Rating", "Pu
           srcdoc='<html id="html"></html>'
           class="iframe" width="412px" height="896px" frameborder="0"></iframe>
       </div>
-    </div>
+    </div> -->
   </v-container>
 </template>
 
 <style>
 .iframe-container {
-    position: relative;
+  position: relative;
 }
-</style> 
+</style>

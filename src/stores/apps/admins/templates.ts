@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia';
 // project imports
 import axios from '@/utils/axios';
-import type { CreateTemplate, AdminsTemplatesStateProps } from '@/types/admins/templates';
+import type { CreateTemplate, AdminsTemplatesStateProps, CreateTemplateCustom } from '@/types/admins/templates';
 // types
 
 export const useAdminsTemplates = defineStore({
@@ -48,15 +48,29 @@ export const useAdminsTemplates = defineStore({
       }
     },
 
-        // // Create Template from action
-        // async createTemplateCustom(body: CreateTemplateCustom) {
-        //   try {
-        //     await axios.post('/api/pwa-template', body);
-        //     await this.getTemplatesData();
-        //   } catch (err) {
-        //     console.log(err);
-        //   }
-        // },
+        // Create Template from action
+        async createTemplateCustom(body: CreateTemplateCustom) {
+          try {
+            if (!body.icon || body.banners.length < 3 || body.banners.length > 6) {
+              alert("Please select an icon and 3 to 6 banners!");
+              return;
+            }
+
+            const formData = new FormData();
+            formData.append("icon", body.icon);
+
+            body.banners.forEach((file, index) => {
+              formData.append(`banners[${index}]`, file);
+            });
+
+            await axios.post("/api/pwa-template/custom", formData, {
+              headers: { "Content-Type": "multipart/form-data" },
+            })
+            await this.getTemplatesData();
+          } catch (err) {
+            console.log(err);
+          }
+        },
 
   //   // Update Template from action
   //   async updateTemplate(id: number, body: CreateAdminsTemplate) {

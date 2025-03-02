@@ -20,9 +20,7 @@ export interface TelegramKeysStateProps {
     }
     
     export interface CreateTelegramKey {
-      message: string;
-      bot_id: number;
-      image: string;
-      video: string;
+      number: number;
+      user: string;
     }
     
