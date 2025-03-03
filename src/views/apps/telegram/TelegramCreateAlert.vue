@@ -31,8 +31,8 @@ const items = computed(() => getBots);
 const formDataCreate = ref({
   message: "",
   bot_id: null,
-  image: "",
-  video: "",
+  image: null,
+  video: null,
 });
 
 const submitForm = async () => {
@@ -48,6 +48,9 @@ const submitForm = async () => {
 onMounted(() => {
   store.getTelegramAlertsData();
 });
+
+const isImageSelected = computed(() => formDataCreate.value.image !== null);
+const isVideoSelected = computed(() => formDataCreate.value.video !== null);
 </script>
 
 <template>
@@ -68,6 +71,33 @@ onMounted(() => {
               v-model="formDataCreate.message"
             >
             </v-textarea>
+          </v-col>
+        </v-row>
+        <v-divider class="my-6"></v-divider>
+        <v-row>
+          <v-col cols="12" v-if="!isVideoSelected">
+            <v-label class="text-subtitle-1 text-lightText mb-2"
+              >Message image<span class="ms-1">*</span></v-label
+            >
+            <v-file-input
+              label="Select Message Image "
+              v-model="formDataCreate.image"
+              accept="image/*"
+              outlined
+              required
+            ></v-file-input>
+          </v-col>
+          <v-col cols="12" v-if="!isImageSelected">
+            <v-label class="text-subtitle-1 text-lightText mb-2"
+              >Message video<span class="ms-1">*</span></v-label
+            >
+            <v-file-input
+              label="Select Message Video "
+              v-model="formDataCreate.video"
+              accept="video/*"
+              outlined
+              required
+            ></v-file-input>
           </v-col>
         </v-row>
         <v-row>
@@ -94,39 +124,7 @@ onMounted(() => {
           </v-col>
         </v-row>
         <v-divider class="my-6"></v-divider>
-        <v-row>
-          <v-col cols="12">
-            <v-label class="text-subtitle-1 text-lightText mb-2"
-              >Message image<span class="ms-1">*</span></v-label
-            >
-            <v-text-field
-              type="text"
-              color="primary"
-              v-model="formDataCreate.image"
-              hide-details
-              variant="outlined"
-              density="comfortable"
-              persistent-placeholder
-              placeholder="Enter Message video"
-            ></v-text-field>
-          </v-col>
-          <v-col cols="12">
-            <v-label class="text-subtitle-1 text-lightText mb-2"
-              >Message video<span class="ms-1">*</span></v-label
-            >
-            <v-text-field
-              type="text"
-              color="primary"
-              v-model="formDataCreate.image"
-              hide-details
-              variant="outlined"
-              density="comfortable"
-              persistent-placeholder
-              placeholder="Enter Message video"
-            ></v-text-field>
-          </v-col>
-        </v-row>
-        <v-divider class="my-6"></v-divider>
+
         <div class="text-end">
           <v-btn color="primary" rounded="md" variant="flat" @click="submitForm"
             >Send</v-btn

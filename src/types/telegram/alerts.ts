@@ -22,6 +22,6 @@ export interface TelegramAlert {
 export interface CreateTelegramAlert {
   message: string;
   bot_id: number | null;
-  image: string;
-  video: string;
+  image: File | null;
+  video: File | null;
 }

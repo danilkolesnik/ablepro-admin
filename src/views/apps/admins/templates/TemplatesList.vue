@@ -52,13 +52,13 @@ const formDataTemplate = ref<CreateTemplate>({
   status: null,
   category_id: null,
   subcategory_id: null,
-  icon: "",
-  banner_1: "",
-  banner_2: "",
-  banner_3: "",
-  banner_4: "",
-  banner_5: "",
-  banner_6: "",
+  icon: null,
+  banner_1: null,
+  banner_2: null,
+  banner_3: null,
+  banner_4: null,
+  banner_5: null,
+  banner_6: null,
   user_id: null,
   is_available_for_team: false as boolean,
 });
@@ -91,13 +91,13 @@ const onSubmitForm = async (type = "standart") => {
       status: null,
       category_id: null,
       subcategory_id: null,
-      icon: "",
-      banner_1: "",
-      banner_2: "",
-      banner_3: "",
-      banner_4: "",
-      banner_5: "",
-      banner_6: "",
+      icon: null,
+      banner_1: null,
+      banner_2: null,
+      banner_3: null,
+      banner_4: null,
+      banner_5: null,
+      banner_6: null,
       user_id: null,
       is_available_for_team: false,
     };
@@ -129,7 +129,7 @@ onMounted(() => {
   store.getTemplatesData();
 });
 
-const searchField = ref("name");
+const searchField = ref("id");
 const searchValue = ref("");
 
 const headers: Header[] = [
@@ -248,101 +248,73 @@ const dialogCustom = ref(false);
                           </v-col>
                           <v-col cols="12">
                             <v-label class="mb-2">Icon</v-label>
-                            <v-text-field
-                              single-line
-                              type="text"
-                              hide-details
-                              placeholder="Enter icon"
-                              required
-                              variant="outlined"
-                              density="comfortable"
-                              rounded="0"
+                            <v-file-input
+                              label="Select icon "
                               v-model="formDataTemplate.icon"
-                            ></v-text-field>
+                              accept="image/*"
+                              outlined
+                              required
+                            ></v-file-input>
                           </v-col>
                           <v-col cols="12">
                             <v-label class="mb-2">Banner 1</v-label>
-                            <v-text-field
-                              single-line
-                              type="text"
-                              hide-details
-                              placeholder="Enter banner 1"
-                              required
-                              variant="outlined"
-                              density="comfortable"
-                              rounded="0"
+                            <v-file-input
+                              label="Select banner 1"
                               v-model="formDataTemplate.banner_1"
-                            ></v-text-field>
+                              accept="image/*"
+                              outlined
+                              required
+                            ></v-file-input>
                           </v-col>
                           <v-col cols="12">
                             <v-label class="mb-2">Banner 2</v-label>
-                            <v-text-field
-                              single-line
-                              type="text"
-                              hide-details
-                              placeholder="Enter banner 2"
-                              required
-                              variant="outlined"
-                              density="comfortable"
-                              rounded="0"
+                            <v-file-input
+                              label="Select banner 2"
                               v-model="formDataTemplate.banner_2"
-                            ></v-text-field>
+                              accept="image/*"
+                              outlined
+                              required
+                            ></v-file-input>
                           </v-col>
                           <v-col cols="12">
                             <v-label class="mb-2">Banner 3</v-label>
-                            <v-text-field
-                              single-line
-                              type="text"
-                              hide-details
-                              placeholder="Enter banner 3"
-                              required
-                              variant="outlined"
-                              density="comfortable"
-                              rounded="0"
+                            <v-file-input
+                              label="Select banner 3"
                               v-model="formDataTemplate.banner_3"
-                            ></v-text-field>
+                              accept="image/*"
+                              outlined
+                              required
+                            ></v-file-input>
                           </v-col>
                           <v-col cols="12">
                             <v-label class="mb-2">Banner 4</v-label>
-                            <v-text-field
-                              single-line
-                              type="text"
-                              hide-details
-                              placeholder="Enter banner 4"
-                              required
-                              variant="outlined"
-                              density="comfortable"
-                              rounded="0"
+                            <v-file-input
+                              label="Select banner 4"
                               v-model="formDataTemplate.banner_4"
-                            ></v-text-field>
+                              accept="image/*"
+                              outlined
+                              required
+                            ></v-file-input>
                           </v-col>
                           <v-col cols="12">
                             <v-label class="mb-2">Banner 5</v-label>
-                            <v-text-field
-                              single-line
-                              type="text"
-                              hide-details
-                              placeholder="Enter banner 5"
-                              required
-                              variant="outlined"
-                              density="comfortable"
-                              rounded="0"
+                            <v-file-input
+                              label="Select banner 5"
                               v-model="formDataTemplate.banner_5"
-                            ></v-text-field>
+                              accept="image/*"
+                              outlined
+                              required
+                            ></v-file-input>
                           </v-col>
                           <v-col cols="12">
                             <v-label class="mb-2">Banner 6</v-label>
-                            <v-text-field
-                              single-line
-                              type="text"
-                              hide-details
-                              placeholder="Enter banner 6"
-                              required
-                              variant="outlined"
-                              density="comfortable"
-                              rounded="0"
+                            <v-file-input
+                              label="Select banner 6"
                               v-model="formDataTemplate.banner_6"
-                            ></v-text-field>
+                              accept="image/*"
+                              outlined
+                              required
+                            ></v-file-input>
                           </v-col>
                           <v-col cols="12">
                             <v-label class="mb-2">User</v-label>
@@ -356,6 +328,7 @@ const dialogCustom = ref(false);
                               density="comfortable"
                               hide-details
                               variant="outlined"
+                              label="Select User"
                               v-model="formDataTemplate.user_id"
                             ></v-autocomplete>
                           </v-col>
@@ -414,7 +387,7 @@ const dialogCustom = ref(false);
                             <v-col cols="12">
                               <v-file-input
                                 label="Select icon"
-                                :v-model="formDataTemplateCustom.icon"
+                                v-model="formDataTemplateCustom.icon"
                                 accept="image/*"
                                 outlined
                                 required
@@ -423,7 +396,7 @@ const dialogCustom = ref(false);
                             <v-col cols="12">
                               <v-file-input
                                 label="Select Banners (min 3 max 6)"
-                                :v-model="formDataTemplateCustom.banners"
+                                v-model="formDataTemplateCustom.banners"
                                 accept="image/*"
                                 multiple
                                 outlined

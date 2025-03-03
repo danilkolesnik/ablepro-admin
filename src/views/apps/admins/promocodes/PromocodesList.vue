@@ -37,9 +37,10 @@ const searchValue = ref("");
 
 const headers: Header[] = [
   { text: "ID", value: "id", sortable: true },
-  { text: "CODE", value: "code", sortable: true },
   { text: "DISCOUNT", value: "discount", sortable: true },
+  { text: "CODE", value: "code", sortable: true },
   { text: "CREATED", value: "created_at", sortable: true },
+  { text: "USER", value: "user", sortable: true },
 ];
 
 const items = computed(() => getPromocodes.value);
@@ -49,10 +50,21 @@ const itemsSelected = ref<Item[]>([]);
 
 const dialogStandart = ref(false);
 
+const selectDate = ref<Date>(new Date());
+const dateFormatExpiredAt = computed(() => {
+  if (selectDate.value) {
+    const date = selectDate.value;
+    const year = date.getFullYear();
+    const month = (date.getMonth() + 1).toString().padStart(2, "0");
+    const day = date.getDate().toString().padStart(2, "0");
+    return `${year}-${month}-${day}`;
+  }
+  return "";
+});
+
 const formData = ref({
   quantity: "",
   discount: "",
-  expired_at: new Date(),
 });
 
 const { createPromocode } = store;
@@ -62,14 +74,14 @@ const onSubmitForm = async () => {
     await createPromocode({
       quantity: formData.value.quantity,
       discount: formData.value.discount,
-      expired_at: formData.value.expired_at.toISOString().split("T")[0],
+      expired_at: dateFormatExpiredAt.value,
     });
     store.getPromocodesData();
     formData.value = {
       quantity: "",
       discount: "",
-      expired_at: new Date(),
     };
+    selectDate.value = new Date();
   } catch (err) {
     console.log(err);
   }
@@ -116,7 +128,7 @@ const onSubmitForm = async () => {
                       <template v-slot:prepend>
                         <SvgSprite name="custom-plus" style="width: 20px; height: 20px" />
                       </template>
-                      Add Promocodes
+                      Add Promocode
                     </v-btn>
                   </template>
                   <v-card>
@@ -155,11 +167,37 @@ const onSubmitForm = async () => {
                               v-model="formData.discount"
                             ></v-text-field>
                           </v-col>
-                          <v-date-picker
-                            style="width: 100%"
-                            width="337"
-                            v-model="formData.expired_at"
-                          ></v-date-picker>
+                          <v-col cols="12">
+                            <v-label class="mb-2">Expired at </v-label>
+                            <v-menu :close-on-content-click="false">
+                              <template v-slot:activator="{ props }">
+                                <v-text-field
+                                  single-line
+                                  hide-details
+                                  variant="outlined"
+                                  v-bind="props"
+                                  v-model="dateFormatExpiredAt"
+                                  placeholder="DD/MM/YYYY"
+                                  readonly
+                                  density="comfortable"
+                                  color="primary"
+                                >
+                                  <template v-slot:append-inner>
+                                    <SvgSprite
+                                      name="custom-calendar"
+                                      class="text-lightText"
+                                      style="width: 20px; height: 20px"
+                                    />
+                                  </template>
+                                </v-text-field>
+                              </template>
+                              <v-date-picker
+                                v-model="selectDate"
+                                hide-header
+                                color="primary"
+                              ></v-date-picker>
+                            </v-menu>
+                          </v-col>
                         </v-container>
                       </v-card-text>
                       <v-divider></v-divider>
@@ -185,19 +223,6 @@ const onSubmitForm = async () => {
                     </perfect-scrollbar>
                   </v-card>
                 </v-dialog>
-                <v-btn
-                  icon
-                  variant="text"
-                  aria-label="download"
-                  rounded="md"
-                  size="small"
-                >
-                  <SvgSprite
-                    name="custom-document-2"
-                    class="text-lightText"
-                    style="width: 24px; height: 24px"
-                  />
-                </v-btn>
               </div>
             </v-col>
           </v-row>
