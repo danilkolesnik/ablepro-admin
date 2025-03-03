@@ -26,15 +26,33 @@ export const useTelegramAlerts = defineStore({
         console.error(error);
       }
     },
-
-    // Create Telegram Alert from action
+    
     async createTelegramAlert(body: CreateTelegramAlert) {
       try {
-        await axios.post('/api/telegram-alerts', body);
+        const formData = new FormData();
+        
+        formData.append('message', body.message);
+        formData.append('bot_id', body.bot_id ? body.bot_id.toString() : '');
+        
+        if (body.image) {
+          formData.append('image', body.image);
+        }
+        
+        if (body.video) {
+          formData.append('video', body.video);
+        }
+        
+        await axios.post('/api/telegram-alerts', formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        });
+    
         await this.getTelegramAlertsData();
       } catch (err) {
         console.log(err);
       }
     }
+    
   }
 });

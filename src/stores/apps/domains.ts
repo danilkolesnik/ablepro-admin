@@ -80,6 +80,7 @@ export const useDomains = defineStore({
     async createWhitelist(body: CreateWhitelist) {
       try {
         await axios.post('/api/whitelist', body);
+        await this.fetchWhitelist()
       } catch (err) {
         console.log(err);
       }

@@ -68,7 +68,6 @@ const { getDataCreateApplication } = store_pwa;
 const pwa_select_items = ref([]);
 onMounted(() => {
   getDataCreateApplication().then((res) => {
-    console.log(res);
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     pwa_select_items.value = res.pwaList.map((item: any) => ({
       ...item,
@@ -190,7 +189,7 @@ const itemsSelected = ref<Item[]>([]);
                   variant="outlined"
                   class="skill-field"
                   color="primary"
-                  label="Outlined"
+                  label="Select PWA"
                   single-line
                   multiple
                   hide-details

@@ -6,6 +6,7 @@ import SvgSprite from "@/components/shared/SvgSprite.vue";
 import BaseBreadcrumb from "@/components/shared/BaseBreadcrumb.vue";
 import type { Header, Item } from "vue3-easy-data-table";
 import "vue3-easy-data-table/dist/style.css";
+import { useCustomers } from "@/stores/apps/customers";
 
 const page = ref({ title: "Telegam Keys" });
 
@@ -23,15 +24,19 @@ const breadcrumbs = shallowRef([
 ]);
 
 const store = useTelegramKeys();
+const store_user = useCustomers();
 
 const getKeys = computed(() => {
   return store.getTelegramKeys;
 });
 
-// const { getDataCreateApplication, deleteApplication, createApplications } = store;
+const userItems = computed(() => {
+  return store_user.getCustomers;
+});
 
 onMounted(() => {
   store.getTelegramKeysData();
+  store_user.fetchCustomers();
 });
 
 const searchField = ref("user_id");
@@ -83,7 +88,9 @@ const itemsSelected = ref<Item[]>([]);
                 <v-autocomplete
                   aria-label="autocomplete"
                   density="comfortable"
-                  :items="[]"
+                  :items="userItems"
+                  item-title="email"
+                  item-value="id"
                   variant="outlined"
                   class="skill-field"
                   color="primary"

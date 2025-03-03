@@ -59,7 +59,7 @@ const headers: Header[] = [
   { text: "STATUS", value: "status", sortable: true },
 ];
 
-const items = computed(() => getStats.value);
+const items = computed(() => getStats.value.referrals);
 const themeColor = ref("rgb(var(--v-theme-primary))");
 
 const itemsSelected = ref<Item[]>([]);
@@ -99,6 +99,7 @@ const searchStats = async () => {
                   single-line
                   density="comfortable"
                   hide-details
+                  label="Select User"
                   variant="outlined"
                   v-model="formData.user"
                 ></v-autocomplete>
@@ -114,6 +115,7 @@ const searchStats = async () => {
                   single-line
                   density="comfortable"
                   hide-details
+                  label="Select Referral"
                   variant="outlined"
                   v-model="formData.referral"
                 ></v-autocomplete>

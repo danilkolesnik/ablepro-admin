@@ -25,7 +25,7 @@ export type CreateCustomDomains = {
 };
 
 export type BuyDomain = {
-  domains: string;
+  domain: string;
   price: number
 };
 

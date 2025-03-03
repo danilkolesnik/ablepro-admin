@@ -36,13 +36,13 @@ export type GetDataTemplateCreate = {
 
 export type CreateTemplate = {
   status: number | null;
-  icon: string;
-  banner_1: string;
-  banner_2: string;
-  banner_3: string;
-  banner_4: string;
-  banner_5: string;
-  banner_6: string;
+  icon: File | null;
+  banner_1: File | null;
+  banner_2: File | null;
+  banner_3: File | null;
+  banner_4: File | null;
+  banner_5: File | null;
+  banner_6: File | null;
   category_id: number | null;
   subcategory_id: number | null;
   user_id: number | null;
