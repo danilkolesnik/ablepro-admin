@@ -21,20 +21,19 @@ const sidebarItem: menu[] = [
   {
     title: 'Dashboard',
     icon: 'custom-home-trend',
-    to: '/dashboard/default',
-    children: [
-      {
-        id: 'default',
-        title: 'Default',
-        to: '/dashboard/default'
-      },
-      {
-        id: 'analytics',
-        title: 'Analytics',
-        to: '/dashboard/analytics'
-      }
-    ]
+    to: '/dashboard',
   },
+  // {
+  //   id: 'components',
+  //   title: 'Components',
+  //   icon: 'custom-box-1',
+  //   to: 'components/buttons',
+  //   getURL: true,
+  //   type: 'external',
+  //   chip: 'new',
+  //   chipColor: 'primary',
+  //   chipVariant: 'tonal'
+  // },
   {header: "Metrics"},
   {
     title: 'Metrics',
@@ -200,245 +199,245 @@ const sidebarItem: menu[] = [
       },
     ]
   },
-  { header: 'Widget' },
-  {
-    id: 'statistics',
-    title: 'Statistics',
-    icon: 'custom-story',
-    to: '/widget/statistics'
-  },
-  {
-    id: 'data',
-    title: 'Data',
-    icon: 'custom-fatrows',
-    to: '/widget/data'
-  },
-  {
-    id: 'chart',
-    title: 'Chart',
-    icon: 'custom-presentation-chart',
-    to: '/widget/chart'
-  },
-  { header: 'Applications' },
-  {
-    id: 'chat',
-    title: 'Chat',
-    icon: 'custom-chat',
-    to: '/app/chats'
-  },
-  {
-    id: 'calendar',
-    title: 'Calendar',
-    icon: 'custom-calendar-1',
-    to: '/app/calendar'
-  },
-  {
-    id: 'kanban',
-    title: 'Kanban',
-    icon: 'custom-kanban',
-    to: '/app/kanban'
-  },
-  {
-    title: 'Customer',
-    icon: 'custom-users',
-    to: '/customer/',
-    children: [
-      {
-        id: 'customerlist',
-        title: 'Customer List',
-        to: '/customer/customerlist'
-      },
-      {
-        id: 'createinvoice',
-        title: 'Create Invoice',
-        to: '/app/customer/create-invoice'
-      },
-      {
-        id: 'orderdetails',
-        title: 'Order Details',
-        to: '/app/customer/order-details'
-      },
-      {
-        id: 'orderlist',
-        title: 'Order List',
-        to: '/customer/orderlist'
-      },
-      {
-        id: 'productlist',
-        title: 'Product List',
-        to: '/customer/productlist'
-      },
-      {
-        id: 'productreview',
-        title: 'Product Review',
-        to: '/customer/productreview'
-      }
-    ]
-  },
-  {
-    title: 'Invoice',
-    icon: 'custom-invoice',
-    to: '/',
-    children: [
-      {
-        id: 'dashboard',
-        title: 'Dashboard',
-        to: '/app/invoice/dashboard'
-      },
-      {
-        id: 'create',
-        title: 'Create',
-        to: '/app/invoice/create'
-      },
-      {
-        id: 'details',
-        title: 'Details',
-        to: '/app/invoice/details'
-      },
-      {
-        id: 'list',
-        title: 'List',
-        to: '/app/invoice/list'
-      },
-      {
-        id: 'edit',
-        title: 'Edit',
-        to: '/app/invoice/edit'
-      }
-    ]
-  },
-  {
-    title: 'Users',
-    icon: 'custom-user-square',
-    to: '/app/user',
-    children: [
-      {
-        id: 'socialprofile',
-        title: 'Social Profile',
-        to: '/app/user/social/posts'
-      },
-      {
-        id: 'accountprofile',
-        title: 'Account Profile',
-        to: '/app/user/account-profile',
-        children: [
-          {
-            id: 'profile01',
-            title: 'Profile 01',
-            to: '/app/user/account-profile/profile1'
-          },
-          {
-            id: 'profile02',
-            title: 'Profile 02',
-            to: '/app/user/account-profile/profile2'
-          },
-          {
-            id: 'profile03',
-            title: 'Profile 03',
-            to: '/app/user/account-profile/profile3'
-          }
-        ]
-      },
-      {
-        id: 'userprofile',
-        title: 'User Profile',
-        to: '/app/user/userprofile'
-      },
-      {
-        id: 'cards',
-        title: 'Cards',
-        to: '/app/user/card',
-        children: [
-          {
-            id: 'style01',
-            title: 'Style 01',
-            to: '/app/user/card/card1'
-          },
-          {
-            id: 'style02',
-            title: 'Style 02',
-            to: '/app/user/card/card2'
-          },
-          {
-            id: 'style03',
-            title: 'Style 03',
-            to: '/app/user/card/card3'
-          }
-        ]
-      },
-      {
-        title: 'List',
-        to: '/app/user/list',
-        children: [
-          {
-            id: 'liststyle01',
-            title: 'Style 01',
-            to: '/app/user/list1'
-          },
-          {
-            id: 'liststyle02',
-            title: 'Style 02',
-            to: '/app/user/list2'
-          }
-        ]
-      }
-    ]
-  },
-  {
-    id: 'mail',
-    title: 'Mail',
-    icon: 'custom-direct-inbox',
-    to: '/app/mail'
-  },
-  {
-    title: 'Contact',
-    icon: 'custom-user-circle-add',
-    to: '/app/contacts',
-    children: [
-      {
-        id: 'contactcard',
-        title: 'Card',
-        to: '/app/contact/c-card'
-      },
-      {
-        id: 'contactlist',
-        title: 'List',
-        to: '/app/contact/c-list'
-      }
-    ]
-  },
-  {
-    title: 'E-Commerce',
-    icon: 'custom-shopping-bag',
-    to: '/ecommerce/',
-    children: [
-      {
-        id: 'products',
-        title: 'Products',
-        to: '/ecommerce/products'
-      },
-      {
-        id: 'productdetail',
-        title: 'Product Detail',
-        to: '/ecommerce/product/detail/1'
-      },
-      {
-        id: 'productlist',
-        title: 'Product List',
-        to: '/ecommerce/productlist'
-      },
-      {
-        id: 'addproduct',
-        title: 'Add New Product',
-        to: '/ecommerce/add-product'
-      },
-      {
-        id: 'checkout',
-        title: 'Checkout',
-        to: '/ecommerce/checkout'
-      }
-    ]
-  },
+  // { header: 'Widget' },
+  // {
+  //   id: 'statistics',
+  //   title: 'Statistics',
+  //   icon: 'custom-story',
+  //   to: '/widget/statistics'
+  // },
+  // {
+  //   id: 'data',
+  //   title: 'Data',
+  //   icon: 'custom-fatrows',
+  //   to: '/widget/data'
+  // },
+  // {
+  //   id: 'chart',
+  //   title: 'Chart',
+  //   icon: 'custom-presentation-chart',
+  //   to: '/widget/chart'
+  // },
+  // { header: 'Applications' },
+  // {
+  //   id: 'chat',
+  //   title: 'Chat',
+  //   icon: 'custom-chat',
+  //   to: '/app/chats'
+  // },
+  // {
+  //   id: 'calendar',
+  //   title: 'Calendar',
+  //   icon: 'custom-calendar-1',
+  //   to: '/app/calendar'
+  // },
+  // {
+  //   id: 'kanban',
+  //   title: 'Kanban',
+  //   icon: 'custom-kanban',
+  //   to: '/app/kanban'
+  // },
+  // {
+  //   title: 'Customer',
+  //   icon: 'custom-users',
+  //   to: '/customer/',
+  //   children: [
+  //     {
+  //       id: 'customerlist',
+  //       title: 'Customer List',
+  //       to: '/customer/customerlist'
+  //     },
+  //     {
+  //       id: 'createinvoice',
+  //       title: 'Create Invoice',
+  //       to: '/app/customer/create-invoice'
+  //     },
+  //     {
+  //       id: 'orderdetails',
+  //       title: 'Order Details',
+  //       to: '/app/customer/order-details'
+  //     },
+  //     {
+  //       id: 'orderlist',
+  //       title: 'Order List',
+  //       to: '/customer/orderlist'
+  //     },
+  //     {
+  //       id: 'productlist',
+  //       title: 'Product List',
+  //       to: '/customer/productlist'
+  //     },
+  //     {
+  //       id: 'productreview',
+  //       title: 'Product Review',
+  //       to: '/customer/productreview'
+  //     }
+  //   ]
+  // },
+  // {
+  //   title: 'Invoice',
+  //   icon: 'custom-invoice',
+  //   to: '/',
+  //   children: [
+  //     {
+  //       id: 'dashboard',
+  //       title: 'Dashboard',
+  //       to: '/app/invoice/dashboard'
+  //     },
+  //     {
+  //       id: 'create',
+  //       title: 'Create',
+  //       to: '/app/invoice/create'
+  //     },
+  //     {
+  //       id: 'details',
+  //       title: 'Details',
+  //       to: '/app/invoice/details'
+  //     },
+  //     {
+  //       id: 'list',
+  //       title: 'List',
+  //       to: '/app/invoice/list'
+  //     },
+  //     {
+  //       id: 'edit',
+  //       title: 'Edit',
+  //       to: '/app/invoice/edit'
+  //     }
+  //   ]
+  // },
+  // {
+  //   title: 'Users',
+  //   icon: 'custom-user-square',
+  //   to: '/app/user',
+  //   children: [
+  //     {
+  //       id: 'socialprofile',
+  //       title: 'Social Profile',
+  //       to: '/app/user/social/posts'
+  //     },
+  //     {
+  //       id: 'accountprofile',
+  //       title: 'Account Profile',
+  //       to: '/app/user/account-profile',
+  //       children: [
+  //         {
+  //           id: 'profile01',
+  //           title: 'Profile 01',
+  //           to: '/app/user/account-profile/profile1'
+  //         },
+  //         {
+  //           id: 'profile02',
+  //           title: 'Profile 02',
+  //           to: '/app/user/account-profile/profile2'
+  //         },
+  //         {
+  //           id: 'profile03',
+  //           title: 'Profile 03',
+  //           to: '/app/user/account-profile/profile3'
+  //         }
+  //       ]
+  //     },
+  //     {
+  //       id: 'userprofile',
+  //       title: 'User Profile',
+  //       to: '/app/user/userprofile'
+  //     },
+  //     {
+  //       id: 'cards',
+  //       title: 'Cards',
+  //       to: '/app/user/card',
+  //       children: [
+  //         {
+  //           id: 'style01',
+  //           title: 'Style 01',
+  //           to: '/app/user/card/card1'
+  //         },
+  //         {
+  //           id: 'style02',
+  //           title: 'Style 02',
+  //           to: '/app/user/card/card2'
+  //         },
+  //         {
+  //           id: 'style03',
+  //           title: 'Style 03',
+  //           to: '/app/user/card/card3'
+  //         }
+  //       ]
+  //     },
+  //     {
+  //       title: 'List',
+  //       to: '/app/user/list',
+  //       children: [
+  //         {
+  //           id: 'liststyle01',
+  //           title: 'Style 01',
+  //           to: '/app/user/list1'
+  //         },
+  //         {
+  //           id: 'liststyle02',
+  //           title: 'Style 02',
+  //           to: '/app/user/list2'
+  //         }
+  //       ]
+  //     }
+  //   ]
+  // },
+  // {
+  //   id: 'mail',
+  //   title: 'Mail',
+  //   icon: 'custom-direct-inbox',
+  //   to: '/app/mail'
+  // },
+  // {
+  //   title: 'Contact',
+  //   icon: 'custom-user-circle-add',
+  //   to: '/app/contacts',
+  //   children: [
+  //     {
+  //       id: 'contactcard',
+  //       title: 'Card',
+  //       to: '/app/contact/c-card'
+  //     },
+  //     {
+  //       id: 'contactlist',
+  //       title: 'List',
+  //       to: '/app/contact/c-list'
+  //     }
+  //   ]
+  // },
+  // {
+  //   title: 'E-Commerce',
+  //   icon: 'custom-shopping-bag',
+  //   to: '/ecommerce/',
+  //   children: [
+  //     {
+  //       id: 'products',
+  //       title: 'Products',
+  //       to: '/ecommerce/products'
+  //     },
+  //     {
+  //       id: 'productdetail',
+  //       title: 'Product Detail',
+  //       to: '/ecommerce/product/detail/1'
+  //     },
+  //     {
+  //       id: 'productlist',
+  //       title: 'Product List',
+  //       to: '/ecommerce/productlist'
+  //     },
+  //     {
+  //       id: 'addproduct',
+  //       title: 'Add New Product',
+  //       to: '/ecommerce/add-product'
+  //     },
+  //     {
+  //       id: 'checkout',
+  //       title: 'Checkout',
+  //       to: '/ecommerce/checkout'
+  //     }
+  //   ]
+  // },
   // { header: 'Forms & Tables' },
   // {
   //   id: 'formvalidation',
