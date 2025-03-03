@@ -89,7 +89,7 @@ watch(priority, (newPriority) => {
     <!-- ---------------------------------------------- -->
     <!-- Messages -->
     <!-- ---------------------------------------------- -->
-    <v-menu :close-on-content-click="false" offset="10, 380">
+    <!-- <v-menu :close-on-content-click="false" offset="10, 380">
       <template v-slot:activator="{ props }">
         <v-btn
           icon
@@ -106,7 +106,7 @@ watch(priority, (newPriority) => {
       <v-sheet width="1024" height="325" rounded="md" class="d-lg-block d-none">
         <MegaMenuDD />
       </v-sheet>
-    </v-menu>
+    </v-menu> -->
     <!-- ---------------------------------------------- -->
     <!-- translate -->
     <!-- ---------------------------------------------- -->
@@ -124,12 +124,12 @@ watch(priority, (newPriority) => {
     <!-- ---------------------------------------------- -->
     <!-- Notification -->
     <!-- ---------------------------------------------- -->
-    <NotificationDD />
+    <!-- <NotificationDD /> -->
 
     <!-- ---------------------------------------------- -->
     <!-- Message -->
     <!-- ---------------------------------------------- -->
-    <v-btn
+    <!-- <v-btn
       icon
       class="ms-sm-2 ms-1"
       aria-label="message button"
@@ -138,7 +138,7 @@ watch(priority, (newPriority) => {
       @click.stop="(messagedrawer = !messagedrawer)"
     >
       <SvgSprite name="custom-message-note" />
-    </v-btn>
+    </v-btn> -->
 
     <!-- ---------------------------------------------- -->
     <!-- User Profile -->

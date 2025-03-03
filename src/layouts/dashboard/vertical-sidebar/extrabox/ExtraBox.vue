@@ -4,7 +4,7 @@ import avatarGroup from '@/assets/images/users/avatar-group.png';
 </script>
 
 <template>
-  <v-sheet rounded="md" color="containerBg" class="pa-4 ExtraBox hide-menu text-center pb-6" border>
+  <!-- <v-sheet rounded="md" color="containerBg" class="pa-4 ExtraBox hide-menu text-center pb-6" border>
     <div class="d-flex align-center flex-column">
       <v-img :src="avatarGroup" alt="book" class="mb-3" width="169px" cover></v-img>
       <div class="px-3">
@@ -20,7 +20,7 @@ import avatarGroup from '@/assets/images/users/avatar-group.png';
         >Get Support</a
       >
     </div>
-  </v-sheet>
+  </v-sheet> -->
 </template>
 <style lang="scss">
 .ExtraBox {

@@ -12,6 +12,16 @@ const MainRoutes = {
       component: () => import('@/views/dashboards/custom/Dashboard.vue')
     },
     {
+      name: 'Profile',
+      path: '/user/profile',
+      component: () => import('@/views/apps/profile/Profile.vue')
+    },
+    {
+      name: 'API Tokens',
+      path: '/user/api-tokens',
+      component: () => import('@/views/apps/profile/ApiTokens.vue')
+    },
+    {
       name: 'Default',
       path: '/dashboard/default',
       component: () => import('@/views/dashboards/default/DefaultDashboard.vue')
