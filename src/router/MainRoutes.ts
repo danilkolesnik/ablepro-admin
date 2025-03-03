@@ -32,6 +32,16 @@ const MainRoutes = {
       component: () => import('@/views/apps/facebookPixel/FacebookPixel.vue')
     },
     {
+      name: 'Finance',
+      path: '/finance',
+      component: () => import('@/views/apps/finance/Finance.vue')
+    },
+    {
+      name: 'Flows',
+      path: '/flows',
+      component: () => import('@/views/apps/flows/Flows.vue')
+    },
+    {
       name: 'Domains',
       path: '/app/domains/list-domains',
       component: () => import('@/views/apps/domains/DomainsList.vue')
