@@ -80,7 +80,7 @@ const sidebarItem: menu[] = [
   { header: 'PWA Management' },
   {
     title: 'PWA Applications',
-    icon: 'custom-user-square',
+    icon: 'custom-password-check',
     to: '/pwa/applications',
     children: [ 
       {
@@ -97,39 +97,18 @@ const sidebarItem: menu[] = [
   },
   {
     title: 'PWA Push',
-    icon: 'custom-user-square',
-    to: '/pwa/push',
-    children: [ 
-      {
-        id: 'pwaPush',
-        title: 'PWA Push',
-        to: '/app/pwa/push'
-      },
-    ]
+    icon: 'custom-password-check',
+    to: '/app/pwa/push',
   },
   {
     title: 'PWA Splits',
-    icon: 'custom-user-square',
-    to: '/pwa/splits',
-    children: [ 
-      {
-        id: 'pwaSplits',
-        title: 'PWA Splits',
-        to: '/app/pwa/splits'
-      },
-    ]
+    icon: 'custom-password-check',
+    to: '/app/pwa/splits',
   },
   {
     title: 'PWA Statistics',
     icon: 'custom-user-square',
-    to: '/pwa/statistics',
-    children: [ 
-      {
-        id: 'pwaStatistics',
-        title: 'PWA Statistics',
-        to: '/app/pwa/statistics'
-      },
-    ]
+    to: '/app/pwa/statistics',
   },
   { header: 'Referral Management' },
   {
@@ -158,8 +137,8 @@ const sidebarItem: menu[] = [
   },
   { header: 'Admins Management' },
   {
-    title: 'Admin Templates',
-    icon: 'custom-user-square',
+    title: 'Admins Management',
+    icon: 'custom-fatrows',
     to: '/admins/templates',
     children: [ 
       {
@@ -167,13 +146,6 @@ const sidebarItem: menu[] = [
         title: 'Admin Templates',
         to: '/app/admins/templates'
       },
-    ]
-  },
-  {
-    title: 'Admin Promocodes',
-    icon: 'custom-user-square',
-    to: '/admins/promocodes',
-    children: [ 
       {
         id: 'adminPromocodes',
         title: 'Admin Promocodes',
@@ -184,7 +156,7 @@ const sidebarItem: menu[] = [
   { header: 'Telegram Management' },
   {
     title: 'Telegram Management',
-    icon: 'custom-user-square',
+    icon: 'custom-kanban',
     to: '/telegram',
     children: [ 
       {

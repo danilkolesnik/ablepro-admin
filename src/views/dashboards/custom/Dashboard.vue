@@ -9,7 +9,7 @@
         </p>
         <p class="text-gray-500">
           The authorization key (Telegram Key) is located in
-          <a href="/profile" class="text-blue-600 hover:underline">Profile</a>
+          <a href="/user/profile" class="text-blue-600 hover:underline">Profile</a>
         </p>
       </div>
     </div>
