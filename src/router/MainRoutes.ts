@@ -7,6 +7,11 @@ const MainRoutes = {
   component: () => import('@/layouts/dashboard/DashboardLayout.vue'),
   children: [
     {
+      name: 'Dashboard',
+      path: '/dashboard',
+      component: () => import('@/views/dashboards/custom/Dashboard.vue')
+    },
+    {
       name: 'Default',
       path: '/dashboard/default',
       component: () => import('@/views/dashboards/default/DefaultDashboard.vue')
