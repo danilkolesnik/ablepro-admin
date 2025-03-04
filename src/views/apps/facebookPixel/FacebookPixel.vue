@@ -44,14 +44,10 @@ const themeColor = ref('rgb(var(--v-theme-primary))');
 // const { deleteDomain } = store;
 
 const headers: Header[] = [
-  { text: t("ID"), value: "id", sortable: true },
-  { text: t("DOMAIN"), value: "domain", sortable: true },
-  { text: t("PRICE"), value: "price", sortable: true },
-  { text: t("USER ID"), value: "user_id", sortable: true },
-  { text: t("CATEGORY"), value: "category", sortable: true },
-  { text: t("CREATING DATE"), value: "created_date", sortable: true },
-  { text: t("STATUS"), value: "status", sortable: true },
-  { text: t("Action"), value: "operation" },
+  { text: "Pixel", value: "id", sortable: true },
+  { text: t("Token"), value: "token", sortable: true },
+  { text: t("Creation date"), value: "created_at", sortable: true },
+  { text: t("Transfer status"), value: "transfer_status", sortable: true },
 ];
 
 const itemsSelected = ref<Item[]>([]);
@@ -190,13 +186,12 @@ const dialog = ref(false);
               <div>{{ pixel }}</div>
             </template>
             <template #item-token="{ token }">
-              <div>{{ token }}</div>
+              <div class="token-container">
+                <div class="token-item">{{ token }}</div>
+              </div>
             </template>
             <template #item-created_at="{ created_at }">
               <div>{{ created_at }}</div>
-            </template>
-            <template #item-user="{ user }">
-              <div>{{ user }}</div>
             </template>
             <template #item-trasfer_status="{ transfer_status }">
               <div>{{ transfer_status }}</div>
@@ -236,4 +231,20 @@ const dialog = ref(false);
   min-width: 340px;
   max-width: 820px;
 }
+
+.token-container {
+  max-width: 150px;
+  overflow-x: auto; 
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  padding: 4px;
+}
+
+.token-item {
+  padding: 4px 8px;
+  background: #f0f0f0;
+  border-radius: 4px;
+}
+
 </style>
