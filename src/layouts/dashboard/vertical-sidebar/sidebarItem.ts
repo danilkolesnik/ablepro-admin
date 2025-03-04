@@ -101,8 +101,8 @@ const sidebarItem: menu[] = [
         },
         {
           id: 'createinvoice',
-          title: 'My team TODO',
-          to: '/app/customer/create-invoice'
+          title: 'My team (NO ACCESS)',
+          to: ''
         },
       ]
   },
