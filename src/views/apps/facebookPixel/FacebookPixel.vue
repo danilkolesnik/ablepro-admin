@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { ref, computed, onMounted, shallowRef, watch } from 'vue';
-import { usePixels } from '@/stores/apps/pixels';
+import { ref, computed, onMounted, shallowRef, watch } from "vue";
+import { usePixels } from "@/stores/apps/pixels";
 
 import SvgSprite from "@/components/shared/SvgSprite.vue";
 import BaseBreadcrumb from "@/components/shared/BaseBreadcrumb.vue";
@@ -23,7 +23,6 @@ const breadcrumbs = shallowRef([
   },
 ]);
 
-
 const store = usePixels();
 
 const { t } = useI18n();
@@ -40,7 +39,7 @@ const searchField = ref("name");
 const searchValue = ref("");
 
 const items = computed(() => getPixels.value);
-const themeColor = ref('rgb(var(--v-theme-primary))');
+const themeColor = ref("rgb(var(--v-theme-primary))");
 // const { deleteDomain } = store;
 
 const headers: Header[] = [
@@ -48,12 +47,12 @@ const headers: Header[] = [
   { text: t("Token"), value: "token", sortable: true },
   { text: t("Creation date"), value: "created_at", sortable: true },
   { text: t("Transfer status"), value: "transfer_status", sortable: true },
+  { text: t("Action"), value: "operation" },
 ];
 
 const itemsSelected = ref<Item[]>([]);
 
 const dialog = ref(false);
-
 </script>
 
 <template>
@@ -198,15 +197,6 @@ const dialog = ref(false);
             </template>
             <template #item-operation="item">
               <div class="operation-wrapper">
-                <v-btn
-                  icon
-                  color="secondary"
-                  aria-label="view"
-                  variant="text"
-                  rounded="md"
-                >
-                  <SvgSprite name="custom-eye" style="width: 20px; height: 20px" />
-                </v-btn>
                 <v-btn icon color="primary" aria-label="edit" variant="text" rounded="md">
                   <SvgSprite
                     name="custom-edit-outline"
@@ -234,7 +224,7 @@ const dialog = ref(false);
 
 .token-container {
   max-width: 150px;
-  overflow-x: auto; 
+  overflow-x: auto;
   display: flex;
   flex-wrap: wrap;
   gap: 4px;
@@ -246,5 +236,4 @@ const dialog = ref(false);
   background: #f0f0f0;
   border-radius: 4px;
 }
-
 </style>
