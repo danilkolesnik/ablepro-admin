@@ -34,19 +34,6 @@ const sidebarItem: menu[] = [
   //   chipColor: 'primary',
   //   chipVariant: 'tonal'
   // },
-  {header: "Metrics"},
-  {
-    title: 'Metrics',
-    icon: 'custom-story',
-    to: '/metrics/',
-    children: [
-      {
-        id: 'metrics',
-        title: 'Facebook Pixel',
-        to: '/app/metrics/facebookPixel'
-      }
-    ]
-  },
   {header: "Domains"},
   {
     title: 'Domains',
@@ -77,6 +64,48 @@ const sidebarItem: menu[] = [
       },
     ]
   },
+  {header: "Metrics"},
+  {
+    title: 'Metrics',
+    icon: 'custom-story',
+    to: '/metrics/',
+    children: [
+      {
+        id: 'metrics',
+        title: 'Facebook Pixel',
+        to: '/app/metrics/facebookPixel'
+      }
+    ]
+  },
+  {header: "Finances"},
+  {
+    title: 'Finance',
+    icon: 'custom-dollar-square',
+    to: '/finance',
+  },
+  {
+    title: 'Flows',
+    icon: 'custom-maintenance',
+    to: '/flows',
+  },
+  {header: "User Management"},
+  {
+      title: 'User Management',
+      icon: 'custom-users',
+      to: '/customer/',
+      children: [
+        {
+          id: 'customerlist',
+          title: 'Users',
+          to: '/customer/customerlist'
+        },
+        {
+          id: 'createinvoice',
+          title: 'My team TODO',
+          to: '/app/customer/create-invoice'
+        },
+      ]
+    },
   { header: 'PWA Management' },
   {
     title: 'PWA Applications',
@@ -171,6 +200,7 @@ const sidebarItem: menu[] = [
       },
     ]
   },
+  //HERE
   // { header: 'Widget' },
   // {
   //   id: 'statistics',

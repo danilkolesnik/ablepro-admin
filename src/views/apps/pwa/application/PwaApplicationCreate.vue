@@ -90,7 +90,7 @@ const formDataPushes = ref({
     <!-- language -->
     <v-menu>
       <template v-slot:activator="{ props }">
-        <v-btn v-bind="props" variant="outlined">
+        <v-btn color="primary" v-bind="props" variant="outlined">
           {{ selectedLanguage }}
         </v-btn>
       </template>
@@ -106,7 +106,7 @@ const formDataPushes = ref({
     </v-menu>
 
     <!-- tabs -->
-    <v-tabs v-model="activeTab" class="mt-4">
+    <v-tabs v-model="activeTab" class="mt-4" color="primary">
       <v-tab v-for="tab in tabs" :key="tab" :value="tab">
         {{ tab }}
       </v-tab>

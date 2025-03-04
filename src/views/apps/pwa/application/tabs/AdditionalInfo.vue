@@ -12,18 +12,19 @@ const fileSize = ref("0");
   <v-container>
     <h3 class="text-h6 font-weight-bold mt-4">Related PWAs</h3>
     <v-select
+      color="primary"
       v-model="relatedPWAs"
       label=""
       :items="['Select related PWAs']"
     />
 
     <h3 class="text-h6 font-weight-bold mt-4">Number of reviews</h3>
-    <v-text-field v-model="reviewNumber" label="" />
+    <v-text-field v-model="reviewNumber" color="primary" label="" />
 
     <h3 class="text-h6 font-weight-bold mt-4">Number of installs</h3>
-    <v-text-field v-model="installsNumber" label="" />
+    <v-text-field v-model="installsNumber" color="primary" label="" />
 
     <h3 class="text-h6 font-weight-bold mt-4">File Size (MB)</h3>
-    <v-text-field v-model="fileSize" label="" />
+    <v-text-field v-model="fileSize" color="primary" label="" />
   </v-container>
 </template>

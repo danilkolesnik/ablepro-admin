@@ -12,6 +12,7 @@ const pwaSubject = ref("Gambl");
   <v-container>
     <h3 class="text-h6 font-weight-bold mt-4">PWA Version</h3>
     <v-select
+      color="primary"
       v-model="pwaVersion"
       label=""
       :items="['Blue android', 'Blue updated android', 'Green android']"
@@ -22,22 +23,25 @@ const pwaSubject = ref("Gambl");
 
     <h3 class="text-h6 font-weight-bold mt-4">Domain</h3>
     <v-select
+      color="primary"
       v-model="domain"
       label=""
       :items="['Select domain']"
     />
-    <v-btn class="mt-2" variant="outlined">Add custom domain</v-btn>
+    <v-btn color="primary" class="mt-2" variant="outlined">Add custom domain</v-btn>
 
     <h3 class="text-h6 font-weight-bold mt-4">Select Flow</h3>
     <v-select
+      color="primary"
       v-model="flow"
       label=""
       :items="['Select flow']"
     />
-    <v-btn class="mt-2" variant="outlined">Add custom flow</v-btn>
+    <v-btn color="primary" class="mt-2" variant="outlined">Add custom flow</v-btn>
 
     <h3 class="text-h6 font-weight-bold mt-4">PWA Subject</h3>
     <v-select
+      color="primary"
       v-model="pwaSubject"
       label=""
       :items="['Gambling']"
