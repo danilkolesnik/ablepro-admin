@@ -7,6 +7,7 @@ import BasicInfo from "./tabs/BasicInfo.vue";
 import AdditionalInfo from "./tabs/AdditionalInfo.vue";
 import Rating from "./tabs/Rating.vue";
 import Pushes from "./tabs/Pushes.vue";
+import Texts from "./tabs/texts/Texts.vue";
 
 const page = ref({ title: "Create PwaApplication" });
 const breadcrumbs = ref([
@@ -133,6 +134,9 @@ const formDataPushes = ref({
             </template>
             <template v-if="tab === 'Pushes'">
               <Pushes />
+            </template>
+            <template v-if="tab === 'Texts'">
+              <Texts />
             </template>
           </v-card-text>
         </v-card>
