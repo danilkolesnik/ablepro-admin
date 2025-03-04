@@ -6,17 +6,19 @@ import SvgSprite from "@/components/shared/SvgSprite.vue";
 import BaseBreadcrumb from "@/components/shared/BaseBreadcrumb.vue";
 import type { Header, Item } from "vue3-easy-data-table";
 import "vue3-easy-data-table/dist/style.css";
+import { useI18n } from "vue-i18n";
 
-const page = ref({ title: "Domains list" });
+const { t } = useI18n();
+const page = ref({ title: t("Domains list") });
 
 const breadcrumbs = shallowRef([
   {
-    title: "Domains",
+    title: t("Domains"),
     disabled: false,
     href: "#",
   },
   {
-    title: "List",
+    title: t("List"),
     disabled: true,
     href: "#",
   },
@@ -72,13 +74,13 @@ const searchField = ref("domain");
 const searchValue = ref("");
 
 const headers: Header[] = [
-  { text: "ID", value: "id", sortable: true },
-  { text: "DOMAIN", value: "domain", sortable: true },
-  { text: "PRICE", value: "price", sortable: true },
-  { text: "USER ID", value: "user", sortable: true },
-  { text: "CATEGORY", value: "category", sortable: true },
-  { text: "CREATING DATE", value: "created_at", sortable: true },
-  { text: "STATUS", value: "status", sortable: true },
+  { text: t("ID"), value: "id", sortable: true },
+  { text: t("DOMAIN"), value: "domain", sortable: true },
+  { text: t("PRICE"), value: "price", sortable: true },
+  { text: t("USER ID"), value: "user", sortable: true },
+  { text: t("CATEGORY"), value: "category", sortable: true },
+  { text: t("CREATING DATE"), value: "created_at", sortable: true },
+  { text: t("STATUS"), value: "status", sortable: true },
 ];
 
 const items = computed(() => getDomains.value);
@@ -107,7 +109,7 @@ const dialogCustom = ref(false);
                 type="text"
                 variant="outlined"
                 persistent-placeholder
-                placeholder="Search 200 records..."
+                :placeholder="t('Search 200 records...')"
                 v-model="searchValue"
                 density="comfortable"
                 hide-details
@@ -129,13 +131,13 @@ const dialogCustom = ref(false);
                       <template v-slot:prepend>
                         <SvgSprite name="custom-plus" style="width: 20px; height: 20px" />
                       </template>
-                      Add domain
+                      {{ t("Add domain") }}
                     </v-btn>
                   </template>
                   <v-card>
                     <perfect-scrollbar style="max-height: calc(100vh - 48px)">
                       <v-card-title class="pa-5">
-                        <span class="text-h5">New Domain</span>
+                        <span class="text-h5">{{ t("New Domain") }}</span>
                       </v-card-title>
                       <v-divider></v-divider>
                       <v-card-text>
@@ -216,7 +218,7 @@ const dialogCustom = ref(false);
                           variant="text"
                           @click="dialogStandart = false"
                         >
-                          Cancel
+                          {{ t("Cancel") }}
                         </v-btn>
                         <v-btn
                           color="primary"
@@ -224,7 +226,7 @@ const dialogCustom = ref(false);
                           variant="flat"
                           @click="onSubmitForm"
                         >
-                          Add
+                          {{ t("Add") }}
                         </v-btn>
                       </v-card-actions>
                     </perfect-scrollbar>
@@ -236,13 +238,13 @@ const dialogCustom = ref(false);
                       <template v-slot:prepend>
                         <SvgSprite name="custom-plus" style="width: 20px; height: 20px" />
                       </template>
-                      Add custom domain
+                      {{ t("Add custom domain") }}
                     </v-btn>
                   </template>
                   <v-card>
                     <perfect-scrollbar style="max-height: calc(100vh - 48px)">
                       <v-card-title class="pa-5">
-                        <span class="text-h5">New Domain</span>
+                        <span class="text-h5">{{ t("New Domain") }}</span>
                       </v-card-title>
                       <v-divider></v-divider>
                       <v-card-text>
@@ -296,7 +298,7 @@ const dialogCustom = ref(false);
                           variant="text"
                           @click="dialogCustom = false"
                         >
-                          Cancel
+                          {{ t("Cancel") }}
                         </v-btn>
                         <v-btn
                           color="primary"
@@ -304,7 +306,7 @@ const dialogCustom = ref(false);
                           variant="flat"
                           @click="onSubmitForm('custom')"
                         >
-                          Add
+                          {{ t("Add") }}
                         </v-btn>
                       </v-card-actions>
                     </perfect-scrollbar>

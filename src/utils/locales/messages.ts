@@ -1,13 +1,11 @@
 import en from './en.json';
-import fr from './fr.json';
-import ro from './ro.json';
-import zh from './zh.json';
+import ru from './ru.json';
+import ua from './ua.json';
 
 const messages = {
   en: en,
-  fr: fr,
-  ro: ro,
-  zh: zh
+  ru: ru,
+  ua: ua,
 };
 
 export default messages;

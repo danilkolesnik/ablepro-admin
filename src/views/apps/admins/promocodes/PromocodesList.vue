@@ -6,17 +6,19 @@ import BaseBreadcrumb from "@/components/shared/BaseBreadcrumb.vue";
 import type { Header, Item } from "vue3-easy-data-table";
 import "vue3-easy-data-table/dist/style.css";
 import { useAdminsPromocodes } from "@/stores/apps/admins/promocodes";
+import { useI18n } from "vue-i18n";
 
-const page = ref({ title: "Promocodes list" });
+const { t } = useI18n();
+const page = ref({ title: t("Promocodes list") });
 
 const breadcrumbs = shallowRef([
   {
-    title: "Admins",
+    title: t("Admins"),
     disabled: false,
     href: "#",
   },
   {
-    title: "Promocodes",
+    title: t("Promocodes"),
     disabled: true,
     href: "#",
   },
@@ -36,11 +38,11 @@ const searchField = ref("code");
 const searchValue = ref("");
 
 const headers: Header[] = [
-  { text: "ID", value: "id", sortable: true },
-  { text: "DISCOUNT", value: "discount", sortable: true },
-  { text: "CODE", value: "code", sortable: true },
-  { text: "CREATED", value: "created_at", sortable: true },
-  { text: "USER", value: "user", sortable: true },
+  { text: t("ID"), value: "id", sortable: true },
+  { text: t("DISCOUNT"), value: "discount", sortable: true },
+  { text: t("CODE"), value: "code", sortable: true },
+  { text: t("CREATED"), value: "created_at", sortable: true },
+  { text: t("USER"), value: "user", sortable: true },
 ];
 
 const items = computed(() => getPromocodes.value);
@@ -106,7 +108,7 @@ const onSubmitForm = async () => {
                 type="text"
                 variant="outlined"
                 persistent-placeholder
-                placeholder="Search 200 records..."
+                :placeholder="t('Search 200 records...')"
                 v-model="searchValue"
                 density="comfortable"
                 hide-details
@@ -128,24 +130,24 @@ const onSubmitForm = async () => {
                       <template v-slot:prepend>
                         <SvgSprite name="custom-plus" style="width: 20px; height: 20px" />
                       </template>
-                      Add Promocode
+                      {{ t("Add Promocode") }}
                     </v-btn>
                   </template>
                   <v-card>
                     <perfect-scrollbar style="max-height: calc(100vh - 48px)">
                       <v-card-title class="pa-5">
-                        <span class="text-h5">New Promocodes</span>
+                        <span class="text-h5">{{ t("New Promocodes") }}</span>
                       </v-card-title>
                       <v-divider></v-divider>
                       <v-card-text>
                         <v-container>
                           <v-col cols="12">
-                            <v-label class="mb-2">Quantity</v-label>
+                            <v-label class="mb-2">{{ t("Quantity") }}</v-label>
                             <v-text-field
                               single-line
                               type="number"
                               hide-details
-                              placeholder="Enter quantity"
+                              :placeholder="t('Enter quantity')"
                               required
                               variant="outlined"
                               density="comfortable"
@@ -154,12 +156,12 @@ const onSubmitForm = async () => {
                             ></v-text-field>
                           </v-col>
                           <v-col cols="12">
-                            <v-label class="mb-2">Discount</v-label>
+                            <v-label class="mb-2">{{ t("Discount") }}</v-label>
                             <v-text-field
                               single-line
                               type="number"
                               hide-details
-                              placeholder="Enter discount"
+                              :placeholder="t('Enter discount')"
                               required
                               variant="outlined"
                               density="comfortable"
@@ -168,7 +170,7 @@ const onSubmitForm = async () => {
                             ></v-text-field>
                           </v-col>
                           <v-col cols="12">
-                            <v-label class="mb-2">Expired at </v-label>
+                            <v-label class="mb-2">{{ t("Expired at") }}</v-label>
                             <v-menu :close-on-content-click="false">
                               <template v-slot:activator="{ props }">
                                 <v-text-field
@@ -177,7 +179,7 @@ const onSubmitForm = async () => {
                                   variant="outlined"
                                   v-bind="props"
                                   v-model="dateFormatExpiredAt"
-                                  placeholder="DD/MM/YYYY"
+                                  :placeholder="t('DD/MM/YYYY')"
                                   readonly
                                   density="comfortable"
                                   color="primary"
@@ -209,7 +211,7 @@ const onSubmitForm = async () => {
                           variant="text"
                           @click="dialogStandart = false"
                         >
-                          Cancel
+                          {{ t("Cancel") }}
                         </v-btn>
                         <v-btn
                           color="primary"
@@ -217,7 +219,7 @@ const onSubmitForm = async () => {
                           variant="flat"
                           @click="onSubmitForm"
                         >
-                          Add
+                          {{ t("Add") }}
                         </v-btn>
                       </v-card-actions>
                     </perfect-scrollbar>

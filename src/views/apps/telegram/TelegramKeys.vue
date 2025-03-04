@@ -7,17 +7,19 @@ import BaseBreadcrumb from "@/components/shared/BaseBreadcrumb.vue";
 import type { Header, Item } from "vue3-easy-data-table";
 import "vue3-easy-data-table/dist/style.css";
 import { useCustomers } from "@/stores/apps/customers";
+import { useI18n } from "vue-i18n";
 
-const page = ref({ title: "Telegam Keys" });
+const { t } = useI18n();
+const page = ref({ title: t("Telegram Keys") });
 
 const breadcrumbs = shallowRef([
   {
-    title: "Telegram",
+    title: t("Telegram"),
     disabled: false,
     href: "#",
   },
   {
-    title: "Keys",
+    title: t("Keys"),
     disabled: true,
     href: "#",
   },
@@ -43,12 +45,12 @@ const searchField = ref("user_id");
 const searchValue = ref("");
 
 const headers: Header[] = [
-  { text: "KEY", value: "key", sortable: true },
-  { text: "BOT ID", value: "bot_id", sortable: true },
-  { text: "CHAT ID", value: "chat_id", sortable: true },
-  { text: "USER", value: "user_id", sortable: true },
-  { text: "STATUS", value: "status", sortable: true },
-  { text: "DATE", value: "created_at", sortable: true },
+  { text: t("KEY"), value: "key", sortable: true },
+  { text: t("BOT ID"), value: "bot_id", sortable: true },
+  { text: t("CHAT ID"), value: "chat_id", sortable: true },
+  { text: t("USER"), value: "user_id", sortable: true },
+  { text: t("STATUS"), value: "status", sortable: true },
+  { text: t("DATE"), value: "created_at", sortable: true },
 ];
 
 const items = computed(() => getKeys);
@@ -71,12 +73,12 @@ const itemsSelected = ref<Item[]>([]);
           <v-row justify="space-between" class="align-center">
             <v-col justify="start" class="d-flex align-center">
               <v-col>
-                <v-label class="mb-2">Number</v-label>
+                <v-label class="mb-2">{{ t("Number") }}</v-label>
                 <v-text-field
                   type="number"
                   variant="outlined"
                   persistent-placeholder
-                  placeholder="1"
+                  :placeholder="t('1')"
                   v-model="searchValue"
                   density="comfortable"
                   hide-details
@@ -84,7 +86,7 @@ const itemsSelected = ref<Item[]>([]);
                 </v-text-field>
               </v-col>
               <v-col>
-                <v-label class="mb-2">Select Option</v-label>
+                <v-label class="mb-2">{{ t("Select Option") }}</v-label>
                 <v-autocomplete
                   aria-label="autocomplete"
                   density="comfortable"
@@ -94,7 +96,7 @@ const itemsSelected = ref<Item[]>([]);
                   variant="outlined"
                   class="skill-field"
                   color="primary"
-                  label="Select Option"
+                  :label="t('Select Option')"
                   single-line
                   hide-details
                   closable-chips
@@ -106,7 +108,7 @@ const itemsSelected = ref<Item[]>([]);
                 <template v-slot:prepend>
                   <SvgSprite name="custom-plus" style="width: 20px; height: 30px" />
                 </template>
-                Generate Key
+                {{ t("Generate Key") }}
               </v-btn>
             </v-col>
           </v-row>

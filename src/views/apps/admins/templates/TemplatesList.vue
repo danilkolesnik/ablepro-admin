@@ -10,17 +10,19 @@ import { usePwaApplications } from "@/stores/apps/pwa/pwa";
 import { useCustomers } from "@/stores/apps/customers";
 import type { CreateTemplate } from "@/types/admins/templates";
 import type { Customer } from "@/types/customers";
+import { useI18n } from "vue-i18n";
 
-const page = ref({ title: "PWA template list" });
+const { t } = useI18n();
+const page = ref({ title: t("PWA template list") });
 
 const breadcrumbs = shallowRef([
   {
-    title: "Admins",
+    title: t("Admins"),
     disabled: false,
     href: "#",
   },
   {
-    title: "PWA templates",
+    title: t("PWA templates"),
     disabled: true,
     href: "#",
   },
@@ -133,9 +135,9 @@ const searchField = ref("id");
 const searchValue = ref("");
 
 const headers: Header[] = [
-  { text: "NAME", value: "id", sortable: true },
-  { text: "STATUS", value: "status", sortable: true },
-  { text: "CREATED", value: "created_at", sortable: true },
+  { text: t("NAME"), value: "id", sortable: true },
+  { text: t("STATUS"), value: "status", sortable: true },
+  { text: t("CREATED"), value: "created_at", sortable: true },
 ];
 
 const items = computed(() => getTemplates.value);
@@ -164,7 +166,7 @@ const dialogCustom = ref(false);
                 type="text"
                 variant="outlined"
                 persistent-placeholder
-                placeholder="Search 200 records..."
+                :placeholder="t('Search 200 records...')"
                 v-model="searchValue"
                 density="comfortable"
                 hide-details
@@ -186,19 +188,19 @@ const dialogCustom = ref(false);
                       <template v-slot:prepend>
                         <SvgSprite name="custom-plus" style="width: 20px; height: 20px" />
                       </template>
-                      Add Template
+                      {{ t("Add Template") }}
                     </v-btn>
                   </template>
                   <v-card>
                     <perfect-scrollbar style="max-height: calc(100vh - 48px)">
                       <v-card-title class="pa-5">
-                        <span class="text-h5">New Temlate</span>
+                        <span class="text-h5">{{ t("New Template") }}</span>
                       </v-card-title>
                       <v-divider></v-divider>
                       <v-card-text>
                         <v-container>
                           <v-col cols="12">
-                            <v-label class="mb-2">Status</v-label>
+                            <v-label class="mb-2">{{ t("Status") }}</v-label>
                             <v-autocomplete
                               :items="statusItems"
                               item-title="label"
@@ -208,14 +210,14 @@ const dialogCustom = ref(false);
                               single-line
                               density="comfortable"
                               hide-details
-                              label="Status"
+                              :label="t('Status')"
                               variant="outlined"
                               v-model="formDataTemplate.status"
                             ></v-autocomplete>
                           </v-col>
 
                           <v-col cols="12">
-                            <v-label class="mb-2">Category</v-label>
+                            <v-label class="mb-2">{{ t("Category") }}</v-label>
                             <v-autocomplete
                               :items="categoryItems"
                               item-value="id"
@@ -225,13 +227,13 @@ const dialogCustom = ref(false);
                               single-line
                               density="comfortable"
                               hide-details
-                              label="Category"
+                              :label="t('Category')"
                               variant="outlined"
                               v-model="formDataTemplate.category_id"
                             ></v-autocomplete>
                           </v-col>
                           <v-col cols="12" v-if="formDataTemplate.category_id !== null">
-                            <v-label class="mb-2">SubCategory</v-label>
+                            <v-label class="mb-2">{{ t("SubCategory") }}</v-label>
                             <v-autocomplete
                               :items="sub_categoryItems"
                               item-title="name"
@@ -242,14 +244,14 @@ const dialogCustom = ref(false);
                               density="comfortable"
                               hide-details
                               variant="outlined"
-                              label="SubCategory"
+                              :label="t('SubCategory')"
                               v-model="formDataTemplate.subcategory_id"
                             ></v-autocomplete>
                           </v-col>
                           <v-col cols="12">
-                            <v-label class="mb-2">Icon</v-label>
+                            <v-label class="mb-2">{{ t("Icon") }}</v-label>
                             <v-file-input
-                              label="Select icon "
+                              :label="t('Select icon')"
                               v-model="formDataTemplate.icon"
                               accept="image/*"
                               outlined
@@ -257,9 +259,9 @@ const dialogCustom = ref(false);
                             ></v-file-input>
                           </v-col>
                           <v-col cols="12">
-                            <v-label class="mb-2">Banner 1</v-label>
+                            <v-label class="mb-2">{{ t("Banner 1") }}</v-label>
                             <v-file-input
-                              label="Select banner 1"
+                              :label="t('Select banner 1')"
                               v-model="formDataTemplate.banner_1"
                               accept="image/*"
                               outlined
@@ -267,9 +269,9 @@ const dialogCustom = ref(false);
                             ></v-file-input>
                           </v-col>
                           <v-col cols="12">
-                            <v-label class="mb-2">Banner 2</v-label>
+                            <v-label class="mb-2">{{ t("Banner 2") }}</v-label>
                             <v-file-input
-                              label="Select banner 2"
+                              :label="t('Select banner 2')"
                               v-model="formDataTemplate.banner_2"
                               accept="image/*"
                               outlined
@@ -277,9 +279,9 @@ const dialogCustom = ref(false);
                             ></v-file-input>
                           </v-col>
                           <v-col cols="12">
-                            <v-label class="mb-2">Banner 3</v-label>
+                            <v-label class="mb-2">{{ t("Banner 3") }}</v-label>
                             <v-file-input
-                              label="Select banner 3"
+                              :label="t('Select banner 3')"
                               v-model="formDataTemplate.banner_3"
                               accept="image/*"
                               outlined
@@ -287,9 +289,9 @@ const dialogCustom = ref(false);
                             ></v-file-input>
                           </v-col>
                           <v-col cols="12">
-                            <v-label class="mb-2">Banner 4</v-label>
+                            <v-label class="mb-2">{{ t("Banner 4") }}</v-label>
                             <v-file-input
-                              label="Select banner 4"
+                              :label="t('Select banner 4')"
                               v-model="formDataTemplate.banner_4"
                               accept="image/*"
                               outlined
@@ -297,9 +299,9 @@ const dialogCustom = ref(false);
                             ></v-file-input>
                           </v-col>
                           <v-col cols="12">
-                            <v-label class="mb-2">Banner 5</v-label>
+                            <v-label class="mb-2">{{ t("Banner 5") }}</v-label>
                             <v-file-input
-                              label="Select banner 5"
+                              :label="t('Select banner 5')"
                               v-model="formDataTemplate.banner_5"
                               accept="image/*"
                               outlined
@@ -307,9 +309,9 @@ const dialogCustom = ref(false);
                             ></v-file-input>
                           </v-col>
                           <v-col cols="12">
-                            <v-label class="mb-2">Banner 6</v-label>
+                            <v-label class="mb-2">{{ t("Banner 6") }}</v-label>
                             <v-file-input
-                              label="Select banner 6"
+                              :label="t('Select banner 6')"
                               v-model="formDataTemplate.banner_6"
                               accept="image/*"
                               outlined
@@ -317,7 +319,7 @@ const dialogCustom = ref(false);
                             ></v-file-input>
                           </v-col>
                           <v-col cols="12">
-                            <v-label class="mb-2">User</v-label>
+                            <v-label class="mb-2">{{ t("User") }}</v-label>
                             <v-autocomplete
                               :items="userItems"
                               item-title="name"
@@ -328,7 +330,7 @@ const dialogCustom = ref(false);
                               density="comfortable"
                               hide-details
                               variant="outlined"
-                              label="Select User"
+                              :label="t('Select User')"
                               v-model="formDataTemplate.user_id"
                             ></v-autocomplete>
                           </v-col>
@@ -336,7 +338,7 @@ const dialogCustom = ref(false);
                             <v-checkbox
                               class="mt-3"
                               :v-model="formDataTemplate.is_available_for_team"
-                              label="Is available for team?"
+                              :label="t('Is available for team?')"
                               color="primary"
                               hide-details
                             ></v-checkbox>
@@ -352,7 +354,7 @@ const dialogCustom = ref(false);
                           variant="text"
                           @click="dialogStandart = false"
                         >
-                          Cancel
+                          {{ t("Cancel") }}
                         </v-btn>
                         <v-btn
                           color="primary"
@@ -360,7 +362,7 @@ const dialogCustom = ref(false);
                           variant="flat"
                           @click="onSubmitForm('standart')"
                         >
-                          Add
+                          {{ t("Add") }}
                         </v-btn>
                       </v-card-actions>
                     </perfect-scrollbar>
@@ -372,13 +374,13 @@ const dialogCustom = ref(false);
                       <template v-slot:prepend>
                         <SvgSprite name="custom-plus" style="width: 20px; height: 20px" />
                       </template>
-                      Add custom template
+                      {{ t("Add custom template") }}
                     </v-btn>
                   </template>
                   <v-card>
                     <perfect-scrollbar style="max-height: calc(100vh - 48px)">
                       <v-card-title class="pa-5">
-                        <span class="text-h5">New Custom Template</span>
+                        <span class="text-h5">{{ t("New Custom Template") }}</span>
                       </v-card-title>
                       <v-divider></v-divider>
                       <v-card-text>
@@ -386,7 +388,7 @@ const dialogCustom = ref(false);
                           <v-row>
                             <v-col cols="12">
                               <v-file-input
-                                label="Select icon"
+                                :label="t('Select icon')"
                                 v-model="formDataTemplateCustom.icon"
                                 accept="image/*"
                                 outlined
@@ -395,7 +397,7 @@ const dialogCustom = ref(false);
                             </v-col>
                             <v-col cols="12">
                               <v-file-input
-                                label="Select Banners (min 3 max 6)"
+                                :label="t('Select Banners (min 3 max 6)')"
                                 v-model="formDataTemplateCustom.banners"
                                 accept="image/*"
                                 multiple
@@ -415,7 +417,7 @@ const dialogCustom = ref(false);
                           variant="text"
                           @click="dialogCustom = false"
                         >
-                          Cancel
+                          {{ t("Cancel") }}
                         </v-btn>
                         <v-btn
                           color="primary"
@@ -423,7 +425,7 @@ const dialogCustom = ref(false);
                           variant="flat"
                           @click="onSubmitForm('custom')"
                         >
-                          Add
+                          {{ t("Add") }}
                         </v-btn>
                       </v-card-actions>
                     </perfect-scrollbar>

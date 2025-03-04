@@ -1,22 +1,24 @@
 <script setup lang="ts">
 import { ref, computed, onMounted, shallowRef } from "vue";
 import { useReferral } from "@/stores/apps/referral";
+import { useI18n } from "vue-i18n";
 
 import SvgSprite from "@/components/shared/SvgSprite.vue";
 import BaseBreadcrumb from "@/components/shared/BaseBreadcrumb.vue";
 import type { Header, Item } from "vue3-easy-data-table";
 import "vue3-easy-data-table/dist/style.css";
 
-const page = ref({ title: "Referral links" });
+const { t } = useI18n();
+const page = ref({ title: t("Referral links") });
 
 const breadcrumbs = shallowRef([
   {
-    title: "Referral",
+    title: t("Referral"),
     disabled: false,
     href: "#",
   },
   {
-    title: "Links",
+    title: t("Links"),
     disabled: true,
     href: "#",
   },
@@ -63,9 +65,9 @@ const searchField = ref("name");
 const searchValue = ref("");
 
 const headers: Header[] = [
-  { text: "NAME", value: "name", sortable: true },
-  { text: "LINK", value: "link", sortable: true },
-  { text: "Referrals quantity", value: "referrals_quantity", sortable: true },
+  { text: t("NAME"), value: "name", sortable: true },
+  { text: t("LINK"), value: "link", sortable: true },
+  { text: t("Referrals quantity"), value: "referrals_quantity", sortable: true },
 ];
 
 const items = computed(() =>
@@ -98,7 +100,7 @@ const dialogStandart = ref(false);
                 type="text"
                 variant="outlined"
                 persistent-placeholder
-                placeholder="Search 200 records..."
+                :placeholder="t('Search 200 records...')"
                 v-model="searchValue"
                 density="comfortable"
                 hide-details
@@ -120,13 +122,13 @@ const dialogStandart = ref(false);
                       <template v-slot:prepend>
                         <SvgSprite name="custom-plus" style="width: 20px; height: 20px" />
                       </template>
-                      Add Referral
+                      {{ t("Add Referral") }}
                     </v-btn>
                   </template>
                   <v-card>
                     <perfect-scrollbar style="max-height: calc(100vh - 48px)">
                       <v-card-title class="pa-5">
-                        <span class="text-h5">New Referral</span>
+                        <span class="text-h5">{{ t("New Referral") }}</span>
                       </v-card-title>
                       <v-divider></v-divider>
                       <v-card-text>
@@ -154,10 +156,10 @@ const dialogStandart = ref(false);
                             <v-col md="9" cols="12">
                               <v-row>
                                 <v-col cols="12">
-                                  <v-label class="mb-2">Name</v-label>
+                                  <v-label class="mb-2">{{ t("Name") }}</v-label>
                                   <v-text-field
                                     single-line
-                                    placeholder="Enter Name"
+                                    :placeholder="t('Enter Name')"
                                     hide-details
                                     variant="outlined"
                                     required
@@ -167,11 +169,11 @@ const dialogStandart = ref(false);
                                   ></v-text-field>
                                 </v-col>
                                 <v-col cols="12">
-                                  <v-label class="mb-2">Link</v-label>
+                                  <v-label class="mb-2">{{ t("Link") }}</v-label>
                                   <v-text-field
                                     single-line
                                     hide-details
-                                    placeholder="Enter Link"
+                                    :placeholder="t('Enter Link')"
                                     required
                                     variant="outlined"
                                     density="comfortable"
@@ -193,7 +195,7 @@ const dialogStandart = ref(false);
                           variant="text"
                           @click="dialogStandart = false"
                         >
-                          Cancel
+                          {{ t("Cancel") }}
                         </v-btn>
                         <v-btn
                           color="primary"
@@ -201,7 +203,7 @@ const dialogStandart = ref(false);
                           variant="flat"
                           @click="onSubmitForm('standart')"
                         >
-                          Add
+                          {{ t("Add") }}
                         </v-btn>
                       </v-card-actions>
                     </perfect-scrollbar>
