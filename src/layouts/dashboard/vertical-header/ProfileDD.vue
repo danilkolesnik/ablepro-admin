@@ -1,62 +1,23 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue';
-import SvgSprite from '@/components/shared/SvgSprite.vue';
-import { useCustomizerStore } from '../../../stores/customizer';
+import { onMounted, ref } from "vue";
+import SvgSprite from "@/components/shared/SvgSprite.vue";
+import { useCustomizerStore } from "../../../stores/customizer";
 
-import { useAuthStore } from '@/stores/auth';
+import { useAuthStore } from "@/stores/auth";
+import { useBioForm } from "@/stores/apps/profile/bioform";
+import type { BioFormStateProps } from "@/types/profile/bioform";
 
-const tab = ref(null);
+const store = useBioForm();
 const authStore = useAuthStore();
 const customizer = useCustomizerStore();
 
-// Create a computed property to access the user's name
-const userName = computed(() => {
-  return authStore.user?.firstName || 'Guest';
-  // when actual api call use below commented code
-  // return authStore.user.user.name || 'Guest'
+const userData = ref<BioFormStateProps | null>(null);
+
+onMounted(() => {
+  store.fetchUserData().then((res) => {
+    userData.value = res.user;
+  });
 });
-
-const profiledata1 = ref([
-  {
-    title: 'Edit profile',
-    icon: 'custom-edit'
-  },
-  {
-    title: 'View Profile',
-    icon: 'custom-user-1'
-  },
-  {
-    title: 'Social Profile',
-    icon: 'custom-users'
-  },
-  {
-    title: 'Billing',
-    icon: 'custom-wallet'
-  }
-]);
-
-const profiledata2 = ref([
-  {
-    title: 'Support',
-    icon: 'custom-support'
-  },
-  {
-    title: 'Account settings',
-    icon: 'custom-user-1'
-  },
-  {
-    title: 'Privacy center',
-    icon: 'custom-lock'
-  },
-  {
-    title: 'Feedback',
-    icon: 'custom-comment'
-  },
-  {
-    title: 'History',
-    icon: 'custom-history'
-  }
-]);
 </script>
 
 <template>
@@ -66,14 +27,26 @@ const profiledata2 = ref([
   <div>
     <div class="d-flex align-center pa-5">
       <v-avatar size="40" class="me-2">
-        <img src="@/assets/images/users/avatar-6.png" width="40" alt="profile" />
+        <img
+          :src="userData?.photo_profile || '@/assets/images/users/avatar-6.png'"
+          width="40"
+          alt="profile"
+        />
       </v-avatar>
       <div>
-        <h6 class="text-subtitle-1 mb-0">{{ userName }}</h6>
-        <p class="text-caption text-lightText mb-0">UI/UX Designer</p>
+        <h6 class="text-subtitle-1 mb-0">{{ userData?.name }}</h6>
+        <p class="text-caption text-lightText mb-0">{{ userData?.role }}</p>
       </div>
       <div class="ms-auto">
-        <v-btn variant="text" aria-label="logout" color="error" rounded="sm" icon size="large" @click="authStore.logout()">
+        <v-btn
+          variant="text"
+          aria-label="logout"
+          color="error"
+          rounded="sm"
+          icon
+          size="large"
+          @click="authStore.logout()"
+        >
           <SvgSprite name="custom-logout-1" />
         </v-btn>
       </div>
@@ -89,7 +62,7 @@ const profiledata2 = ref([
           rounded="md"
         >
           <template v-slot:prepend>
-              <div class="me-4">
+            <div class="me-4">
               <SvgSprite name="custom-edit" style="width: 18px; height: 18px" />
             </div>
           </template>
@@ -104,7 +77,7 @@ const profiledata2 = ref([
           rounded="md"
         >
           <template v-slot:prepend>
-              <div class="me-4">
+            <div class="me-4">
               <SvgSprite name="custom-logout-1" style="width: 18px; height: 18px" />
             </div>
           </template>

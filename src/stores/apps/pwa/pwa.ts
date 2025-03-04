@@ -25,7 +25,7 @@ export const usePwaApplications = defineStore({
       try {
         const response = await axios.get(`/api/pwa`);
 
-        this.pwa_applications = response.data.data.data;
+        this.pwa_applications = response.data.data.data.data;
       } catch (error) {
         console.error(error);
       }
