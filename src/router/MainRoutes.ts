@@ -27,8 +27,18 @@ const MainRoutes = {
       component: () => import('@/views/dashboards/default/DefaultDashboard.vue')
     },
     {
+      name: 'Pages List',
+      path: '/pages/pages-list',
+      component: () => import('@/views/apps/pagesList/PagesList.vue')
+    },
+    {
+      name: 'Pages Groups',
+      path: '/pages/pages-groups',
+      component: () => import('@/views/apps/pagesGroups/PagesGroups.vue')
+    },
+    {
       name: 'Metrics',
-      path: '/app/metrics/facebookPixel',
+      path: '/app/metrics/facebook-pixel',
       component: () => import('@/views/apps/facebookPixel/FacebookPixel.vue')
     },
     {
