@@ -34,6 +34,7 @@ onMounted(() => {
 
 const searchField = ref("email");
 const searchValue = ref("");
+const creditLimit = ref(0);
 
 const headers: Header[] = [
   { text: "EMAIL", value: "email", sortable: true },
@@ -138,32 +139,13 @@ const submitForm = async () => {
                       <v-card-text>
                         <v-container>
                           <v-row>
-                            <v-col md="3" cols="12" class="text-center">
-                              <v-avatar
-                                size="72"
-                                variant="outlined"
-                                color="primary"
-                                class="dashed"
-                              >
-                                <img
-                                  src="@/assets/images/users/avatar-1.png"
-                                  width="72"
-                                  alt="profile"
-                                />
-                                <input
-                                  type="file"
-                                  aria-label="upload"
-                                  class="preview-upload"
-                                />
-                              </v-avatar>
-                            </v-col>
-                            <v-col md="9" cols="12">
+                            <v-col md="12" cols="12">
                               <v-row>
                                 <v-col cols="12">
-                                  <v-label class="mb-2">First name</v-label>
+                                  <v-label class="mb-2">Name</v-label>
                                   <v-text-field
                                     single-line
-                                    placeholder="Enter first name"
+                                    placeholder="Name"
                                     hide-details
                                     variant="outlined"
                                     required
@@ -177,7 +159,7 @@ const submitForm = async () => {
                                     single-line
                                     type="email"
                                     hide-details
-                                    placeholder="Enter customer email"
+                                    placeholder="Email"
                                     required
                                     variant="outlined"
                                     density="comfortable"
@@ -185,10 +167,76 @@ const submitForm = async () => {
                                   ></v-text-field>
                                 </v-col>
                                 <v-col cols="12">
-                                  <v-label class="mb-2">Status</v-label>
+                                  <v-label class="mb-2">Telegram</v-label>
+                                  <v-text-field
+                                    single-line
+                                    type="email"
+                                    hide-details
+                                    placeholder="Telegram"
+                                    required
+                                    variant="outlined"
+                                    density="comfortable"
+                                    rounded="0"
+                                  ></v-text-field>
+                                </v-col>
+                                <v-col cols="12">
+                                  <v-label class="mb-2">Balance</v-label>
+                                  <v-text-field
+                                    single-line
+                                    type="number"
+                                    hide-details
+                                    placeholder="Balance"
+                                    required
+                                    variant="outlined"
+                                    density="comfortable"
+                                    rounded="0"
+                                  ></v-text-field>
+                                </v-col>
+                                <v-col cols="12">
+                                  <v-label class="mb-2">Credit limit</v-label>
+                                  <v-text-field
+                                    single-line
+                                    type="number"
+                                    hide-details
+                                    placeholder="Credit limit"
+                                    required
+                                    variant="outlined"
+                                    density="comfortable"
+                                    rounded="0"
+                                  ></v-text-field>
+                                </v-col>
+                                <v-col cols="12">
+                                  <v-label class="mb-2">Referral Percent</v-label>
+                                  <v-text-field
+                                    single-line
+                                    type="number"
+                                    v-model="creditLimit"
+                                    hide-details
+                                    placeholder="Credit limit"
+                                    required
+                                    variant="outlined"
+                                    density="comfortable"
+                                    rounded="0"
+                                  ></v-text-field>
+                                </v-col>
+                                <v-col cols="12">
+                                  <v-label class="mb-2">Password</v-label>
+                                  <v-text-field
+                                    single-line
+                                    type="password"
+                                    hide-details
+                                    placeholder="********"
+                                    required
+                                    variant="outlined"
+                                    density="comfortable"
+                                    rounded="0"
+                                  ></v-text-field>
+                                </v-col>
+                                <v-col cols="12">
+                                  <v-label class="mb-2">Roles</v-label>
                                   <v-autocomplete
-                                    :items="['Single', 'Relationship', 'Complicated']"
-                                    label="Single"
+                                    :items="['Admin', 'Pseudo Admin', 'Partner', 'Webmaster']"
+                                    label="Select role..."
                                     rounded="0"
                                     color="primary"
                                     single-line
@@ -196,57 +244,6 @@ const submitForm = async () => {
                                     hide-details
                                     variant="outlined"
                                   ></v-autocomplete>
-                                </v-col>
-                                <v-col cols="12">
-                                  <v-label class="mb-2">Location</v-label>
-                                  <v-textarea
-                                    placeholder="Enter location"
-                                    hide-details
-                                    rows="2"
-                                    variant="outlined"
-                                    density="comfortable"
-                                  ></v-textarea>
-                                </v-col>
-                                <v-col cols="12">
-                                  <div class="d-flex justify-space-between ga-2">
-                                    <div class="pb-4">
-                                      <h6 class="text-subtitle-1 mb-1">
-                                        Make Contact Info Public
-                                      </h6>
-                                      <p class="text-caption text-lightText mb-0 me-5">
-                                        Means that anyone viewing your profile will be
-                                        able to see your contacts details
-                                      </p>
-                                    </div>
-                                    <v-switch
-                                      color="primary"
-                                      aria-label="switch"
-                                      class="switchRight"
-                                      :model-value="true"
-                                      hide-details
-                                    ></v-switch>
-                                  </div>
-                                  <v-divider></v-divider>
-                                </v-col>
-                                <v-col cols="12" class="pt-0">
-                                  <div class="d-flex justify-space-between ga-2">
-                                    <div class="pb-4 pt-1">
-                                      <h6 class="text-subtitle-1 mb-1">
-                                        Available to hire
-                                      </h6>
-                                      <p class="text-caption text-lightText mb-0 me-5">
-                                        Toggling this will let your teammates know that
-                                        you are available for acquiring new projects
-                                      </p>
-                                    </div>
-                                    <v-switch
-                                      color="primary"
-                                      aria-label="switch"
-                                      class="switchRight"
-                                      :model-value="false"
-                                      hide-details
-                                    ></v-switch>
-                                  </div>
                                 </v-col>
                               </v-row>
                             </v-col>
