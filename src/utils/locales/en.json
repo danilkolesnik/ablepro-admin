@@ -236,5 +236,21 @@
   "Select banner 4": "Select banner 4",
   "Select banner 5": "Select banner 5",
   "Select banner 6": "Select banner 6",
-  "Select Banners (min 3 max 6)": "Select Banners (min 3 max 6)"
+  "Select Banners (min 3 max 6)": "Select Banners (min 3 max 6)",
+  
+  "New Photo": "New Photo",
+  "Delete Photo": "Delete Photo",
+  "Enter your name": "Enter your name",
+  "Enter your email": "Enter your email",
+  "Enter your Telegram ID": "Enter your Telegram ID",
+  "Your Telegram Key": "Your Telegram Key",
+  "Save Changes": "Save Changes",
+  "Profile updated successfully": "Profile updated successfully",
+  "Error updating profile": "Error updating profile",
+  
+  "Two-factor authentication is enabled": "Two-factor authentication is enabled",
+  "Two-factor authentication is not enabled": "Two-factor authentication is not enabled",
+  "Two factor authentication description": "If two-factor authentication is enabled, during the authentication process, you will be prompted to enter a secure random token. You can obtain this token from the Google Authenticator app on your phone.",
+  "Enable": "Enable",
+  "Disable": "Disable"
 }

@@ -4,6 +4,19 @@ import axios from '@/utils/axios';
 // types
 import type { CustomerStateProps } from '@/types/customers/index';
 
+interface ICreateCustomer {
+  name: string;
+  email: string;
+  telegram: string;
+  password: string;
+  role: string;
+  pages: number[];
+  users: number[];
+  balance: number | null;
+  credit_limit: number | null;
+  referral_percent: number | null;
+}
+
 //USERS TAB STORE
 export const useCustomers = defineStore({
   id: 'customers',
@@ -17,77 +30,43 @@ export const useCustomers = defineStore({
     // Get Customers from Getters
     getCustomers(state) {
       return state.customers;
-    },
-    // Get orders from Getters
-    getOrders(state) {
-      return state.orders;
-    },
-    // Get orders from Getters
-    getProducts(state) {
-      return state.products;
-    },
-    // Get orders from Getters
-    getProductsreviews(state) {
-      return state.productreviews;
     }
   },
   actions: {
     // Fetch Customers from action
     async fetchCustomers() {
-      try {    
+      try {
         const response = await axios.get('/api/users');
-    
+
         this.customers = response.data.data;
-        return response.data.data
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        return response.data.data;
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } catch (error: any) {
-        console.error('Ошибка при получении пользователей:', error);
-        alert(error.message);
+        console.error(error);
       }
     },
 
-    // Fetch Orders from action
-    async fetchOrders() {
+    async createCustomer(body: ICreateCustomer) {
       try {
-        const data = await axios.get('/api/data/orders');
-        this.orders = data.data;
-      } catch (error) {
-        alert(error);
+        const response = await axios.post('/api/users/create', body);
+        await this.fetchCustomers();
+        return response.data.data;
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      } catch (error: any) {
+        console.error(error);
       }
     },
 
-    // Fetch products from action
-    async fetchProducts() {
+    async loginCustomer(id: string) {
       try {
-        const data = await axios.get('/api/data/products');
-        this.products = data.data;
-      } catch (error) {
-        alert(error);
+        const response = await axios.post(`/api/users/${id}/login`);
+        await this.fetchCustomers();
+
+        return response.data.data;
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      } catch (error: any) {
+        console.error(error);
       }
-    },
-
-    // Fetch products from action
-    async fetchReviews() {
-      try {
-        const data = await axios.get('/api/data/productreviews');
-        this.productreviews = data.data;
-      } catch (error) {
-        alert(error);
-      }
-    },
-
-    // Delete Customer
-    deleteCustomer(itemId: string) {
-      this.customers = this.customers.filter((object) => {
-        return object.name !== itemId;
-      });
-    },
-
-    // Delete Orders
-    deleteOrder(itemId: string) {
-      this.orders = this.orders.filter((object) => {
-        return object.id !== itemId;
-      });
     }
   }
 });

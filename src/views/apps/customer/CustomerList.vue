@@ -1,25 +1,25 @@
 <script setup lang="ts">
-import { ref, computed, onMounted, shallowRef } from 'vue';
-import { useCustomers } from '@/stores/apps/customers';
+import { ref, computed, onMounted, shallowRef } from "vue";
+import { useCustomers } from "@/stores/apps/customers";
 
-import SvgSprite from '@/components/shared/SvgSprite.vue';
-import BaseBreadcrumb from '@/components/shared/BaseBreadcrumb.vue';
-import type { Header, Item } from 'vue3-easy-data-table';
-import 'vue3-easy-data-table/dist/style.css';
+import SvgSprite from "@/components/shared/SvgSprite.vue";
+import BaseBreadcrumb from "@/components/shared/BaseBreadcrumb.vue";
+import type { Header, Item } from "vue3-easy-data-table";
+import "vue3-easy-data-table/dist/style.css";
 
-const page = ref({ title: 'Users list' });
+const page = ref({ title: "Users list" });
 
 const breadcrumbs = shallowRef([
   {
-    title: 'User',
+    title: "User",
     disabled: false,
-    href: '#'
+    href: "#",
   },
   {
-    title: 'List',
+    title: "List",
     disabled: true,
-    href: '#'
-  }
+    href: "#",
+  },
 ]);
 
 const store = useCustomers();
@@ -32,36 +32,71 @@ onMounted(() => {
   store.fetchCustomers();
 });
 
-// watch(getCustomers, (newCustomers) => {
-//   console.log('Users:', newCustomers);
-// });
-
-const searchField = ref('name');
-const searchValue = ref('');
+const searchField = ref("email");
+const searchValue = ref("");
 
 const headers: Header[] = [
-  { text: 'Customer name', value: 'name', sortable: true },
-  { text: 'Email', value: 'email', sortable: true },
-  { text: 'Role', value: 'role', sortable: true },
-  { text: 'Telegram', value: 'telegram', sortable: true },
-  { text: 'Host', value: 'host', sortable: true },
-  { text: 'Action', value: 'operation' }
+  { text: "EMAIL", value: "email", sortable: true },
+  { text: "GROUP", value: "role", sortable: true },
+  { text: "ADMIN", value: "admin", sortable: true },
+  { text: "TELEGRAM", value: "telegram", sortable: true },
+  { text: "TARIFF TO", value: "tariff_expiration_date", sortable: true },
+  { text: "HOST", value: "host", sortable: true },
+  { text: "LOGIN", value: "operation" },
 ];
 
 const items = computed(() => getCustomers.value);
-const themeColor = ref('rgb(var(--v-theme-primary))');
-const { deleteCustomer } = store;
+const themeColor = ref("rgb(var(--v-theme-primary))");
+const { loginCustomer, createCustomer } = store;
 
 const itemsSelected = ref<Item[]>([]);
 
 const dialog = ref(false);
+
+const formData = ref({
+  name: "",
+  email: "",
+  telegram: "",
+  password: "",
+  role: "",
+  pages: [],
+  users: [],
+  balance: null,
+  credit_limit: null,
+  referral_percent: null,
+});
+
+const submitForm = async () => {
+  try {
+    const body = {
+      name: formData.value.name,
+      email: formData.value.email,
+      telegram: formData.value.telegram,
+      password: formData.value.password,
+      role: formData.value.role,
+      pages: formData.value.pages,
+      users: formData.value.users,
+      balance: formData.value.balance,
+      credit_limit: formData.value.credit_limit,
+      referral_percent: formData.value.referral_percent,
+    };
+    await createCustomer(body);
+  } catch (err) {
+    console.log(err);
+  }
+};
 </script>
 
 <template>
   <BaseBreadcrumb :title="page.title" :breadcrumbs="breadcrumbs"></BaseBreadcrumb>
   <v-row>
     <v-col cols="12" md="12">
-      <v-card elevation="0" variant="outlined" class="bg-surface overflow-hidden" rounded="lg">
+      <v-card
+        elevation="0"
+        variant="outlined"
+        class="bg-surface overflow-hidden"
+        rounded="lg"
+      >
         <v-card-item>
           <v-row justify="space-between" class="align-center">
             <v-col cols="12" md="3">
@@ -75,7 +110,11 @@ const dialog = ref(false);
                 hide-details
               >
                 <template v-slot:prepend-inner>
-                  <SvgSprite name="custom-search" class="text-lightText" style="width: 14px; height: 14px" />
+                  <SvgSprite
+                    name="custom-search"
+                    class="text-lightText"
+                    style="width: 14px; height: 14px"
+                  />
                 </template>
               </v-text-field>
             </v-col>
@@ -100,9 +139,22 @@ const dialog = ref(false);
                         <v-container>
                           <v-row>
                             <v-col md="3" cols="12" class="text-center">
-                              <v-avatar size="72" variant="outlined" color="primary" class="dashed">
-                                <img src="@/assets/images/users/avatar-1.png" width="72" alt="profile" />
-                                <input type="file" aria-label="upload" class="preview-upload" />
+                              <v-avatar
+                                size="72"
+                                variant="outlined"
+                                color="primary"
+                                class="dashed"
+                              >
+                                <img
+                                  src="@/assets/images/users/avatar-1.png"
+                                  width="72"
+                                  alt="profile"
+                                />
+                                <input
+                                  type="file"
+                                  aria-label="upload"
+                                  class="preview-upload"
+                                />
                               </v-avatar>
                             </v-col>
                             <v-col md="9" cols="12">
@@ -158,9 +210,12 @@ const dialog = ref(false);
                                 <v-col cols="12">
                                   <div class="d-flex justify-space-between ga-2">
                                     <div class="pb-4">
-                                      <h6 class="text-subtitle-1 mb-1">Make Contact Info Public</h6>
+                                      <h6 class="text-subtitle-1 mb-1">
+                                        Make Contact Info Public
+                                      </h6>
                                       <p class="text-caption text-lightText mb-0 me-5">
-                                        Means that anyone viewing your profile will be able to see your contacts details
+                                        Means that anyone viewing your profile will be
+                                        able to see your contacts details
                                       </p>
                                     </div>
                                     <v-switch
@@ -176,9 +231,12 @@ const dialog = ref(false);
                                 <v-col cols="12" class="pt-0">
                                   <div class="d-flex justify-space-between ga-2">
                                     <div class="pb-4 pt-1">
-                                      <h6 class="text-subtitle-1 mb-1">Available to hire</h6>
+                                      <h6 class="text-subtitle-1 mb-1">
+                                        Available to hire
+                                      </h6>
                                       <p class="text-caption text-lightText mb-0 me-5">
-                                        Toggling this will let your teammates know that you are available for acquiring new projects
+                                        Toggling this will let your teammates know that
+                                        you are available for acquiring new projects
                                       </p>
                                     </div>
                                     <v-switch
@@ -198,15 +256,26 @@ const dialog = ref(false);
                       <v-divider></v-divider>
                       <v-card-actions>
                         <v-spacer></v-spacer>
-                        <v-btn color="error" rounded="md" variant="text" @click="(dialog = false)"> Cancel </v-btn>
-                        <v-btn color="primary" rounded="md" variant="flat" @click="(dialog = false)"> Add </v-btn>
+                        <v-btn
+                          color="error"
+                          rounded="md"
+                          variant="text"
+                          @click="dialog = false"
+                        >
+                          Cancel
+                        </v-btn>
+                        <v-btn
+                          color="primary"
+                          rounded="md"
+                          variant="flat"
+                          @click="dialog = false"
+                        >
+                          Add
+                        </v-btn>
                       </v-card-actions>
                     </perfect-scrollbar>
                   </v-card>
                 </v-dialog>
-                <v-btn icon variant="text" aria-label="download" rounded="md" size="small">
-                  <SvgSprite name="custom-document-2" class="text-lightText" style="width: 24px; height: 24px" />
-                </v-btn>
               </div>
             </v-col>
           </v-row>
@@ -242,14 +311,15 @@ const dialog = ref(false);
             </template>
             <template #item-operation="item">
               <div class="operation-wrapper">
-                <v-btn icon color="secondary" aria-label="view" variant="text" rounded="md">
-                  <SvgSprite name="custom-eye" style="width: 20px; height: 20px" />
-                </v-btn>
-                <v-btn icon color="primary" aria-label="edit" variant="text" rounded="md">
-                  <SvgSprite name="custom-edit-outline" style="width: 20px; height: 20px" />
-                </v-btn>
-                <v-btn icon color="error" aria-label="trash" @click="deleteCustomer(item.name)" rounded="md">
-                  <SvgSprite name="custom-trash" style="width: 20px; height: 20px" />
+                <v-btn
+                  icon
+                  color="success"
+                  aria-label="trash"
+                  @click="loginCustomer(item.id)"
+                  rounded="md"
+                  style="min-width: 60px"
+                >
+                  Login
                 </v-btn>
               </div>
             </template>
