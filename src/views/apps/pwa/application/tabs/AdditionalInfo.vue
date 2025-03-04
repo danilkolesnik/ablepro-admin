@@ -19,12 +19,45 @@ const fileSize = ref("0");
     />
 
     <h3 class="text-h6 font-weight-bold mt-4">Number of reviews</h3>
-    <v-text-field v-model="reviewNumber" color="primary" label="" />
+    <v-text-field
+    color="primary"
+    type="number"
+    single-line
+    hide-details
+    placeholder="Books"
+    required
+    variant="outlined"
+    density="comfortable"
+    rounded="0"
+    v-model="reviewNumber"
+    ></v-text-field>
 
     <h3 class="text-h6 font-weight-bold mt-4">Number of installs</h3>
-    <v-text-field v-model="installsNumber" color="primary" label="" />
+    <v-text-field
+    color="primary"
+    type="number"
+    single-line
+    hide-details
+    placeholder="Books"
+    required
+    variant="outlined"
+    density="comfortable"
+    rounded="0"
+    v-model="installsNumber"
+    ></v-text-field>
 
     <h3 class="text-h6 font-weight-bold mt-4">File Size (MB)</h3>
-    <v-text-field v-model="fileSize" color="primary" label="" />
+    <v-text-field
+    color="primary"
+    type="number"
+    single-line
+    hide-details
+    placeholder="Books"
+    required
+    variant="outlined"
+    density="comfortable"
+    rounded="0"
+    v-model="fileSize"
+    ></v-text-field>
   </v-container>
 </template>

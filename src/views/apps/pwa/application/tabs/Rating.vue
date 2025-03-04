@@ -13,7 +13,18 @@ const generateReviews = ref(false);
 <template>
   <v-container>
     <h3 class="text-h6 font-weight-bold mt-4">Rating</h3>
-    <v-text-field v-model="rating" color="primary" label="" type="number" />
+    <v-text-field
+    color="primary"
+    type="number"
+    single-line
+    hide-details
+    placeholder="Books"
+    required
+    variant="outlined"
+    density="comfortable"
+    rounded="0"
+    v-model="rating"
+    ></v-text-field>
 
     <v-slider v-model="fiveStarCount" color="primary" label="Five-star ratings count" min="0" max="100" thumb-label />
     <v-slider v-model="fourStarCount" color="primary" label="Four-star ratings count" min="0" max="100" thumb-label />
