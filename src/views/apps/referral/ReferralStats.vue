@@ -5,8 +5,10 @@ import BaseBreadcrumb from "@/components/shared/BaseBreadcrumb.vue";
 import type { Header, Item } from "vue3-easy-data-table";
 import "vue3-easy-data-table/dist/style.css";
 import { useCustomers } from "@/stores/apps/customers";
+import { useI18n } from "vue-i18n";
 
-const page = ref({ title: "Referral Stats" });
+const { t } = useI18n();
+const page = ref({ title: t("Referral Stats") });
 
 const store = useReferral();
 const store_user = useCustomers();
@@ -22,12 +24,12 @@ const formData = ref({
 
 const breadcrumbs = shallowRef([
   {
-    title: "Referral",
+    title: t("Referral"),
     disabled: false,
     href: "#",
   },
   {
-    title: "Stats",
+    title: t("Stats"),
     disabled: true,
     href: "#",
   },
@@ -50,13 +52,13 @@ const searchField = ref("name");
 const searchValue = ref("");
 
 const headers: Header[] = [
-  { text: "ID", value: "id", sortable: true },
-  { text: "DOMAIN", value: "domain", sortable: true },
-  { text: "PRICE", value: "price", sortable: true },
-  { text: "USER ID", value: "user", sortable: true },
-  { text: "CATEGORY", value: "category", sortable: true },
-  { text: "CREATING DATE", value: "created_at", sortable: true },
-  { text: "STATUS", value: "status", sortable: true },
+  { text: t("ID"), value: "id", sortable: true },
+  { text: t("DOMAIN"), value: "domain", sortable: true },
+  { text: t("PRICE"), value: "price", sortable: true },
+  { text: t("USER ID"), value: "user", sortable: true },
+  { text: t("CATEGORY"), value: "category", sortable: true },
+  { text: t("CREATING DATE"), value: "created_at", sortable: true },
+  { text: t("STATUS"), value: "status", sortable: true },
 ];
 
 const items = computed(() => getStats.value.referrals);
@@ -89,7 +91,7 @@ const searchStats = async () => {
           <v-row justify="space-between" class="align-center">
             <v-col class="d-flex">
               <v-col cols="12" md="4">
-                <v-label class="mb-2">User</v-label>
+                <v-label class="mb-2">{{ t("User") }}</v-label>
                 <v-autocomplete
                   :items="userItems"
                   item-title="email"
@@ -99,13 +101,13 @@ const searchStats = async () => {
                   single-line
                   density="comfortable"
                   hide-details
-                  label="Select User"
+                  :label="t('Select User')"
                   variant="outlined"
                   v-model="formData.user"
                 ></v-autocomplete>
               </v-col>
               <v-col cols="12" md="4">
-                <v-label class="mb-2">Referral</v-label>
+                <v-label class="mb-2">{{ t("Referral") }}</v-label>
                 <v-autocomplete
                   :items="referralItems"
                   item-title="uuid"
@@ -115,7 +117,7 @@ const searchStats = async () => {
                   single-line
                   density="comfortable"
                   hide-details
-                  label="Select Referral"
+                  :label="t('Select Referral')"
                   variant="outlined"
                   v-model="formData.referral"
                 ></v-autocomplete>
@@ -128,7 +130,7 @@ const searchStats = async () => {
                   variant="flat"
                   style="height: 48px"
                 >
-                  Search
+                  {{ t("Search") }}
                 </v-btn>
               </v-col>
             </v-col>

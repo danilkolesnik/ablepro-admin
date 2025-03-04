@@ -6,17 +6,19 @@ import SvgSprite from "@/components/shared/SvgSprite.vue";
 import BaseBreadcrumb from "@/components/shared/BaseBreadcrumb.vue";
 import type { Header, Item } from "vue3-easy-data-table";
 import "vue3-easy-data-table/dist/style.css";
+import { useI18n } from "vue-i18n";
 
-const page = ref({ title: "White list" });
+const { t } = useI18n();
+const page = ref({ title: t("White list") });
 
 const breadcrumbs = shallowRef([
   {
-    title: "Domains",
+    title: t("Domains"),
     disabled: false,
     href: "#",
   },
   {
-    title: "Whitelist",
+    title: t("Whitelist"),
     disabled: true,
     href: "#",
   },
@@ -56,11 +58,11 @@ const searchField = ref("domain");
 const searchValue = ref("");
 
 const headers: Header[] = [
-  { text: "ID", value: "id", sortable: true },
-  { text: "DOMAIN", value: "domain", sortable: true },
-  { text: "USER ID", value: "user", sortable: true },
-  { text: "CREATING DATE", value: "created_at", sortable: true },
-  { text: "Action", value: "operation" },
+  { text: t("ID"), value: "id", sortable: true },
+  { text: t("DOMAIN"), value: "domain", sortable: true },
+  { text: t("USER ID"), value: "user", sortable: true },
+  { text: t("CREATING DATE"), value: "created_at", sortable: true },
+  { text: t("Action"), value: "operation" },
 ];
 
 const items = computed(() => getWhitelist.value.domains);
@@ -91,7 +93,7 @@ const dialog = ref(false);
                 type="text"
                 variant="outlined"
                 persistent-placeholder
-                placeholder="Search 200 records..."
+                :placeholder="t('Search 200 records...')"
                 v-model="searchValue"
                 density="comfortable"
                 hide-details
@@ -113,13 +115,13 @@ const dialog = ref(false);
                       <template v-slot:prepend>
                         <SvgSprite name="custom-plus" style="width: 20px; height: 20px" />
                       </template>
-                      Add whitelist
+                      {{ t("Add whitelist") }}
                     </v-btn>
                   </template>
                   <v-card>
                     <perfect-scrollbar style="max-height: calc(100vh - 48px)">
                       <v-card-title class="pa-5">
-                        <span class="text-h5">New whitelist</span>
+                        <span class="text-h5">{{ t("New whitelist") }}</span>
                       </v-card-title>
                       <v-divider></v-divider>
                       <v-card-text>
@@ -147,10 +149,10 @@ const dialog = ref(false);
                             <v-col md="9" cols="12">
                               <v-row>
                                 <v-col cols="12">
-                                  <v-label class="mb-2">Domain</v-label>
+                                  <v-label class="mb-2">{{ t("Domain") }}</v-label>
                                   <v-text-field
                                     single-line
-                                    placeholder="Enter domain"
+                                    :placeholder="t('Enter domain')"
                                     hide-details
                                     variant="outlined"
                                     required
@@ -160,7 +162,7 @@ const dialog = ref(false);
                                   ></v-text-field>
                                 </v-col>
                                 <v-col cols="12">
-                                  <v-label class="mb-2">User</v-label>
+                                  <v-label class="mb-2">{{ t("User") }}</v-label>
                                   <v-autocomplete
                                     v-model="formData.user"
                                     :items="users"
@@ -172,7 +174,7 @@ const dialog = ref(false);
                                     density="comfortable"
                                     hide-details
                                     variant="outlined"
-                                    label="Select User"
+                                    :label="t('Select User')"
                                   ></v-autocomplete>
                                 </v-col>
                               </v-row>
@@ -189,7 +191,7 @@ const dialog = ref(false);
                           variant="text"
                           @click="dialog = false"
                         >
-                          Cancel
+                          {{ t("Cancel") }}
                         </v-btn>
                         <v-btn
                           color="primary"
@@ -197,7 +199,7 @@ const dialog = ref(false);
                           variant="flat"
                           @click="onSubmitForm"
                         >
-                          Add
+                          {{ t("Add") }}
                         </v-btn>
                       </v-card-actions>
                     </perfect-scrollbar>

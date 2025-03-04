@@ -3,20 +3,22 @@ import { computed, onMounted, ref } from "vue";
 import BaseBreadcrumb from "@/components/shared/BaseBreadcrumb.vue";
 import UiParentCard from "@/components/shared/UiParentCard.vue";
 import { useTelegramAlerts } from "@/stores/apps/telegram/alerts";
+import { useI18n } from "vue-i18n";
 
+const { t } = useI18n();
 const store = useTelegramAlerts();
 
 const { createTelegramAlert } = store;
 
-const page = ref({ title: "Telegram Create Alert" });
+const page = ref({ title: t("Telegram Create Alert") });
 const breadcrumbs = ref([
   {
-    title: "Telegram",
+    title: t("Telegram"),
     disabled: false,
     href: "#",
   },
   {
-    title: "Create Alert",
+    title: t("Create Alert"),
     disabled: true,
     href: "#",
   },
@@ -57,11 +59,11 @@ const isVideoSelected = computed(() => formDataCreate.value.video !== null);
   <BaseBreadcrumb :title="page.title" :breadcrumbs="breadcrumbs"></BaseBreadcrumb>
   <v-row>
     <v-col cols="12">
-      <UiParentCard title="Create Telegram Alert">
+      <UiParentCard :title="t('Create Telegram Alert')">
         <v-row>
           <v-col cols="12">
             <v-label class="text-subtitle-1 text-lightText mb-2"
-              >Message Text<span class="ms-1">*</span></v-label
+              >{{ t("Message Text") }}<span class="ms-1">*</span></v-label
             >
             <v-textarea
               style="width: 100%"
@@ -77,10 +79,10 @@ const isVideoSelected = computed(() => formDataCreate.value.video !== null);
         <v-row>
           <v-col cols="12" v-if="!isVideoSelected">
             <v-label class="text-subtitle-1 text-lightText mb-2"
-              >Message image<span class="ms-1">*</span></v-label
+              >{{ t("Message image") }}<span class="ms-1">*</span></v-label
             >
             <v-file-input
-              label="Select Message Image "
+              :label="t('Select Message Image')"
               v-model="formDataCreate.image"
               accept="image/*"
               outlined
@@ -89,10 +91,10 @@ const isVideoSelected = computed(() => formDataCreate.value.video !== null);
           </v-col>
           <v-col cols="12" v-if="!isImageSelected">
             <v-label class="text-subtitle-1 text-lightText mb-2"
-              >Message video<span class="ms-1">*</span></v-label
+              >{{ t("Message video") }}<span class="ms-1">*</span></v-label
             >
             <v-file-input
-              label="Select Message Video "
+              :label="t('Select Message Video')"
               v-model="formDataCreate.video"
               accept="video/*"
               outlined
@@ -103,7 +105,7 @@ const isVideoSelected = computed(() => formDataCreate.value.video !== null);
         <v-row>
           <v-col cols="12">
             <v-label class="text-subtitle-1 text-lightText mb-2"
-              >Message bots<span class="ms-1">*</span></v-label
+              >{{ t("Message bots") }}<span class="ms-1">*</span></v-label
             >
             <v-autocomplete
               aria-label="autocomplete"
@@ -115,7 +117,7 @@ const isVideoSelected = computed(() => formDataCreate.value.video !== null);
               variant="outlined"
               class="skill-field"
               color="primary"
-              label="Select Bot"
+              :label="t('Select Bot')"
               single-line
               multiple
               hide-details
@@ -126,9 +128,9 @@ const isVideoSelected = computed(() => formDataCreate.value.video !== null);
         <v-divider class="my-6"></v-divider>
 
         <div class="text-end">
-          <v-btn color="primary" rounded="md" variant="flat" @click="submitForm"
-            >Send</v-btn
-          >
+          <v-btn color="primary" rounded="md" variant="flat" @click="submitForm">
+            {{ t("Send") }}
+          </v-btn>
         </div>
       </UiParentCard>
     </v-col>
