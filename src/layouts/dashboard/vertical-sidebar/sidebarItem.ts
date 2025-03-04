@@ -73,7 +73,7 @@ const sidebarItem: menu[] = [
       {
         id: 'metrics',
         title: 'Facebook Pixel',
-        to: '/app/metrics/facebookPixel'
+        to: '/app/metrics/facebook-pixel'
       }
     ]
   },
@@ -105,7 +105,25 @@ const sidebarItem: menu[] = [
           to: '/app/customer/create-invoice'
         },
       ]
-    },
+  },
+  {header: "Pages Management"},
+  {
+      title: 'Pages Management',
+      icon: 'custom-users',
+      to: '/customer/',
+      children: [
+        {
+          id: 'customerlist',
+          title: 'Page Groups',
+          to: '/pages/pages-groups'
+        },
+        {
+          id: 'createinvoice',
+          title: 'Page List',
+          to: '/pages/pages-list'
+        },
+      ]
+  },
   { header: 'PWA Management' },
   {
     title: 'PWA Applications',
