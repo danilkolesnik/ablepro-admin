@@ -57,7 +57,7 @@ const headers: Header[] = [
 const itemsSelected = ref<Item[]>([]);
 
 const dialog = ref(false);
-});
+
 </script>
 
 <template>
