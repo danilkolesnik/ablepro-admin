@@ -2,27 +2,31 @@
 import { ref, computed, onMounted, shallowRef, watch } from 'vue';
 import { usePixels } from '@/stores/apps/pixels';
 
-import SvgSprite from '@/components/shared/SvgSprite.vue';
-import BaseBreadcrumb from '@/components/shared/BaseBreadcrumb.vue';
-import type { Header, Item } from 'vue3-easy-data-table';
-import 'vue3-easy-data-table/dist/style.css';
+import SvgSprite from "@/components/shared/SvgSprite.vue";
+import BaseBreadcrumb from "@/components/shared/BaseBreadcrumb.vue";
+import type { Header, Item } from "vue3-easy-data-table";
+import "vue3-easy-data-table/dist/style.css";
+import { useI18n } from "vue-i18n";
 
-const page = ref({ title: 'Facebook Pixel List' });
+const page = ref({ title: "Facebook Pixel List" });
 
 const breadcrumbs = shallowRef([
   {
-    title: 'Facebook Pixel',
+    title: "Facebook Pixel",
     disabled: false,
-    href: '#'
+    href: "#",
   },
   {
-    title: 'List',
+    title: "List",
     disabled: true,
-    href: '#'
-  }
+    href: "#",
+  },
 ]);
 
+
 const store = usePixels();
+
+const { t } = useI18n();
 
 const getPixels = computed(() => {
   return store.getPixels;
@@ -32,27 +36,27 @@ onMounted(() => {
   store.fetchPixels();
 });
 
-const searchField = ref('name');
-const searchValue = ref('');
-
-const headers: Header[] = [
-  { text: 'Pixel', value: 'pixel', sortable: true },
-  { text: 'Token', value: 'token', sortable: true },
-  { text: 'Creation date', value: 'created_at', sortable: true },
-  { text: 'User', value: 'user', sortable: true },
-  { text: 'Transfer status', value: 'transfer_status', sortable: true },
-];
+const searchField = ref("name");
+const searchValue = ref("");
 
 const items = computed(() => getPixels.value);
 const themeColor = ref('rgb(var(--v-theme-primary))');
-
 // const { deleteDomain } = store;
+
+const headers: Header[] = [
+  { text: t("ID"), value: "id", sortable: true },
+  { text: t("DOMAIN"), value: "domain", sortable: true },
+  { text: t("PRICE"), value: "price", sortable: true },
+  { text: t("USER ID"), value: "user_id", sortable: true },
+  { text: t("CATEGORY"), value: "category", sortable: true },
+  { text: t("CREATING DATE"), value: "created_date", sortable: true },
+  { text: t("STATUS"), value: "status", sortable: true },
+  { text: t("Action"), value: "operation" },
+];
 
 const itemsSelected = ref<Item[]>([]);
 
 const dialog = ref(false);
-watch(getPixels, (suka) => {
-  console.log('Pixels:', suka);
 });
 </script>
 
@@ -60,7 +64,12 @@ watch(getPixels, (suka) => {
   <BaseBreadcrumb :title="page.title" :breadcrumbs="breadcrumbs"></BaseBreadcrumb>
   <v-row>
     <v-col cols="12" md="12">
-      <v-card elevation="0" variant="outlined" class="bg-surface overflow-hidden" rounded="lg">
+      <v-card
+        elevation="0"
+        variant="outlined"
+        class="bg-surface overflow-hidden"
+        rounded="lg"
+      >
         <v-card-item>
           <v-row justify="space-between" class="align-center">
             <v-col cols="12" md="3">
@@ -74,7 +83,11 @@ watch(getPixels, (suka) => {
                 hide-details
               >
                 <template v-slot:prepend-inner>
-                  <SvgSprite name="custom-search" class="text-lightText" style="width: 14px; height: 14px" />
+                  <SvgSprite
+                    name="custom-search"
+                    class="text-lightText"
+                    style="width: 14px; height: 14px"
+                  />
                 </template>
               </v-text-field>
             </v-col>
@@ -132,15 +145,26 @@ watch(getPixels, (suka) => {
                       <v-divider></v-divider>
                       <v-card-actions>
                         <v-spacer></v-spacer>
-                        <v-btn color="error" rounded="md" variant="text" @click="(dialog = false)"> Cancel </v-btn>
-                        <v-btn color="primary" rounded="md" variant="flat" @click="(dialog = false)"> Add </v-btn>
+                        <v-btn
+                          color="error"
+                          rounded="md"
+                          variant="text"
+                          @click="dialog = false"
+                        >
+                          Cancel
+                        </v-btn>
+                        <v-btn
+                          color="primary"
+                          rounded="md"
+                          variant="flat"
+                          @click="dialog = false"
+                        >
+                          Add
+                        </v-btn>
                       </v-card-actions>
                     </perfect-scrollbar>
                   </v-card>
                 </v-dialog>
-                <v-btn icon variant="text" aria-label="download" rounded="md" size="small">
-                  <SvgSprite name="custom-document-2" class="text-lightText" style="width: 24px; height: 24px" />
-                </v-btn>
               </div>
             </v-col>
           </v-row>
@@ -179,11 +203,20 @@ watch(getPixels, (suka) => {
             </template>
             <template #item-operation="item">
               <div class="operation-wrapper">
-                <v-btn icon color="secondary" aria-label="view" variant="text" rounded="md">
+                <v-btn
+                  icon
+                  color="secondary"
+                  aria-label="view"
+                  variant="text"
+                  rounded="md"
+                >
                   <SvgSprite name="custom-eye" style="width: 20px; height: 20px" />
                 </v-btn>
                 <v-btn icon color="primary" aria-label="edit" variant="text" rounded="md">
-                  <SvgSprite name="custom-edit-outline" style="width: 20px; height: 20px" />
+                  <SvgSprite
+                    name="custom-edit-outline"
+                    style="width: 20px; height: 20px"
+                  />
                 </v-btn>
                 <!-- @click="deleteDomain(item.id)" -->
                 <v-btn icon color="error" aria-label="trash" rounded="md">

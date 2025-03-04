@@ -7,6 +7,21 @@ const MainRoutes = {
   component: () => import('@/layouts/dashboard/DashboardLayout.vue'),
   children: [
     {
+      name: 'Dashboard',
+      path: '/dashboard',
+      component: () => import('@/views/dashboards/custom/Dashboard.vue')
+    },
+    {
+      name: 'Profile',
+      path: '/user/profile',
+      component: () => import('@/views/apps/profile/Profile.vue')
+    },
+    {
+      name: 'API Tokens',
+      path: '/user/api-tokens',
+      component: () => import('@/views/apps/profile/ApiTokens.vue')
+    },
+    {
       name: 'Default',
       path: '/dashboard/default',
       component: () => import('@/views/dashboards/default/DefaultDashboard.vue')
@@ -27,6 +42,16 @@ const MainRoutes = {
       component: () => import('@/views/apps/facebookPixel/FacebookPixel.vue')
     },
     {
+      name: 'Finance',
+      path: '/finance',
+      component: () => import('@/views/apps/finance/Finance.vue')
+    },
+    {
+      name: 'Flows',
+      path: '/flows',
+      component: () => import('@/views/apps/flows/Flows.vue')
+    },
+    {
       name: 'Domains',
       path: '/app/domains/list-domains',
       component: () => import('@/views/apps/domains/DomainsList.vue')
@@ -35,6 +60,76 @@ const MainRoutes = {
       name: 'Buy Domains',
       path: '/app/domains/buy-domains',
       component: () => import('@/views/apps/domains/BuyDomain.vue')
+    },
+    {
+      name: 'Whitelist',
+      path: '/app/domains/whitelist',
+      component: () => import('@/views/apps/whitelist/WhiteList.vue')
+    },
+    {
+      name: 'Referral Links',
+      path: '/app/referral/links',
+      component: () => import('@/views/apps/referral/ReferralLinks.vue')
+    },
+    {
+      name: 'Referral Stats',
+      path: '/app/referral/statistics',
+      component: () => import('@/views/apps/referral/ReferralStats.vue')
+    },
+    {
+      name: 'PWA Applications',
+      path: '/app/pwa/applications',
+      component: () => import('@/views/apps/pwa/application/PwaApplications.vue')
+    },
+    {
+      name: 'PWA Application Edit',
+      path: '/app/pwa/application/:id',
+      component: () => import('@/views/apps/pwa/application/PwaApplicationEdit.vue')
+    },
+    {
+      name: 'PWA Application Drafts',
+      path: '/app/pwa/application/drafts',
+      component: () => import('@/views/apps/pwa/application/PwaDrafts.vue')
+    },
+    {
+      name: 'PWA Application Create',
+      path: '/app/pwa/applications/create',
+      component: () => import('@/views/apps/pwa/application/PwaApplicationCreate.vue')
+    },
+    {
+      name: 'PWA Splits',
+      path: '/app/pwa/splits',
+      component: () => import('@/views/apps/pwa/splits/PwaSplits.vue')
+    },
+    {
+      name: 'PWA Pushes',
+      path: '/app/pwa/push',
+      component: () => import('@/views/apps/pwa/push/PwaPush.vue')
+    },
+    {
+      name: 'PWA Statistics',
+      path: '/app/pwa/statistics',
+      component: () => import('@/views/apps/pwa/statistics/PwaStatistics.vue')
+    },
+    {
+      name: 'Telegram Alerts',
+      path: '/app/telegram/alerts',
+      component: () => import('@/views/apps/telegram/TelegramCreateAlert.vue')
+    },
+    {
+      name: 'Telegram Keys',
+      path: '/app/telegram/keys',
+      component: () => import('@/views/apps/telegram/TelegramKeys.vue')
+    },
+    {
+      name: 'Admin Templates',
+      path: '/app/admins/templates',
+      component: () => import('@/views/apps/admins/templates/TemplatesList.vue')
+    },
+    {
+      name: 'Admin Promocodes',
+      path: '/app/admins/promocodes',
+      component: () => import('@/views/apps/admins/promocodes/PromocodesList.vue')
     },
     {
       name: 'Analytics',

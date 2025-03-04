@@ -1,25 +1,27 @@
 <script setup lang="ts">
-import { ref, computed, onMounted, shallowRef } from 'vue';
-import { useDomains } from '@/stores/apps/domains';
+import { ref, computed, onMounted, shallowRef } from "vue";
+import { useDomains } from "@/stores/apps/domains";
 
-import SvgSprite from '@/components/shared/SvgSprite.vue';
-import BaseBreadcrumb from '@/components/shared/BaseBreadcrumb.vue';
-import type { Header, Item } from 'vue3-easy-data-table';
-import 'vue3-easy-data-table/dist/style.css';
+import SvgSprite from "@/components/shared/SvgSprite.vue";
+import BaseBreadcrumb from "@/components/shared/BaseBreadcrumb.vue";
+import type { Header, Item } from "vue3-easy-data-table";
+import "vue3-easy-data-table/dist/style.css";
+import { useI18n } from "vue-i18n";
 
-const page = ref({ title: 'Domains list' });
+const { t } = useI18n();
+const page = ref({ title: t("Domains list") });
 
 const breadcrumbs = shallowRef([
   {
-    title: 'Domains',
+    title: t("Domains"),
     disabled: false,
-    href: '#'
+    href: "#",
   },
   {
-    title: 'List',
+    title: t("List"),
     disabled: true,
-    href: '#'
-  }
+    href: "#",
+  },
 ]);
 
 const store = useDomains();
@@ -28,63 +30,61 @@ const getDomains = computed(() => {
   return store.getDomains;
 });
 
-
 const formDataDomain = ref({
   price: 0,
-  domains: '',
-  category: '',
-})
+  domains: "",
+  category: "",
+});
 
 const formDataCustomDomain = ref({
-  domains: '',
-})
+  domains: "",
+});
 
-const { createDomains,createCustomDomains } = store;
+const { createDomains, createCustomDomains } = store;
 
-const onSubmitForm = async (type = 'standart') => {
-
-  if (type === 'standart') {
+const onSubmitForm = async (type = "standart") => {
+  if (type === "standart") {
     const body = {
       price: formDataDomain.value.price,
       domains: formDataDomain.value.domains,
       category: formDataDomain.value.category,
-    }
+    };
     formDataDomain.value = {
       price: 0,
-      domains: '',
-      category: '',
+      domains: "",
+      category: "",
     };
-    await createDomains(body)
-    dialogStandart.value = false
+    await createDomains(body);
+    dialogStandart.value = false;
   } else {
     formDataCustomDomain.value = {
-      domains: '',
+      domains: "",
     };
 
-    await createCustomDomains({domains: formDataCustomDomain.value.domains})
-    dialogCustom.value = false
+    await createCustomDomains({ domains: formDataCustomDomain.value.domains });
+    dialogCustom.value = false;
   }
-}
+};
 
 onMounted(() => {
   store.fetchDomains();
 });
 
-const searchField = ref('name');
-const searchValue = ref('');
+const searchField = ref("domain");
+const searchValue = ref("");
 
 const headers: Header[] = [
-  { text: 'ID', value: 'id', sortable: true },
-  { text: 'DOMAIN', value: 'domain', sortable: true },
-  { text: 'PRICE', value: 'price', sortable: true },
-  { text: 'USER ID', value: 'user_id', sortable: true },
-  { text: 'CATEGORY', value: 'category', sortable: true },
-  { text: 'CREATING DATE', value: 'created_date', sortable: true },
-  { text: 'STATUS', value: 'status', sortable: true },
+  { text: t("ID"), value: "id", sortable: true },
+  { text: t("DOMAIN"), value: "domain", sortable: true },
+  { text: t("PRICE"), value: "price", sortable: true },
+  { text: t("USER ID"), value: "user", sortable: true },
+  { text: t("CATEGORY"), value: "category", sortable: true },
+  { text: t("CREATING DATE"), value: "created_at", sortable: true },
+  { text: t("STATUS"), value: "status", sortable: true },
 ];
 
 const items = computed(() => getDomains.value);
-const themeColor = ref('rgb(var(--v-theme-primary))');
+const themeColor = ref("rgb(var(--v-theme-primary))");
 
 const itemsSelected = ref<Item[]>([]);
 
@@ -96,14 +96,30 @@ const dialogCustom = ref(false);
   <BaseBreadcrumb :title="page.title" :breadcrumbs="breadcrumbs"></BaseBreadcrumb>
   <v-row>
     <v-col cols="12" md="12">
-      <v-card elevation="0" variant="outlined" class="bg-surface overflow-hidden" rounded="lg">
+      <v-card
+        elevation="0"
+        variant="outlined"
+        class="bg-surface overflow-hidden"
+        rounded="lg"
+      >
         <v-card-item>
           <v-row justify="space-between" class="align-center">
             <v-col cols="12" md="3">
-              <v-text-field type="text" variant="outlined" persistent-placeholder placeholder="Search 200 records..."
-                v-model="searchValue" density="comfortable" hide-details>
+              <v-text-field
+                type="text"
+                variant="outlined"
+                persistent-placeholder
+                :placeholder="t('Search 200 records...')"
+                v-model="searchValue"
+                density="comfortable"
+                hide-details
+              >
                 <template v-slot:prepend-inner>
-                  <SvgSprite name="custom-search" class="text-lightText" style="width: 14px; height: 14px" />
+                  <SvgSprite
+                    name="custom-search"
+                    class="text-lightText"
+                    style="width: 14px; height: 14px"
+                  />
                 </template>
               </v-text-field>
             </v-col>
@@ -115,43 +131,78 @@ const dialogCustom = ref(false);
                       <template v-slot:prepend>
                         <SvgSprite name="custom-plus" style="width: 20px; height: 20px" />
                       </template>
-                      Add domain
+                      {{ t("Add domain") }}
                     </v-btn>
                   </template>
                   <v-card>
                     <perfect-scrollbar style="max-height: calc(100vh - 48px)">
                       <v-card-title class="pa-5">
-                        <span class="text-h5">New Domain</span>
+                        <span class="text-h5">{{ t("New Domain") }}</span>
                       </v-card-title>
                       <v-divider></v-divider>
                       <v-card-text>
                         <v-container>
                           <v-row>
                             <v-col md="3" cols="12" class="text-center">
-                              <v-avatar size="72" variant="outlined" color="primary" class="dashed">
-                                <img src="@/assets/images/users/avatar-1.png" width="72" alt="profile" />
-                                <input type="file" aria-label="upload" class="preview-upload" />
+                              <v-avatar
+                                size="72"
+                                variant="outlined"
+                                color="primary"
+                                class="dashed"
+                              >
+                                <img
+                                  src="@/assets/images/users/avatar-1.png"
+                                  width="72"
+                                  alt="profile"
+                                />
+                                <input
+                                  type="file"
+                                  aria-label="upload"
+                                  class="preview-upload"
+                                />
                               </v-avatar>
                             </v-col>
                             <v-col md="9" cols="12">
                               <v-row>
                                 <v-col cols="12">
                                   <v-label class="mb-2">Domain</v-label>
-                                  <v-text-field single-line placeholder="Enter domain" hide-details variant="outlined"
-                                    required density="comfortable" rounded="0"
-                                    v-model="formDataDomain.domains"></v-text-field>
+                                  <v-text-field
+                                    single-line
+                                    placeholder="Enter domain"
+                                    hide-details
+                                    variant="outlined"
+                                    required
+                                    density="comfortable"
+                                    rounded="0"
+                                    v-model="formDataDomain.domains"
+                                  ></v-text-field>
                                 </v-col>
                                 <v-col cols="12">
                                   <v-label class="mb-2">Price</v-label>
-                                  <v-text-field single-line hide-details placeholder="Enter customer email" required
-                                    variant="outlined" density="comfortable" rounded="0"
-                                    v-model="formDataDomain.price"></v-text-field>
+                                  <v-text-field
+                                    single-line
+                                    hide-details
+                                    placeholder="Enter customer email"
+                                    required
+                                    variant="outlined"
+                                    density="comfortable"
+                                    rounded="0"
+                                    v-model="formDataDomain.price"
+                                  ></v-text-field>
                                 </v-col>
                                 <v-col cols="12">
                                   <v-label class="mb-2">Category</v-label>
-                                  <v-autocomplete :items="['LINK', 'PWA', 'TGAPPS']" label="LINK" rounded="0"
-                                    color="primary" single-line density="comfortable" hide-details variant="outlined"
-                                    v-model="formDataDomain.category"></v-autocomplete>
+                                  <v-autocomplete
+                                    :items="['LINK', 'PWA', 'TGAPPS']"
+                                    label="LINK"
+                                    rounded="0"
+                                    color="primary"
+                                    single-line
+                                    density="comfortable"
+                                    hide-details
+                                    variant="outlined"
+                                    v-model="formDataDomain.category"
+                                  ></v-autocomplete>
                                 </v-col>
                               </v-row>
                             </v-col>
@@ -161,8 +212,22 @@ const dialogCustom = ref(false);
                       <v-divider></v-divider>
                       <v-card-actions>
                         <v-spacer></v-spacer>
-                        <v-btn color="error" rounded="md" variant="text" @click="(dialogStandart = false)"> Cancel </v-btn>
-                        <v-btn color="primary" rounded="md" variant="flat" @click="onSubmitForm"> Add </v-btn>
+                        <v-btn
+                          color="error"
+                          rounded="md"
+                          variant="text"
+                          @click="dialogStandart = false"
+                        >
+                          {{ t("Cancel") }}
+                        </v-btn>
+                        <v-btn
+                          color="primary"
+                          rounded="md"
+                          variant="flat"
+                          @click="onSubmitForm"
+                        >
+                          {{ t("Add") }}
+                        </v-btn>
                       </v-card-actions>
                     </perfect-scrollbar>
                   </v-card>
@@ -173,31 +238,51 @@ const dialogCustom = ref(false);
                       <template v-slot:prepend>
                         <SvgSprite name="custom-plus" style="width: 20px; height: 20px" />
                       </template>
-                      Add custom domain
+                      {{ t("Add custom domain") }}
                     </v-btn>
                   </template>
                   <v-card>
                     <perfect-scrollbar style="max-height: calc(100vh - 48px)">
                       <v-card-title class="pa-5">
-                        <span class="text-h5">New Domain</span>
+                        <span class="text-h5">{{ t("New Domain") }}</span>
                       </v-card-title>
                       <v-divider></v-divider>
                       <v-card-text>
                         <v-container>
                           <v-row>
                             <v-col md="3" cols="12" class="text-center">
-                              <v-avatar size="72" variant="outlined" color="primary" class="dashed">
-                                <img src="@/assets/images/users/avatar-1.png" width="72" alt="profile" />
-                                <input type="file" aria-label="upload" class="preview-upload" />
+                              <v-avatar
+                                size="72"
+                                variant="outlined"
+                                color="primary"
+                                class="dashed"
+                              >
+                                <img
+                                  src="@/assets/images/users/avatar-1.png"
+                                  width="72"
+                                  alt="profile"
+                                />
+                                <input
+                                  type="file"
+                                  aria-label="upload"
+                                  class="preview-upload"
+                                />
                               </v-avatar>
                             </v-col>
                             <v-col md="9" cols="12">
                               <v-row>
                                 <v-col cols="12">
                                   <v-label class="mb-2">Domain</v-label>
-                                  <v-text-field single-line placeholder="Enter domain" hide-details variant="outlined"
-                                    required density="comfortable" rounded="0"
-                                    v-model="formDataCustomDomain.domains"></v-text-field>
+                                  <v-text-field
+                                    single-line
+                                    placeholder="Enter domain"
+                                    hide-details
+                                    variant="outlined"
+                                    required
+                                    density="comfortable"
+                                    rounded="0"
+                                    v-model="formDataCustomDomain.domains"
+                                  ></v-text-field>
                                 </v-col>
                               </v-row>
                             </v-col>
@@ -207,24 +292,42 @@ const dialogCustom = ref(false);
                       <v-divider></v-divider>
                       <v-card-actions>
                         <v-spacer></v-spacer>
-                        <v-btn color="error" rounded="md" variant="text" @click="(dialogCustom = false)"> Cancel </v-btn>
-                        <v-btn color="primary" rounded="md" variant="flat" @click="onSubmitForm('custom')"> Add </v-btn>
+                        <v-btn
+                          color="error"
+                          rounded="md"
+                          variant="text"
+                          @click="dialogCustom = false"
+                        >
+                          {{ t("Cancel") }}
+                        </v-btn>
+                        <v-btn
+                          color="primary"
+                          rounded="md"
+                          variant="flat"
+                          @click="onSubmitForm('custom')"
+                        >
+                          {{ t("Add") }}
+                        </v-btn>
                       </v-card-actions>
                     </perfect-scrollbar>
                   </v-card>
                 </v-dialog>
-                <v-btn icon variant="text" aria-label="download" rounded="md" size="small">
-                  <SvgSprite name="custom-document-2" class="text-lightText" style="width: 24px; height: 24px" />
-                </v-btn>
               </div>
             </v-col>
           </v-row>
         </v-card-item>
         <v-divider></v-divider>
         <v-card-text class="pa-0">
-          <EasyDataTable :headers="headers" :items="items" table-class-name="customize-table invoice-table"
-            :theme-color="themeColor" :search-field="searchField" :search-value="searchValue" :rows-per-page="10"
-            v-model:items-selected="itemsSelected">
+          <EasyDataTable
+            :headers="headers"
+            :items="items"
+            table-class-name="customize-table invoice-table"
+            :theme-color="themeColor"
+            :search-field="searchField"
+            :search-value="searchValue"
+            :rows-per-page="10"
+            v-model:items-selected="itemsSelected"
+          >
             <template #item-id="{ id }">
               <div class="player-wrapper">
                 <h6 class="text-subtitle-1 mb-0">{{ id }}</h6>

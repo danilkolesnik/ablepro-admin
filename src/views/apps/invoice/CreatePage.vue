@@ -1,48 +1,48 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue';
-import moment from 'moment';
+import { ref, computed } from "vue";
+import moment from "moment";
 // common components
-import SvgSprite from '@/components/shared/SvgSprite.vue';
-import BaseBreadcrumb from '@/components/shared/BaseBreadcrumb.vue';
+import SvgSprite from "@/components/shared/SvgSprite.vue";
+import BaseBreadcrumb from "@/components/shared/BaseBreadcrumb.vue";
 
-import Flag1 from '@/assets/images/flags/1.jpg';
-import Flag2 from '@/assets/images/flags/2.jpg';
-import Flag3 from '@/assets/images/flags/3.jpg';
-import Flag4 from '@/assets/images/flags/4.jpg';
-import Flag5 from '@/assets/images/flags/5.jpg';
+import Flag1 from "@/assets/images/flags/1.jpg";
+import Flag2 from "@/assets/images/flags/2.jpg";
+import Flag3 from "@/assets/images/flags/3.jpg";
+import Flag4 from "@/assets/images/flags/4.jpg";
+import Flag5 from "@/assets/images/flags/5.jpg";
 
 // theme breadcrumb
-const page = ref({ title: 'Create' });
+const page = ref({ title: "Create" });
 const breadcrumbs = ref([
   {
-    title: 'Invoice',
+    title: "Invoice",
     disabled: false,
-    href: '#'
+    href: "#",
   },
   {
-    title: 'Create',
+    title: "Create",
     disabled: true,
-    href: '#'
-  }
+    href: "#",
+  },
 ]);
 
 const dialog = ref(false);
 const dialog1 = ref(false);
 
-const items = ref(['Paid', 'Unpaid', 'Cancelled']);
+const items = ref(["Paid", "Unpaid", "Cancelled"]);
 
 const scrollOptions = {
-  suppressScrollX: true // This will disable horizontal scrolling
+  suppressScrollX: true, // This will disable horizontal scrolling
 };
 
 // datepicker
 const selectedDate = ref(null);
 const selectedDate1 = ref(null);
 const computedDateFormattedMomentjs = computed(() => {
-  return selectedDate.value ? moment(selectedDate.value).format('D/MM/YYYY') : '';
+  return selectedDate.value ? moment(selectedDate.value).format("D/MM/YYYY") : "";
 });
 const computedDateFormattedMomentjs1 = computed(() => {
-  return selectedDate1.value ? moment(selectedDate1.value).format('D/MM/YYYY') : '';
+  return selectedDate1.value ? moment(selectedDate1.value).format("D/MM/YYYY") : "";
 });
 
 type ListType = {
@@ -54,54 +54,54 @@ type ListType = {
 
 const SearchList = ref<ListType[]>([
   {
-    title: 'Ian Carpenter',
-    address: '1754 Ureate, RhodSA5 5BO',
-    contact: '+91 1234567890',
-    mail: 'iacrpt65@gmail.com'
+    title: "Ian Carpenter",
+    address: "1754 Ureate, RhodSA5 5BO",
+    contact: "+91 1234567890",
+    mail: "iacrpt65@gmail.com",
   },
   {
-    title: 'Belle J. Richter',
-    address: '1300 Mine RoadQuemado, NM 87829',
-    contact: '305-829-7809',
-    mail: 'belljrc23@gmail.com'
+    title: "Belle J. Richter",
+    address: "1300 Mine RoadQuemado, NM 87829",
+    contact: "305-829-7809",
+    mail: "belljrc23@gmail.com",
   },
   {
-    title: 'Ritika Yohannan',
-    address: '3488 Arbutus DriveMiami, FL',
-    contact: '+91 1234567890',
-    mail: 'rtyhn65@gmail.com'
+    title: "Ritika Yohannan",
+    address: "3488 Arbutus DriveMiami, FL",
+    contact: "+91 1234567890",
+    mail: "rtyhn65@gmail.com",
   },
   {
-    title: 'Jesse G. Hassen',
-    address: '3488 Arbutus DriveMiami, FL 33012',
-    contact: '+91 1234567890',
-    mail: 'jessghs78@gmail.com'
+    title: "Jesse G. Hassen",
+    address: "3488 Arbutus DriveMiami, FL 33012",
+    contact: "+91 1234567890",
+    mail: "jessghs78@gmail.com",
   },
   {
-    title: 'Christopher P. Iacovelli',
-    address: '4388 House DriveWesrville, OH',
-    contact: '+91 1234567890',
-    mail: 'crpthl643@gmail.com'
+    title: "Christopher P. Iacovelli",
+    address: "4388 House DriveWesrville, OH",
+    contact: "+91 1234567890",
+    mail: "crpthl643@gmail.com",
   },
   {
-    title: 'Thomas D. Johnson',
-    address: '4388 House DriveWestville, OH',
-    contact: '+91 1234567890',
-    mail: 'thomshj56@gmail.com'
-  }
+    title: "Thomas D. Johnson",
+    address: "4388 House DriveWestville, OH",
+    contact: "+91 1234567890",
+    mail: "thomshj56@gmail.com",
+  },
 ]);
 
-const selectedItem = ref<ListType[]>([{ title: '', address: '', contact: '', mail: '' }]);
+const selectedItem = ref<ListType[]>([{ title: "", address: "", contact: "", mail: "" }]);
 
-let TitleContent = 'Belle J. Richter';
-let AddressContent = '1300 Cooks Mine, NM 87829';
-let ContactContent = '305-829-7809';
-let MailContent = 'belljrc23@gmail.com';
+let TitleContent = "Belle J. Richter";
+let AddressContent = "1300 Cooks Mine, NM 87829";
+let ContactContent = "305-829-7809";
+let MailContent = "belljrc23@gmail.com";
 
-let TitleContent1 = '';
-let AddressContent1 = '';
-let ContactContent1 = '';
-let MailContent1 = '';
+let TitleContent1 = "";
+let AddressContent1 = "";
+let ContactContent1 = "";
+let MailContent1 = "";
 
 function selectItem(item: ListType) {
   // update content
@@ -136,20 +136,20 @@ type TableType = {
 const tableData = ref<TableType[]>([
   {
     number: 1,
-    name: 'Item name',
-    description: 'Description',
+    name: "Item name",
+    description: "Description",
     qty: 1,
-    price: '1.00'
-  }
+    price: "1.00",
+  },
 ]);
 
 function tableItem() {
   const newItem: TableType = {
     number: tableData.value.length + 1,
-    name: 'Item name',
-    description: 'Description',
+    name: "Item name",
+    description: "Description",
     qty: 1,
-    price: '1.00'
+    price: "1.00",
   };
 
   tableData.value.push(newItem);
@@ -160,14 +160,14 @@ function deleteRow(index: number) {
 }
 
 const country = ref([
-  { name: 'Anguilla', avatar: Flag1 },
-  { name: 'Brazil', avatar: Flag2 },
-  { name: 'Germany', avatar: Flag3 },
-  { name: 'United Kingdom', avatar: Flag4 },
-  { name: 'United States', avatar: Flag5 }
+  { name: "Anguilla", avatar: Flag1 },
+  { name: "Brazil", avatar: Flag2 },
+  { name: "Germany", avatar: Flag3 },
+  { name: "United Kingdom", avatar: Flag4 },
+  { name: "United States", avatar: Flag5 },
 ]);
 
-const countryflag = ref(['United States']);
+const countryflag = ref(["United States"]);
 const isUpdating = ref(false);
 </script>
 <template>
@@ -219,11 +219,19 @@ const isUpdating = ref(false);
                     color="primary"
                   >
                     <template v-slot:append-inner>
-                      <SvgSprite name="custom-calendar" class="text-lightText" style="width: 20px; height: 20px" />
+                      <SvgSprite
+                        name="custom-calendar"
+                        class="text-lightText"
+                        style="width: 20px; height: 20px"
+                      />
                     </template>
                   </v-text-field>
                 </template>
-                <v-date-picker v-model="selectedDate" hide-header color="primary"></v-date-picker>
+                <v-date-picker
+                  v-model="selectedDate"
+                  hide-header
+                  color="primary"
+                ></v-date-picker>
               </v-menu>
             </v-col>
             <v-col cols="12" md="3" sm="6">
@@ -242,11 +250,19 @@ const isUpdating = ref(false);
                     color="primary"
                   >
                     <template v-slot:append-inner>
-                      <SvgSprite name="custom-calendar" class="text-lightText" style="width: 20px; height: 20px" />
+                      <SvgSprite
+                        name="custom-calendar"
+                        class="text-lightText"
+                        style="width: 20px; height: 20px"
+                      />
                     </template>
                   </v-text-field>
                 </template>
-                <v-date-picker v-model="selectedDate1" hide-header color="primary"></v-date-picker>
+                <v-date-picker
+                  v-model="selectedDate1"
+                  hide-header
+                  color="primary"
+                ></v-date-picker>
               </v-menu>
             </v-col>
             <v-col cols="12" md="6">
@@ -255,14 +271,31 @@ const isUpdating = ref(false);
                   <div class="d-flex justify-space-between">
                     <div>
                       <h5 class="text-h5 mb-4">From:</h5>
-                      <h6 class="text-subtitle-1 mb-0" v-if="selectedItem">{{ TitleContent }}</h6>
-                      <p class="text-h6 text-lightText mb-0" v-if="selectedItem">{{ AddressContent }}</p>
-                      <p class="text-h6 text-lightText mb-0" v-if="selectedItem">{{ ContactContent }}</p>
-                      <p class="text-h6 text-lightText mb-0" v-if="selectedItem">{{ MailContent }}</p>
+                      <h6 class="text-subtitle-1 mb-0" v-if="selectedItem">
+                        {{ TitleContent }}
+                      </h6>
+                      <p class="text-h6 text-lightText mb-0" v-if="selectedItem">
+                        {{ AddressContent }}
+                      </p>
+                      <p class="text-h6 text-lightText mb-0" v-if="selectedItem">
+                        {{ ContactContent }}
+                      </p>
+                      <p class="text-h6 text-lightText mb-0" v-if="selectedItem">
+                        {{ MailContent }}
+                      </p>
                     </div>
-                    <v-btn color="secondary" size="small" rounded="md" variant="outlined" @click="(dialog = true)">
+                    <v-btn
+                      color="secondary"
+                      size="small"
+                      rounded="md"
+                      variant="outlined"
+                      @click="dialog = true"
+                    >
                       <template v-slot:prepend>
-                        <SvgSprite name="custom-edit-outline" style="width: 16px; height: 16px" />
+                        <SvgSprite
+                          name="custom-edit-outline"
+                          style="width: 16px; height: 16px"
+                        />
                       </template>
                       Change
                     </v-btn>
@@ -271,9 +304,12 @@ const isUpdating = ref(false);
                         <v-card-title class="py-4 px-6">
                           <div class="d-flex justify-space-between align-center">
                             <h5 class="text-h5 mb-0">Select Address</h5>
-                            <v-btn variant="text" color="primary" @click="(dialog = false)">
+                            <v-btn variant="text" color="primary" @click="dialog = false">
                               <template v-slot:prepend>
-                                <SvgSprite name="custom-plus" style="width: 18px; height: 18px" />
+                                <SvgSprite
+                                  name="custom-plus"
+                                  style="width: 18px; height: 18px"
+                                />
                               </template>
                               Add New
                             </v-btn>
@@ -281,7 +317,10 @@ const isUpdating = ref(false);
                         </v-card-title>
                         <v-divider></v-divider>
                         <v-card-text class="pt-5">
-                          <perfect-scrollbar :options="scrollOptions" style="height: 360px">
+                          <perfect-scrollbar
+                            :options="scrollOptions"
+                            style="height: 360px"
+                          >
                             <v-text-field
                               type="text"
                               variant="outlined"
@@ -291,10 +330,18 @@ const isUpdating = ref(false);
                               hide-details
                             >
                               <template v-slot:prepend-inner>
-                                <SvgSprite name="custom-search" class="text-lightText" style="width: 18px; height: 18px" />
+                                <SvgSprite
+                                  name="custom-search"
+                                  class="text-lightText"
+                                  style="width: 18px; height: 18px"
+                                />
                               </template>
                             </v-text-field>
-                            <v-list class="py-0 mt-4" aria-label="search address" aria-busy="true">
+                            <v-list
+                              class="py-0 mt-4"
+                              aria-label="search address"
+                              aria-busy="true"
+                            >
                               <v-list-item
                                 class="pa-0 mb-3 rounded-md"
                                 color="primary"
@@ -307,9 +354,15 @@ const isUpdating = ref(false);
                                   <v-card-item class="pa-3">
                                     <h6 class="text-subtitle-1 mb-0">{{ item.title }}</h6>
                                     <div class="d-flex ga-1 flex-wrap">
-                                      <p class="text-caption text-lightText mb-0">{{ item.address }}</p>
-                                      <p class="text-caption text-lightText mb-0">{{ item.contact }}</p>
-                                      <p class="text-caption text-lightText mb-0">{{ item.mail }}</p>
+                                      <p class="text-caption text-lightText mb-0">
+                                        {{ item.address }}
+                                      </p>
+                                      <p class="text-caption text-lightText mb-0">
+                                        {{ item.contact }}
+                                      </p>
+                                      <p class="text-caption text-lightText mb-0">
+                                        {{ item.mail }}
+                                      </p>
                                     </div>
                                   </v-card-item>
                                 </v-card>
@@ -319,8 +372,20 @@ const isUpdating = ref(false);
                         </v-card-text>
                         <v-divider></v-divider>
                         <v-card-actions class="ms-auto">
-                          <v-btn color="error" variant="text" rounded="md" @click="(dialog = false)">Cancel</v-btn>
-                          <v-btn color="primary" variant="flat" rounded="md" @click="(dialog = false)">Add</v-btn>
+                          <v-btn
+                            color="error"
+                            variant="text"
+                            rounded="md"
+                            @click="dialog = false"
+                            >Cancel</v-btn
+                          >
+                          <v-btn
+                            color="primary"
+                            variant="flat"
+                            rounded="md"
+                            @click="dialog = false"
+                            >Add</v-btn
+                          >
                         </v-card-actions>
                       </v-card>
                     </v-dialog>
@@ -334,12 +399,26 @@ const isUpdating = ref(false);
                   <div class="d-flex justify-space-between">
                     <div>
                       <h5 class="text-h5 mb-4">To:</h5>
-                      <h6 class="text-subtitle-1 mb-0" v-if="selectedItem">{{ TitleContent1 }}</h6>
-                      <p class="text-h6 text-lightText mb-0" v-if="selectedItem">{{ AddressContent1 }}</p>
-                      <p class="text-h6 text-lightText mb-0" v-if="selectedItem">{{ ContactContent1 }}</p>
-                      <p class="text-h6 text-lightText mb-0" v-if="selectedItem">{{ MailContent1 }}</p>
+                      <h6 class="text-subtitle-1 mb-0" v-if="selectedItem">
+                        {{ TitleContent1 }}
+                      </h6>
+                      <p class="text-h6 text-lightText mb-0" v-if="selectedItem">
+                        {{ AddressContent1 }}
+                      </p>
+                      <p class="text-h6 text-lightText mb-0" v-if="selectedItem">
+                        {{ ContactContent1 }}
+                      </p>
+                      <p class="text-h6 text-lightText mb-0" v-if="selectedItem">
+                        {{ MailContent1 }}
+                      </p>
                     </div>
-                    <v-btn color="secondary" size="small" rounded="md" variant="outlined" @click="(dialog1 = true)">
+                    <v-btn
+                      color="secondary"
+                      size="small"
+                      rounded="md"
+                      variant="outlined"
+                      @click="dialog1 = true"
+                    >
                       <template v-slot:prepend>
                         <SvgSprite name="custom-plus" style="width: 16px; height: 16px" />
                       </template>
@@ -352,7 +431,10 @@ const isUpdating = ref(false);
                             <h5 class="text-h5 mb-0">Select Address</h5>
                             <v-btn variant="text" color="primary">
                               <template v-slot:prepend>
-                                <SvgSprite name="custom-plus" style="width: 18px; height: 18px" />
+                                <SvgSprite
+                                  name="custom-plus"
+                                  style="width: 18px; height: 18px"
+                                />
                               </template>
                               Add New
                             </v-btn>
@@ -360,7 +442,10 @@ const isUpdating = ref(false);
                         </v-card-title>
                         <v-divider></v-divider>
                         <v-card-text class="pt-5">
-                          <perfect-scrollbar :options="scrollOptions" style="height: 360px">
+                          <perfect-scrollbar
+                            :options="scrollOptions"
+                            style="height: 360px"
+                          >
                             <v-text-field
                               type="text"
                               variant="outlined"
@@ -370,10 +455,18 @@ const isUpdating = ref(false);
                               hide-details
                             >
                               <template v-slot:prepend-inner>
-                                <SvgSprite name="custom-search" class="text-lightText" style="width: 18px; height: 18px" />
+                                <SvgSprite
+                                  name="custom-search"
+                                  class="text-lightText"
+                                  style="width: 18px; height: 18px"
+                                />
                               </template>
                             </v-text-field>
-                            <v-list class="py-0 mt-4" aria-label="search address" aria-busy="true">
+                            <v-list
+                              class="py-0 mt-4"
+                              aria-label="search address"
+                              aria-busy="true"
+                            >
                               <v-list-item
                                 class="pa-0 mb-3 rounded-md"
                                 color="primary"
@@ -386,9 +479,15 @@ const isUpdating = ref(false);
                                   <v-card-item class="pa-3">
                                     <h6 class="text-subtitle-1 mb-0">{{ item.title }}</h6>
                                     <div class="d-flex ga-1 flex-wrap">
-                                      <p class="text-caption text-lightText mb-0">{{ item.address }}</p>
-                                      <p class="text-caption text-lightText mb-0">{{ item.contact }}</p>
-                                      <p class="text-caption text-lightText mb-0">{{ item.mail }}</p>
+                                      <p class="text-caption text-lightText mb-0">
+                                        {{ item.address }}
+                                      </p>
+                                      <p class="text-caption text-lightText mb-0">
+                                        {{ item.contact }}
+                                      </p>
+                                      <p class="text-caption text-lightText mb-0">
+                                        {{ item.mail }}
+                                      </p>
                                     </div>
                                   </v-card-item>
                                 </v-card>
@@ -398,8 +497,20 @@ const isUpdating = ref(false);
                         </v-card-text>
                         <v-divider></v-divider>
                         <v-card-actions class="ms-auto">
-                          <v-btn color="error" variant="text" rounded="md" @click="(dialog1 = false)">Cancel</v-btn>
-                          <v-btn color="primary" variant="flat" rounded="md" @click="(dialog1 = false)">Add</v-btn>
+                          <v-btn
+                            color="error"
+                            variant="text"
+                            rounded="md"
+                            @click="dialog1 = false"
+                            >Cancel</v-btn
+                          >
+                          <v-btn
+                            color="primary"
+                            variant="flat"
+                            rounded="md"
+                            @click="dialog1 = false"
+                            >Add</v-btn
+                          >
                         </v-card-actions>
                       </v-card>
                     </v-dialog>
@@ -413,18 +524,59 @@ const isUpdating = ref(false);
               <v-table class="bordered-table" hover>
                 <thead class="bg-containerBg">
                   <tr>
-                    <th class="text-start text-uppercase text-caption font-weight-bold" style="width: 50px">#</th>
-                    <th class="text-start text-uppercase text-caption font-weight-bold" style="min-width: 270px">Name</th>
-                    <th class="text-start text-uppercase text-caption font-weight-bold" style="min-width: 270px">Description</th>
-                    <th class="text-start text-uppercase text-caption font-weight-bold" style="width: 270px; min-width: 100px">Qty</th>
-                    <th class="text-start text-uppercase text-caption font-weight-bold" style="width: 270px; min-width: 100px">Price</th>
-                    <th class="text-end text-uppercase text-caption font-weight-bold" style="width: 97px">Amount</th>
-                    <th class="text-center text-uppercase text-caption font-weight-bold" style="width: 124px">Action</th>
+                    <th
+                      class="text-start text-uppercase text-caption font-weight-bold"
+                      style="width: 50px"
+                    >
+                      #
+                    </th>
+                    <th
+                      class="text-start text-uppercase text-caption font-weight-bold"
+                      style="min-width: 270px"
+                    >
+                      Name
+                    </th>
+                    <th
+                      class="text-start text-uppercase text-caption font-weight-bold"
+                      style="min-width: 270px"
+                    >
+                      Description
+                    </th>
+                    <th
+                      class="text-start text-uppercase text-caption font-weight-bold"
+                      style="width: 270px; min-width: 100px"
+                    >
+                      Qty
+                    </th>
+                    <th
+                      class="text-start text-uppercase text-caption font-weight-bold"
+                      style="width: 270px; min-width: 100px"
+                    >
+                      Price
+                    </th>
+                    <th
+                      class="text-end text-uppercase text-caption font-weight-bold"
+                      style="width: 97px"
+                    >
+                      Amount
+                    </th>
+                    <th
+                      class="text-center text-uppercase text-caption font-weight-bold"
+                      style="width: 124px"
+                    >
+                      Action
+                    </th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr class="text-lighttext" v-for="(item, index) in tableData" :key="index">
-                    <td class="text-subtitle-1 font-weight-regular py-3">{{ item.number }}</td>
+                  <tr
+                    class="text-lighttext"
+                    v-for="(item, index) in tableData"
+                    :key="index"
+                  >
+                    <td class="text-subtitle-1 font-weight-regular py-3">
+                      {{ item.number }}
+                    </td>
                     <td class="text-subtitle-1 font-weight-regular py-3">
                       <v-text-field
                         variant="outlined"
@@ -465,10 +617,22 @@ const isUpdating = ref(false);
                         :model-value="item.price"
                       ></v-text-field>
                     </td>
-                    <td class="text-subtitle-1 font-weight-regular py-3 text-end">${{ item.price }}</td>
+                    <td class="text-subtitle-1 font-weight-regular py-3 text-end">
+                      ${{ item.price }}
+                    </td>
                     <td class="text-subtitle-1 font-weight-regular py-3 text-center">
-                      <v-btn color="error" aria-label="trash" icon rounded variant="text" @click="deleteRow(index)">
-                        <SvgSprite name="custom-trash" style="width: 18px; height: 18px" />
+                      <v-btn
+                        color="error"
+                        aria-label="trash"
+                        icon
+                        rounded
+                        variant="text"
+                        @click="deleteRow(index)"
+                      >
+                        <SvgSprite
+                          name="custom-trash"
+                          style="width: 18px; height: 18px"
+                        />
                       </v-btn>
                     </td>
                   </tr>
@@ -477,7 +641,13 @@ const isUpdating = ref(false);
               <v-divider></v-divider>
               <v-row class="mt-2">
                 <v-col cols="12" sm="7" md="8">
-                  <v-btn color="primary" border="primary dashed thin opacity-100" rounded="md" variant="tonal" @click="tableItem()">
+                  <v-btn
+                    color="primary"
+                    border="primary dashed thin opacity-100"
+                    rounded="md"
+                    variant="tonal"
+                    @click="tableItem()"
+                  >
                     <template v-slot:prepend>
                       <SvgSprite name="custom-plus" style="width: 18px; height: 18px" />
                     </template>
@@ -542,7 +712,12 @@ const isUpdating = ref(false);
             </v-col>
             <v-col cols="12">
               <v-label class="mb-2">Notes</v-label>
-              <v-textarea variant="outlined" single-line hide-details placeholder="Address"></v-textarea>
+              <v-textarea
+                variant="outlined"
+                single-line
+                hide-details
+                placeholder="Address"
+              ></v-textarea>
             </v-col>
             <v-row class="mx-0 mb-0 mt-2 align-end">
               <v-col cols="12" md="5" lg="3" sm="6">
@@ -576,7 +751,9 @@ const isUpdating = ref(false);
               </v-col>
               <v-col cols="12" md="7" lg="9">
                 <div class="text-end d-flex flex-wrap justify-end ga-2">
-                  <v-btn color="secondary" rounded="md" variant="tonal" disabled>Preview</v-btn>
+                  <v-btn color="secondary" rounded="md" variant="tonal" disabled
+                    >Preview</v-btn
+                  >
                   <v-btn color="secondary" rounded="md" variant="outlined">Save</v-btn>
                   <v-btn color="primary" rounded="md" variant="flat">Create & Send</v-btn>
                 </div>
