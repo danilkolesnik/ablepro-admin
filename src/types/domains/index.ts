@@ -17,11 +17,11 @@ export type Domain = {
 export type CreateDomains = {
   price: number;
   domains: string;
-  category: string;
+  category: string | null;
 };
 
 export type CreateCustomDomains = {
-  domains: string;
+  domain: string;
 };
 
 export type BuyDomain = {
