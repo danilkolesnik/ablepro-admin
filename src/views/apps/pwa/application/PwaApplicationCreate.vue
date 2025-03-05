@@ -86,72 +86,85 @@ const formDataPushes = ref({
 <template>
   <BaseBreadcrumb :title="page.title" :breadcrumbs="breadcrumbs" />
 
-  <v-container>
-    <!-- language -->
-    <v-menu>
-      <template v-slot:activator="{ props }">
-        <v-btn color="primary" v-bind="props" variant="outlined">
-          {{ selectedLanguage }}
-        </v-btn>
-      </template>
-      <v-list>
-        <v-list-item
-          v-for="lang in languages"
-          :key="lang"
-          @click="selectedLanguage = lang"
-        >
-          <v-list-item-title>{{ lang }}</v-list-item-title>
-        </v-list-item>
-      </v-list>
-    </v-menu>
+  <div class="d-flex">
+    <v-container>
+      <!-- language -->
+      <v-menu>
+        <template v-slot:activator="{ props }">
+          <v-btn color="primary" v-bind="props" variant="outlined">
+            {{ selectedLanguage }}
+          </v-btn>
+        </template>
+        <v-list>
+          <v-list-item
+            v-for="lang in languages"
+            :key="lang"
+            @click="selectedLanguage = lang"
+          >
+            <v-list-item-title>{{ lang }}</v-list-item-title>
+          </v-list-item>
+        </v-list>
+      </v-menu>
 
-    <!-- tabs -->
-    <v-tabs v-model="activeTab" class="mt-4" color="primary">
-      <v-tab v-for="tab in tabs" :key="tab" :value="tab">
-        {{ tab }}
-      </v-tab>
-    </v-tabs>
+      <!-- tabs -->
+      <v-tabs v-model="activeTab" class="mt-4" color="primary">
+        <v-tab v-for="tab in tabs" :key="tab" :value="tab">
+          {{ tab }}
+        </v-tab>
+      </v-tabs>
 
-    <v-window v-model="activeTab">
-      <v-window-item v-for="tab in tabs" :key="tab" :value="tab">
-        <v-card class="pa-4 mt-4">
-          <v-card-text>
-            <template v-if="tab === 'Main'">
-              <Main />
-            </template>
-            <template v-if="tab === 'Template'">
-              <Template />
-            </template>
-            <template v-if="tab === 'Basic info'">
-              <BasicInfo />
-            </template>
-            <template v-if="tab === 'Additional info'">
-              <AdditionalInfo />
-            </template>
-            <template v-if="tab === 'Rating'">
-              <Rating />
-            </template>
-            <template v-if="tab === 'Pushes'">
-              <Pushes />
-            </template>
-          </v-card-text>
-        </v-card>
-      </v-window-item>
-    </v-window>
+      <v-window v-model="activeTab">
+        <v-window-item v-for="tab in tabs" :key="tab" :value="tab">
+          <v-card class="pa-4 mt-4">
+            <v-card-text>
+              <template v-if="tab === 'Main'">
+                <Main />
+              </template>
+              <template v-if="tab === 'Template'">
+                <Template />
+              </template>
+              <template v-if="tab === 'Basic info'">
+                <BasicInfo />
+              </template>
+              <template v-if="tab === 'Additional info'">
+                <AdditionalInfo />
+              </template>
+              <template v-if="tab === 'Rating'">
+                <Rating />
+              </template>
+              <template v-if="tab === 'Pushes'">
+                <Pushes />
+              </template>
+            </v-card-text>
+          </v-card>
+        </v-window-item>
+      </v-window>
+    </v-container>
     <!-- iframe -->
-    <!-- <div class="sticky top-[100px]">
+    <div class="sticky top-[100px]">
       <div
-        :style="{ backgroundImage: 'url(' + ')' }"
-        style="background-repeat: no-repeat;
-               filter: drop-shadow(0px 35px 46px rgba(33, 191, 115, 0.15));
-               height: 995px;
-               background-size: 100%;" class="iframe-container">
+        :style="{ backgroundImage: 'url(/src/assets/images/phone.svg)' }"
+        style="
+          background-repeat: no-repeat;
+          filter: drop-shadow(0px 35px 46px rgba(33, 191, 115, 0.15));
+          width: 475px;
+          height: 995px;
+          background-size: 100%;
+          padding: 48px 32px 25px;
+          margin: 0 auto;
+        "
+      >
         <iframe
-          srcdoc='<html id="html"></html>'
-          class="iframe" width="412px" height="896px" frameborder="0"></iframe>
+          :src="'/preview-template'"
+          ref="templateIframe"
+          class="iframe"
+          width="412px"
+          height="896px"
+          frameborder="0"
+        ></iframe>
       </div>
-    </div> -->
-  </v-container>
+    </div>
+  </div>
 </template>
 
 <style>
