@@ -2,9 +2,9 @@
 import { ref, watchEffect } from "vue";
 import { usePwaStore } from "@/stores/apps/pwa/pwa_old";
 
-const pwaName = ref("");
-const pwaAuthor = ref("");
-const pwaDescription = ref("");
+const pwaName = ref("PWA Name");
+const pwaAuthor = ref("PWA Author");
+const pwaDescription = ref("Description");
 const pwaKeywords = ref("");
 const pwaVideoLink = ref("");
 const pwaYouTubeLink = ref("");
@@ -13,16 +13,9 @@ const pwaStore = usePwaStore();
 
 watchEffect(() => {
   pwaStore.setName(pwaName.value);
-  pwaAuthor.value = pwaStore.getAuthor().value;
-});
-
-// function updatePwaName() {
-//   pwaStore.setName(pwaName.value);
-// }
-
-function updatePwaAuthor() {
   pwaStore.setAuthor(pwaAuthor.value);
-}
+  pwaStore.setDescription(pwaDescription.value);
+});
 </script>
 
 <template>
@@ -52,7 +45,6 @@ function updatePwaAuthor() {
       density="comfortable"
       rounded="0"
       v-model="pwaAuthor"
-      @input="updatePwaAuthor"
     ></v-text-field>
     <h3 class="text-h6 font-weight-bold mt-4">Description</h3>
     <v-textarea
