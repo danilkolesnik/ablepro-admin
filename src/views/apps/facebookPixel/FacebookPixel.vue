@@ -37,7 +37,6 @@ onMounted(() => {
 
 const searchField = ref("name");
 const searchValue = ref("");
-
 const items = computed(() => getPixels.value);
 const themeColor = ref("rgb(var(--v-theme-primary))");
 // const { deleteDomain } = store;
@@ -47,7 +46,7 @@ const formDataPixel = ref({
   token: "",
 });
 
-const { createPixel } = store;
+const { createPixel, deletePixel, updatePixel } = store;
 
 const onSubmitForm = async () => {
     const body = {
@@ -60,6 +59,30 @@ const onSubmitForm = async () => {
     };
     await createPixel(body);
     dialog.value = false;
+};
+
+const editingToken = ref<{id: string | null, value: string}>({
+  id: null,
+  value: ''
+});
+
+const startEditing = (id: string, token: string) => {
+  editingToken.value = {
+    id,
+    value: token
+  };
+};
+
+const handleTokenUpdate = async (id: string) => {
+  if (editingToken.value.id === id && editingToken.value.value.trim() !== '') {
+    await updatePixel(id, {
+      token: editingToken.value.value
+    });
+    editingToken.value = {
+      id: null,
+      value: ''
+    };
+  }
 };
 
 const headers: Header[] = [
@@ -206,9 +229,26 @@ const dialog = ref(false);
             <template #item-pixel="{ pixel }">
               <div>{{ pixel }}</div>
             </template>
-            <template #item-token="{ token }">
+            <template #item-token="{ token, id }">
               <div class="token-container">
-                <div class="token-item">{{ token }}</div>
+                <div v-if="editingToken.id === id" class="token-edit">
+                  <v-text-field
+                    v-model="editingToken.value"
+                    density="compact"
+                    variant="outlined"
+                    hide-details
+                    @keyup.enter="handleTokenUpdate(id)"
+                    @blur="handleTokenUpdate(id)"
+                    autofocus
+                  ></v-text-field>
+                </div>
+                <div 
+                  v-else 
+                  class="token-item"
+                  @dblclick="startEditing(id, token)"
+                >
+                  {{ token }}
+                </div>
               </div>
             </template>
             <template #item-created_at="{ created_at }">
@@ -219,14 +259,14 @@ const dialog = ref(false);
             </template>
             <template #item-operation="item">
               <div class="operation-wrapper">
-                <v-btn icon color="primary" aria-label="edit" variant="text" rounded="md">
+                <!-- <v-btn icon color="primary" aria-label="edit" variant="text" rounded="md">
                   <SvgSprite
                     name="custom-edit-outline"
                     style="width: 20px; height: 20px"
                   />
-                </v-btn>
+                </v-btn> -->
                 <!-- @click="deleteDomain(item.id)" -->
-                <v-btn icon color="error" aria-label="trash" rounded="md">
+                <v-btn icon color="error" aria-label="trash" rounded="md" @click="deletePixel(item.id)">
                   <SvgSprite name="custom-trash" style="width: 20px; height: 20px" />
                 </v-btn>
               </div>
