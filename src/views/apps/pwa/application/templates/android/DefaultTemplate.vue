@@ -109,7 +109,7 @@ setTimeout(() => {
 
       <component
         :is="'script'"
-        src="./src/components/templates/android/3.4.1.js"
+        src="./src/views/apps/pwa/application/templates/android/3.4.1.js"
       ></component>
       <component :is="'style'">
         .cls-1 { stroke-width: 0px; } :root { --white: #ffffff; --review__more: #ffffff;
