@@ -113,7 +113,7 @@ setTimeout(() => {
 
       <component
         :is="'script'"
-        src="./src/views/apps/pwa/application/templates/android/3.4.1.js"
+        src="/src/views/apps/pwa/application/templates/android/3.4.1.js"
       ></component>
       <component :is="'style'">
         .cls-1 { stroke-width: 0px; } :root { --white: #ffffff; --review__more: #ffffff;
@@ -214,7 +214,7 @@ setTimeout(() => {
             class="-mt-[1px] font-semibold text-[23px] tracking-wide max-w-[190px] leading-[1.5]"
             :style="dynamicStyle(name)"
           >
-            {{ name }}
+            {{ pwaStore.getFullName[1] }}
           </h1>
           <h2 class="text-[15px] leading-[1.2] text-link" :style="dynamicStyle(author)">
             {{ author }}

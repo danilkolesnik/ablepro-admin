@@ -8,6 +8,7 @@ import AdditionalInfo from "./tabs/AdditionalInfo.vue";
 import Rating from "./tabs/Rating.vue";
 import Pushes from "./tabs/Pushes.vue";
 import Texts from "./tabs/texts/Texts.vue";
+import DefaultTemplate from "./templates/android/DefaultTemplate.vue";
 
 const page = ref({ title: "Create PwaApplication" });
 const breadcrumbs = ref([
@@ -155,14 +156,9 @@ const formDataPushes = ref({
           margin: 0 auto;
         "
       >
-        <iframe
-          :src="'/preview-template'"
-          ref="templateIframe"
-          class="iframe"
-          width="412px"
-          height="896px"
-          frameborder="0"
-        ></iframe>
+        <div ref="templateIframe" class="iframe" width="412px" height="896px">
+          <DefaultTemplate />
+        </div>
       </div>
     </div>
   </div>
