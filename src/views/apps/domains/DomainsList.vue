@@ -33,11 +33,11 @@ const getDomains = computed(() => {
 const formDataDomain = ref({
   price: 0,
   domains: "",
-  category: "",
+  category: null,
 });
 
 const formDataCustomDomain = ref({
-  domains: "",
+  domain: "",
 });
 
 const { createDomains, createCustomDomains } = store;
@@ -52,16 +52,16 @@ const onSubmitForm = async (type = "standart") => {
     formDataDomain.value = {
       price: 0,
       domains: "",
-      category: "",
+      category: null,
     };
     await createDomains(body);
     dialogStandart.value = false;
   } else {
     formDataCustomDomain.value = {
-      domains: "",
+      domain: "",
     };
 
-    await createCustomDomains({ domains: formDataCustomDomain.value.domains });
+    await createCustomDomains({ domain: formDataCustomDomain.value.domain });
     dialogCustom.value = false;
   }
 };
@@ -194,7 +194,7 @@ const dialogCustom = ref(false);
                                   <v-label class="mb-2">Category</v-label>
                                   <v-autocomplete
                                     :items="['LINK', 'PWA', 'TGAPPS']"
-                                    label="LINK"
+                                    label="Select Category"
                                     rounded="0"
                                     color="primary"
                                     single-line
@@ -224,7 +224,7 @@ const dialogCustom = ref(false);
                           color="primary"
                           rounded="md"
                           variant="flat"
-                          @click="onSubmitForm"
+                          @click="onSubmitForm('standart')"
                         >
                           {{ t("Add") }}
                         </v-btn>
@@ -281,7 +281,7 @@ const dialogCustom = ref(false);
                                     required
                                     density="comfortable"
                                     rounded="0"
-                                    v-model="formDataCustomDomain.domains"
+                                    v-model="formDataCustomDomain.domain"
                                   ></v-text-field>
                                 </v-col>
                               </v-row>
