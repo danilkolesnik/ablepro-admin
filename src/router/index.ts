@@ -12,6 +12,12 @@ export const router = createRouter({
       path: '/:pathMatch(.*)*',
       component: () => import('@/views/pages/maintenance/error/Error404Page.vue')
     },
+    {
+      name: 'preview-template',
+      path: '/preview-template',
+      component: () => import('@/components/templates/android/DefaultTemplate.vue'),
+      meta: { layout: false }
+    },
     PublicRoutes,
     MainRoutes,
     ComponentRoutes
