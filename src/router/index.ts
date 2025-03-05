@@ -15,7 +15,7 @@ export const router = createRouter({
     {
       name: 'preview-template',
       path: '/preview-template',
-      component: () => import('@/components/templates/android/DefaultTemplate.vue'),
+      component: () => import('@/views/apps/pwa/application/templates/android/DefaultTemplate.vue'),
       meta: { layout: false }
     },
     PublicRoutes,
