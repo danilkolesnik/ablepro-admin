@@ -22,7 +22,7 @@ const breadcrumbs = shallowRef([
   {
     title: "Dashboard",
     disabled: false,
-    href: "/dashboard",
+    href: "/finance",
   },
   {
     title: "Transactions",
@@ -183,7 +183,7 @@ const itemsSelected = ref<Item[]>([]);
                 color="primary"
                 rounded="md"
                 variant="flat"
-                @click="$router.push('/user/profile')"
+                @click="$router.push('/finance/choose-tariff')"
                 >Choose tariff</v-btn
               >
               <v-btn
@@ -191,16 +191,8 @@ const itemsSelected = ref<Item[]>([]);
                 color="primary"
                 rounded="md"
                 variant="flat"
-                @click="$router.push('/user/profile')"
+                @click="$router.push('/finance/top-up')"
                 >Top up</v-btn
-              >
-              <v-btn
-                class="mr-2"
-                color="primary"
-                rounded="md"
-                variant="flat"
-                @click="$router.push('/user/profile')"
-                >Write offs</v-btn
               >
             </v-col>
             <v-col cols="12" md="3" class="d-flex justify-end">

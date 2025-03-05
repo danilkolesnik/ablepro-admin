@@ -47,6 +47,16 @@ const MainRoutes = {
       component: () => import('@/views/apps/finance/Finance.vue')
     },
     {
+      name: 'Top up',
+      path: '/finance/top-up',
+      component: () => import('@/views/apps/finance/TopUp.vue')
+    },
+    {
+      name: 'Choose tariff',
+      path: '/finance/choose-tariff',
+      component: () => import('@/views/apps/finance/ChooseTariff.vue')
+    },
+    {
       name: 'Flows',
       path: '/flows',
       component: () => import('@/views/apps/flows/Flows.vue')
