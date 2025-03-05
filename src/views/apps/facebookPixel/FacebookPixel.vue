@@ -42,6 +42,26 @@ const items = computed(() => getPixels.value);
 const themeColor = ref("rgb(var(--v-theme-primary))");
 // const { deleteDomain } = store;
 
+const formDataPixel = ref({
+  pixel: "",
+  token: "",
+});
+
+const { createPixel } = store;
+
+const onSubmitForm = async () => {
+    const body = {
+      pixel: formDataPixel.value.pixel,
+      token: formDataPixel.value.token,
+    };
+    formDataPixel.value = {
+      pixel: "",
+      token: "",
+    };
+    await createPixel(body);
+    dialog.value = false;
+};
+
 const headers: Header[] = [
   { text: "Pixel", value: "id", sortable: true },
   { text: t("Token"), value: "token", sortable: true },
@@ -118,6 +138,7 @@ const dialog = ref(false);
                                     required
                                     density="comfortable"
                                     rounded="0"
+                                    v-model="formDataPixel.pixel"
                                   ></v-text-field>
                                 </v-col>
                                 <v-col cols="12">
@@ -130,6 +151,7 @@ const dialog = ref(false);
                                     variant="outlined"
                                     density="comfortable"
                                     rounded="0"
+                                    v-model="formDataPixel.token"
                                   ></v-text-field>
                                 </v-col>
                               </v-row>
@@ -152,7 +174,7 @@ const dialog = ref(false);
                           color="primary"
                           rounded="md"
                           variant="flat"
-                          @click="dialog = false"
+                          @click="onSubmitForm"
                         >
                           Add
                         </v-btn>
