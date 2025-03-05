@@ -21,11 +21,11 @@ import { formatPfp } from "@/utils/reviews";
 const pwaStore = usePwaStore();
 const currentLanguageId = pwaStore.getCurrentPWALanguage.id;
 
-const name = ref({});
-watchEffect(() => {
-  name.value = pwaStore.getName().value;
-});
-
+// const name = ref({});
+// watchEffect(() => {
+//   name.value = pwaStore.getName().value;
+// });
+const name = computed(() => pwaStore.getName().value);
 const author = computed(() => pwaStore.getAuthor().value);
 const category = computed(() => pwaStore.getCategory().value);
 const rating = computed(() => pwaStore.getRating().value);

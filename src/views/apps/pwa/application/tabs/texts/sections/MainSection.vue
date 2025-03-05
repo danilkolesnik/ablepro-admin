@@ -1,3 +1,21 @@
+<script setup lang="ts">
+import { ref, watchEffect } from "vue";
+import { usePwaStore } from "@/stores/apps/pwa/pwa_old";
+
+const installsNumber = ref("3250");
+const reviewsText = ref("reviews");
+const eighteenAgeText = ref("Rated for 18+");
+
+const pwaStore = usePwaStore();
+
+watchEffect(() => {
+  pwaStore.setInstallsCount(installsNumber.value);
+  pwaStore.setReviewsText(reviewsText.value);
+  pwaStore.setEighteenAgeText(eighteenAgeText.value);
+});
+
+</script>
+
 <template>
     <v-container>
             <v-row>
@@ -13,6 +31,7 @@
                             required
                             density="comfortable"
                             rounded="0"
+                            v-model="installsNumber"
                             ></v-text-field>
                         </v-col>
                         <v-col cols="4">
@@ -25,6 +44,7 @@
                             variant="outlined"
                             density="comfortable"
                             rounded="0"
+                            v-model="reviewsText"
                             ></v-text-field>
                         </v-col>
                         <v-col cols="4">
@@ -51,6 +71,7 @@
                             required
                             density="comfortable"
                             rounded="0"
+                            v-model="eighteenAgeText"
                             ></v-text-field>
                         </v-col>
                         <v-col cols="4">

@@ -137,6 +137,9 @@ const formDataPushes = ref({
               <template v-if="tab === 'Pushes'">
                 <Pushes />
               </template>
+              <template v-if="tab === 'Texts'">
+                <Texts />
+              </template>
             </v-card-text>
           </v-card>
         </v-window-item>
