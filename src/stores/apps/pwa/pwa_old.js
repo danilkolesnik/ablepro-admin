@@ -679,6 +679,8 @@ export const usePwaStore = defineStore('pwa', () => {
 
     // setters
     function setName(newName, language = currentPWALanguage.value) {
+        console.log('setName');
+        console.log('newName', newName);
         name.value[language.id] = newName;
     }
     function setFullName(newFullName) {
@@ -697,6 +699,7 @@ export const usePwaStore = defineStore('pwa', () => {
         subjectId.value = newSubjectId;
     }
     function setAuthor(newAuthor, language = currentPWALanguage.value) {
+        console.log('setAuthor');
         author.value[language.id] = newAuthor;
     }
     function setFullAuthor(newAuthor) {
