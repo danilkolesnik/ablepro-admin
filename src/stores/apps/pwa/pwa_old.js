@@ -47,7 +47,11 @@ export const usePwaStore = defineStore('pwa', () => {
     const threeRatingQuantity = ref({1: 0});
     const twoRatingQuantity = ref({1: 0});
     const oneRatingQuantity = ref({1: 0});
-    const selectedPwaVersions = ref({});
+    const selectedPwaVersions = ref({
+        'Android': {
+            name: 'Blue Android'
+        }
+    });
     const generateReviews = ref(true);
     const reviewsArray = ref({
         1: []

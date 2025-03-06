@@ -4,7 +4,7 @@ import { wTrans } from "laravel-vue-i18n";
 
 import gameCenterIcon from "@/assets/icons/pwa/GameCenter@2x.png";
 import { usePwaStore } from "@/stores/apps/pwa/pwa_old";
-import { Head } from "@inertiajs/vue3";
+// import { Head } from "@inertiajs/vue3";
 
 const pwaStore = usePwaStore();
 const currentLanguageId = pwaStore.getCurrentPWALanguage.id;
@@ -135,11 +135,14 @@ setTimeout(() => {
         href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
       />
       <component
-        is="script"
+        :is="'script'"
         src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"
       ></component>
-      <component is="script" src="/pwa/3.4.1.js"></component>
-      <component is="style">
+      <component
+        :is="'script'"
+        src="/src/views/apps/pwa/application/templates/android/3.4.1.js"
+      ></component>
+      <component :is="'style'">
         :root { --star-color_my: #404040; --star-size: 16px; --star-color: #e3e3e3;
         --star-background: #f7840a; } #container { width: 72px; height: 72px; } body {
         font-family: "SF Pro Text", "SF Pro Icons", "Apple WebExp Icons Custom",
@@ -216,7 +219,7 @@ setTimeout(() => {
         display: flex; flex-direction: column; align-items: center; border-radius: 8px;
         overflow: hidden; }
       </component>
-      <Head :title="name" />
+      <!-- <Head :title="name" /> -->
     </head>
     <body class="body-ios relative text-left overflow-x-hidden max-w-7xl mx-auto">
       <div
@@ -287,14 +290,15 @@ setTimeout(() => {
             {{ name }}
           </h1>
 
-          <h2
-            v-if="categoryArray?.length > 0"
-            v-for="currentCategory in categoryArray"
-            :key="currentCategory"
-            class="mt-[5px] text-[15px] leading-[1.2] text-gray"
-          >
-            {{ currentCategory }}
-          </h2>
+          <template v-if="categoryArray?.length > 0">
+            <h2
+              v-for="currentCategory in categoryArray"
+              :key="currentCategory"
+              class="mt-[5px] text-[15px] leading-[1.2] text-gray"
+            >
+              {{ currentCategory }}
+            </h2>
+          </template>
 
           <div class="flex items-center justify-between mt-[43px]">
             <button id="pwa-install-btn" class="main-button">{{ installBtnText }}</button>
